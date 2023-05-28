@@ -1,4 +1,4 @@
-package src.hangman;
+package src.util;
 
 import java.util.Random;
 
