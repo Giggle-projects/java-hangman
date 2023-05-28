@@ -10,8 +10,6 @@ public class HangmanGame {
     private static final String GAME_ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
     private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다. (단어: %s )\n";
     private static final String GAME_FAILED_MESSAGE = "아쉽습니다. 오답입니다.\n";
-
-
     private static final int FIRST_ROUND = 1;
 
     private final String word;
