@@ -33,7 +33,14 @@ public class Input {
      * 게임 중 계속해서 값을 받을 때 사용할 메서드
      * @return
      */
-//    public static int getGameParam() {
-//
-//    }
+    public static char getGameParam() {
+        try {
+            String str = new Scanner(System.in).next();
+            str = str.toUpperCase();
+            return str.charAt(0);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getGameParam();
+        }
+    }
 }
