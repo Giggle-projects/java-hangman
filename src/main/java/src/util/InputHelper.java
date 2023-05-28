@@ -15,32 +15,47 @@ public class InputHelper {
 		System.out.println(OU);
 	}
 
-	public static String singleInput(String message) throws IOException {
+	public static String singleInput(String message) {
 		OU.append(message);
 		System.out.println(OU);
 
 		System.out.print(IN);
-		String input = reader.readLine();
+		String input = null;
+		try {
+			input = reader.readLine();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 		return input;
 	}
 
-	public static int singleIntegerInput(String message) throws IOException {
+	public static int singleIntegerInput(String message)  {
 		OU.append(message);
 		System.out.println(OU);
 
 		System.out.print(IN);
-		int input = Integer.parseInt(reader.readLine());
+		int input = 0;
+		try {
+			input = Integer.parseInt(reader.readLine());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 		return input;
 	}
 
-	public static String[] multiInput(String message, String delim) throws IOException {
+	public static String[] multiInput(String message, String delim)  {
 		OU.append(message);
 		System.out.println(OU);
 
 		System.out.print(IN);
-		StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), delim);
+		StringTokenizer tokenizer = null;
+		try {
+			tokenizer = new StringTokenizer(reader.readLine(), delim);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 		int size=tokenizer.countTokens();
 		String[] arr = new String[size];
