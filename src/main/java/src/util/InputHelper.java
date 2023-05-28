@@ -10,12 +10,23 @@ public class InputHelper {
 	private static final StringBuilder IN =  new StringBuilder("in : ");
 	private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+	private static void setBuilder(){
+		OU.setLength(0);
+		IN.setLength(0);
+
+		OU.append("ou : ");
+		IN.append("in : ");
+	}
 	public static void printInfo(String infoStr){
+		setBuilder();
+
 		OU.append(infoStr);
 		System.out.println(OU);
 	}
 
 	public static String singleInput(String message) {
+		setBuilder();
+
 		OU.append(message);
 		System.out.println(OU);
 
@@ -31,6 +42,8 @@ public class InputHelper {
 	}
 
 	public static int singleIntegerInput(String message)  {
+		setBuilder();
+
 		OU.append(message);
 		System.out.println(OU);
 
@@ -45,7 +58,9 @@ public class InputHelper {
 		return input;
 	}
 
-	public static String[] multiInput(String message, String delim)  {
+	public static Integer[] multiIntegerInput(String message, String delim)  {
+		setBuilder();
+
 		OU.append(message);
 		System.out.println(OU);
 
@@ -58,10 +73,10 @@ public class InputHelper {
 		}
 
 		int size=tokenizer.countTokens();
-		String[] arr = new String[size];
+		Integer[] arr = new Integer[size];
 
 		for(int i=0;i<size;i++){
-			arr[i] = tokenizer.nextToken();
+			arr[i] = Integer.parseInt(tokenizer.nextToken());
 		}
 
 		return arr;
