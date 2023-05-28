@@ -1,6 +1,6 @@
 package src.view;
 
-import src.hangmanGame.HangmanGameInfo;
+import src.hangmanGame.HangmanInfo;
 import src.util.Console;
 
 public class InputView {
@@ -8,16 +8,29 @@ public class InputView {
     private static final String OU = "ou : ";
     private static final String IN = "in : ";
 
+    private static final String REGEX_REMOVE_WITHOUT_STRING_COMMA = "[^a-zA-Z0-9가-힣,]";
+    private static final String BLANK = "";
+    private static final String COMMA = ",";
+
+    private static final int INDEX_NUMBER_GAMES = 0;
+    private static final int INDEX_LIFE = 1;
+
     private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요.";
 
-    public static HangmanGameInfo inputHangmanGameInfo() throws IllegalArgumentException {
+    // Suppresses default constructor, ensuring non-instantiability.
+    private InputView() {}
+
+    public static HangmanInfo inputHangmanGameInfo() throws IllegalArgumentException {
         String input = inputOf(NUMBER_OF_GAME_AND_LIFE);
-        String gameNumberAndLife = input.replaceAll("[^a-zA-Z0-9가-힣,]", "");
+        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_STRING_COMMA, BLANK);
+        String[] gameNumberAndLife = filteredInput.split(COMMA);
 
-        String numberGames = gameNumberAndLife.split(",")[0];
-        String life = gameNumberAndLife.split(",")[1];
+        if(gameNumberAndLife.length != 2) throw new IllegalArgumentException("입력 값이 잘못 되었습니다.");
 
-        return new HangmanGameInfo(numberGames, life);
+        String numberGames = gameNumberAndLife[INDEX_NUMBER_GAMES];
+        String life = gameNumberAndLife[INDEX_LIFE];
+
+        return new HangmanInfo(numberGames, life);
     }
 
     /**
