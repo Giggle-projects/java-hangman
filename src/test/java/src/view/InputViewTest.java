@@ -40,4 +40,15 @@ class InputViewTest {
             HangmanInfo hangmanGameInfo = InputView.inputHangmanGameInfo();
         });
     }
+
+    @Test
+    void inputAlphabetTest() {
+        String input = "das";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            InputView.inputAlphabet("");
+        });
+    }
 }
