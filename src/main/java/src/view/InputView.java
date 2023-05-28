@@ -8,9 +8,11 @@ public class InputView {
     private static final String OU = "ou : ";
     private static final String IN = "in : ";
 
-    private static final String REGEX_REMOVE_WITHOUT_STRING_COMMA = "[^a-zA-Z0-9가-힣,]";
     private static final String BLANK = "";
     private static final String COMMA = ",";
+
+    private static final String REGEX_REMOVE_WITHOUT_STRING_COMMA = "[^a-zA-Z0-9가-힣,]";
+    private static final String REGEX_REMOVE_WITHOUT_ALPHABET = "[^a-zA-Z]";
 
     private static final int INDEX_NUMBER_GAMES = 0;
     private static final int INDEX_LIFE = 1;
@@ -31,6 +33,15 @@ public class InputView {
         String life = gameNumberAndLife[INDEX_LIFE];
 
         return new HangmanInfo(numberGames, life);
+    }
+
+    public static char inputAlphabet(String roundInfo) throws IllegalArgumentException {
+        String input = inputOf(roundInfo);
+        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_ALPHABET, BLANK);
+
+        if (filteredInput.length() != 1) throw new IllegalArgumentException("하나의 알파벳만 입력해 주세요.");
+
+        return filteredInput.charAt(0);
     }
 
     /**
