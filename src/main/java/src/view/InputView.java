@@ -17,7 +17,7 @@ public class InputView {
     private static final int INDEX_NUMBER_GAMES = 0;
     private static final int INDEX_LIFE = 1;
 
-    private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요.";
+    private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 게임횟수, 목숨)";
 
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
