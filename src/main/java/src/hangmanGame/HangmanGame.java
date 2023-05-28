@@ -1,11 +1,17 @@
 package src.hangmanGame;
 
 import src.view.InputView;
+import src.view.OutputView;
 
 public class HangmanGame {
 
     private static final String BLANK_ALPHABET = "_";
-    private static final String ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
+    private static final String GAME_EPISODE_INFO_FORMAT = "%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.";
+    private static final String GAME_ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
+    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다. (단어: %s )\n";
+    private static final String GAME_FAILED_MESSAGE = "아쉽습니다. 오답입니다.\n";
+
+
     private static final int FIRST_ROUND = 1;
 
     private final String word;
@@ -25,19 +31,16 @@ public class HangmanGame {
     }
 
     public void start() {
-        System.out.println("ou : " + gameNumber + "번째 게임이 시작됩니다. 정답 단어는 " + word.length() + "글자 입니다.");
+        OutputView.printMessage(String.format(GAME_EPISODE_INFO_FORMAT, gameNumber, word.length()));
         int gameRound = FIRST_ROUND;
 
-        while (true) {
+        do {
             startRound(gameRound++);
-            if (checkGameResult()){
-                break;
-            }
-        }
+        } while (!checkGameResult());
     }
 
     private void startRound(int gameRound) {
-        String roundInfo = String.format(ROUND_INFO_FORMAT, gameRound, correctingWord, life);
+        String roundInfo = String.format(GAME_ROUND_INFO_FORMAT, gameRound, correctingWord, life);
         char alphabet = InputView.inputAlphabet(roundInfo);
         checkContainedWord(alphabet);
     }
@@ -62,11 +65,12 @@ public class HangmanGame {
     private boolean checkGameResult() {
         if (!correctingWord.contains(BLANK_ALPHABET)) {
             gameResult = true;
-            System.out.println("ou : 축하합니다. 정답입니다. (단어: " + word + ")\n");
+            OutputView.printMessage(String.format(GAME_SUCCESSFUL_MESSAGE_FORMAT, word));
             return true;
         }
+
         if (life == 0) {
-            System.out.println("ou: 아쉽습니다. 오답입니다.\n");
+            OutputView.printMessage(GAME_FAILED_MESSAGE);
             return true;
         }
 
