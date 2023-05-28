@@ -21,6 +21,10 @@ public class Hangman {
 		round=1;
 	}
 
+	public Boolean answerCheck(){
+		return answer.equals(hiddenWord.toString());
+	}
+
 	public String getAnswer() {
 		return answer;
 	}
@@ -51,5 +55,10 @@ public class Hangman {
 
 	public void incrementRound() {
 		this.round++;
+	}
+
+	@Override
+	public String toString() {
+		return round+" 라운드 : "+hiddenWord+", 목숨 "+life;
 	}
 }
