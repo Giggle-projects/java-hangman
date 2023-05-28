@@ -2,12 +2,12 @@ package src.hangmanGame;
 
 import java.util.Objects;
 
-public class HangmanGameInfo {
+public class HangmanInfo {
 
     private final int numberGames;
     private final int life;
 
-    public HangmanGameInfo(String numberGames, String life) throws IllegalArgumentException {
+    public HangmanInfo(String numberGames, String life) throws IllegalArgumentException {
         this.numberGames = validateNumberGames(numberGames);
         this.life = validateLife(life);
     }
@@ -36,7 +36,7 @@ public class HangmanGameInfo {
         return numberGames;
     }
 
-    public boolean equals(HangmanGameInfo that) {
+    public boolean equals(HangmanInfo that) {
         return Objects.equals(this.numberGames, that.numberGames) && Objects.equals(this.life, that.life);
     }
 }
