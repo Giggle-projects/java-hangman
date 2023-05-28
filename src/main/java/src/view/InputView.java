@@ -1,6 +1,6 @@
 package src.view;
 
-import src.hangmanGame.HangmanInfo;
+import src.hangmanGame.Hangman;
 import src.util.Console;
 
 public class InputView {
@@ -11,28 +11,28 @@ public class InputView {
     private static final String BLANK = "";
     private static final String COMMA = ",";
 
-    private static final String REGEX_REMOVE_WITHOUT_STRING_COMMA = "[^a-zA-Z0-9가-힣,]";
+    private static final String REGEX_REMOVE_WITHOUT_NUMBER_AND_COMMA = "[^0-9,]";
     private static final String REGEX_REMOVE_WITHOUT_ALPHABET = "[^a-zA-Z]";
 
     private static final int INDEX_NUMBER_GAMES = 0;
     private static final int INDEX_LIFE = 1;
 
-    private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 게임횟수, 목숨)";
+    private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 3, 1) 숫자와 ','외의 값은 무시됩니다.";
 
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
 
-    public static HangmanInfo inputHangmanGameInfo() throws IllegalArgumentException {
+    public static Hangman inputHangmanInfo() throws IllegalArgumentException {
         String input = inputOf(NUMBER_OF_GAME_AND_LIFE);
-        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_STRING_COMMA, BLANK);
+        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_NUMBER_AND_COMMA, BLANK);
         String[] gameNumberAndLife = filteredInput.split(COMMA);
 
-        if(gameNumberAndLife.length != 2) throw new IllegalArgumentException("입력 값이 잘못 되었습니다.");
+        if(gameNumberAndLife.length != 2) throw new IllegalArgumentException("게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.");
 
         String numberGames = gameNumberAndLife[INDEX_NUMBER_GAMES];
         String life = gameNumberAndLife[INDEX_LIFE];
 
-        return new HangmanInfo(numberGames, life);
+        return new Hangman(numberGames, life);
     }
 
     public static char inputAlphabet(String roundInfo) throws IllegalArgumentException {
@@ -41,7 +41,7 @@ public class InputView {
 
         if (filteredInput.length() != 1) throw new IllegalArgumentException("하나의 알파벳만 입력해 주세요.");
 
-        return filteredInput.charAt(0);
+        return filteredInput.toLowerCase().charAt(0);
     }
 
     /**
