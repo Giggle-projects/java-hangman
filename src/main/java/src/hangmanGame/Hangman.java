@@ -19,7 +19,7 @@ public class Hangman {
         for (int gameCount = 0; gameCount < info.getNumberGames(); gameCount++) {
             hangmanGame = initHangmanGame(gameCount);
             hangmanGame.start();
-            if (gameCount != info.getNumberGames() - 1) {
+            if (!isLastGame(gameCount)) {
                 OutputView.printMessage(GAME_NEXT_MESSAGE);
             }
         }
@@ -32,5 +32,9 @@ public class Hangman {
         HangmanWord randomWord = RandomWordChooser.chooseWord();
 
         return new HangmanGame(numberGames, life, randomWord);
+    }
+
+    private boolean isLastGame(int gameCount ) {
+        return gameCount == info.getNumberGames() - 1;
     }
 }
