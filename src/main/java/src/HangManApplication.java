@@ -1,5 +1,8 @@
 package src;
 
+import static src.exception.ErrorCode.*;
+
+import src.exception.InvalidInputFormatException;
 import src.hangman.Hangman;
 import src.hangman.HangmanGame;
 import src.util.InputHelper;
@@ -8,9 +11,21 @@ public class HangManApplication {
     private static int playCount;
     private static int life;
     public static void main(String[] args) {
-        Integer[] inputs=InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
-        playCount=inputs[0];
-        life=inputs[1];
+        while (true){
+            try{
+                Integer[] inputs = InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
+
+                if (inputs.length != 2) {
+                    throw new InvalidInputFormatException(INVALID_INPUT_COUNT.getMessage());
+                }
+                playCount = inputs[0];
+                life = inputs[1];
+                break;
+            }catch(InvalidInputFormatException e){
+               InputHelper.printInfo(e.getMessage());
+            }
+        }
+
 
         while (playCount-->0){
             HangmanGame newGame=new HangmanGame(new Hangman(life));
