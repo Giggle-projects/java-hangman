@@ -2,9 +2,11 @@ package src.view;
 
 import org.junit.jupiter.api.*;
 import src.hangmanGame.Hangman;
+import src.hangmanGame.HangmanGameTable;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 
 class InputViewTest {
 
@@ -14,8 +16,8 @@ class InputViewTest {
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
 
-        Hangman hangman = InputView.inputHangmanInfo();
-        Assertions.assertTrue(hangman.equals(new Hangman(1, 4)));
+        Hangman hangman = new Hangman(InputView.inputHangmanInfo(), new HangmanGameTable(new HashMap<>()));
+        Assertions.assertTrue(hangman.equals(new Hangman(new Hangman.HangmanInfo(1, 4), new HangmanGameTable(new HashMap<>()))));
     }
 
     @Test
