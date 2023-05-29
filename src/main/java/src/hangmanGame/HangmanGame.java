@@ -13,8 +13,12 @@ public class HangmanGame {
     private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
     private static final String GAME_RESULT_FORMAT = "게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n\n";
 
-    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다.\n";
+    private static final String GAME_SUCCESSFUL_MESSAGE = "축하합니다. 정답입니다.\n";
     private static final String GAME_FAILED_MESSAGE = "아쉽습니다. 오답입니다.\n";
+
+    private static final String GAME_SUCCESS = "성공";
+    private static final String GAME_FAIL = "실패";
+
     private static final int FIRST_ROUND = 1;
 
     private final String word;
@@ -23,7 +27,7 @@ public class HangmanGame {
 
     private int life;
     private String correctingWord;
-    private boolean gameResult;
+    private String gameResult;
 
     HangmanGame(int numberGames, int life, HangmanWord word, HangmanGameRoundTable roundTable) {
         this.gameId = numberGames;
@@ -32,7 +36,7 @@ public class HangmanGame {
         this.roundTable = roundTable;
 
         correctingWord = BLANK_ALPHABET.repeat(this.word.length());
-        gameResult = false;
+        gameResult = GAME_FAIL;
     }
 
     public void start() {
@@ -73,8 +77,8 @@ public class HangmanGame {
 
     private boolean checkGameResult() {
         if (!correctingWord.contains(BLANK_ALPHABET)) {
-            gameResult = true;
-            OutputView.printMessage(String.format(GAME_SUCCESSFUL_MESSAGE_FORMAT, word));
+            gameResult = GAME_SUCCESS;
+            OutputView.printMessage(GAME_SUCCESSFUL_MESSAGE);
             return true;
         }
 
@@ -87,13 +91,12 @@ public class HangmanGame {
     }
 
     private void saveRoundToTable(int gameRound, char alphabet) {
-        roundTable.saveRound(gameRound, new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
+        roundTable.saveRound(gameRound,
+                new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
     }
 
     private void printResult() {
         Iterator<Integer> iterator = roundTable.iterator();
-        
-        String gameResult = (this.gameResult) ? "성공" : "실패";
         StringBuilder gameResultTable = new StringBuilder();
         gameResultTable.append("\n=== Game Result ===\n");
         gameResultTable.append(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
