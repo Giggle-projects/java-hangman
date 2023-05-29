@@ -8,7 +8,7 @@ public class HangManApplication {
     private static int playCount;
     private static int life;
     public static void main(String[] args) {
-        Integer[] inputs=InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.",", ");
+        Integer[] inputs=InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
         playCount=inputs[0];
         life=inputs[1];
 

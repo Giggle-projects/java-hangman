@@ -19,10 +19,9 @@ public class HangmanGame {
 	}
 
 	public Boolean start() {
-		System.out.println(hangman.getAnswer());
 		InputHelper.printInfo(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
 		while (hangman.getLife() > 0) {
-			String alphabet = InputHelper.singleInput(hangman.toString());
+			String alphabet = InputHelper.singleAlphabetInput(hangman.toString());
 			List<Integer> replaceIndexes = findIndexes(hangman.getAnswer(), alphabet);
 
 			// 추측 실패
