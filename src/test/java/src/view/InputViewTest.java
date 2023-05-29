@@ -17,4 +17,14 @@ class InputViewTest {
         Hangman hangman = InputView.inputHangmanInfo();
         Assertions.assertTrue(hangman.equals(new Hangman(1, 4)));
     }
+
+    @Test
+    void inputAlphabet_정상_반환_테스트() {
+        String input = "a";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+
+        char singleAlphabet = InputView.inputAlphabet("inputAlphabet 정산 반환 테스트");
+        Assertions.assertEquals('a', singleAlphabet);
+    }
 }

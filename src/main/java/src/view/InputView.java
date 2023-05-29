@@ -19,11 +19,12 @@ public class InputView {
 
     private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 3, 1) 숫자와 ','외의 값은 무시됩니다.";
     private static final String INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.\n";
+    private static final String INPUT_SINGLE_ALPHABET = "하나의 알파벳만 입력해 주세요.";
 
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
 
-    public static Hangman inputHangmanInfo() throws IllegalArgumentException {
+    public static Hangman inputHangmanInfo() {
         String[] gameNumberAndLife;
 
         while (true) {
@@ -47,11 +48,14 @@ public class InputView {
     }
 
     public static char inputAlphabet(String roundInfo) throws IllegalArgumentException {
-        String input = inputOf(roundInfo);
-        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_ALPHABET, BLANK);
+        String filteredInput;
+        while (true) {
+            String input = inputOf(roundInfo);
+            filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_ALPHABET, BLANK);
 
-        if (filteredInput.length() != 1) throw new IllegalArgumentException("하나의 알파벳만 입력해 주세요.");
-
+            if (filteredInput.length() == 1) break;
+            OutputView.printMessage(INPUT_SINGLE_ALPHABET);
+        }
         return filteredInput.toLowerCase().charAt(0);
     }
 
