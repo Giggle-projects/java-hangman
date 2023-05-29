@@ -1,6 +1,5 @@
 package src.hangmanGame;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -8,8 +7,8 @@ public class HangmanGameRoundTable implements Iterable<Integer>{
 
     private final Map<Integer, HangmanGameRoundInfo> roundTable;
 
-    HangmanGameRoundTable() {
-        roundTable = new HashMap<>();
+    public HangmanGameRoundTable(Map<Integer, HangmanGameRoundInfo> roundTable) {
+        this.roundTable = roundTable;
     }
 
     public void saveRound(int round, HangmanGameRoundInfo roundInfo) {
