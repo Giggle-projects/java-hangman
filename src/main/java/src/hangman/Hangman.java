@@ -7,7 +7,7 @@ public class Hangman {
 	private int wordSize;
 	private StringBuilder hiddenWord;
 	private int life;
-	private int round;
+
 	public Hangman(int life) {
 		answer= WordBook.getRandom();
 		wordSize=answer.length();
@@ -18,7 +18,6 @@ public class Hangman {
 		}
 
 		this.life=life;
-		round=1;
 	}
 
 	public Boolean answerCheck(){
@@ -41,10 +40,6 @@ public class Hangman {
 		return life;
 	}
 
-	public int getRound() {
-		return round;
-	}
-
 	public void replaceHiddenWord(int index,String alphabet) {
 		hiddenWord.replace(index,index+1,alphabet);
 	}
@@ -53,12 +48,8 @@ public class Hangman {
 		this.life--;
 	}
 
-	public void incrementRound() {
-		this.round++;
-	}
-
 	@Override
 	public String toString() {
-		return round+" 라운드 : "+hiddenWord+", 목숨 "+life;
+		return hiddenWord+", 목숨 "+life;
 	}
 }

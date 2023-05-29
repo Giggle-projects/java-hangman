@@ -8,12 +8,14 @@ import src.util.InputHelper;
 public class HangmanGame {
 	private static int serialNum = 0;
 	private int gameId;
+	private int roundID;
 	private Hangman hangman;
 	private Boolean success;
 
 	public HangmanGame(Hangman hangman) {
 		serialNum++;
 		this.gameId = serialNum;
+		this.roundID = 1;
 		this.hangman = hangman;
 		this.success = false;
 	}
@@ -21,7 +23,7 @@ public class HangmanGame {
 	public Boolean start() {
 		InputHelper.printInfo(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
 		while (hangman.getLife() > 0) {
-			String alphabet = InputHelper.singleAlphabetInput(hangman.toString());
+			String alphabet = InputHelper.singleAlphabetInput(roundID+" 라운드"+hangman.toString());
 			List<Integer> replaceIndexes = findIndexes(hangman.getAnswer(), alphabet);
 
 			// 추측 실패
@@ -31,7 +33,7 @@ public class HangmanGame {
 					break;    // 남은 목숨 없음. 게임 종료.
 				}
 
-				hangman.incrementRound();
+				incrementRound();
 				continue;
 			}
 
@@ -43,11 +45,14 @@ public class HangmanGame {
 				break;    // 정답 맞춤. 게임 종료.
 			}
 
-			hangman.incrementRound();
+			incrementRound();
 		}
 		return success;
 	}
 
+	private void incrementRound() {
+		this.roundID++;
+	}
 	public static List<Integer> findIndexes(String word, String alphabet) {
 		List<Integer> indexList = new ArrayList<>();
 		int index = word.indexOf(alphabet);
