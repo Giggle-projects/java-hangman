@@ -9,16 +9,15 @@ package src.hangman;
 	import src.util.InputHelper;
 
 public class GameLauncher {
-	private int serialNum = 0;
-	private int roundCount;
+	private static int gameSerialNum = 0;
+	private static int roundSerialNum=0;
 	private Set inputHistory;
 	private HangmanGame hangmanGame;
 
 	public GameLauncher(int life) {
-		serialNum++;
-		this.roundCount = 1;
+		gameSerialNum++;
 		this.inputHistory =new HashSet<>();
-		this.hangmanGame = new HangmanGame(serialNum,new Hangman(life));
+		this.hangmanGame = new HangmanGame(gameSerialNum,new Hangman(life));
 	}
 
 	public void start() {
@@ -26,9 +25,10 @@ public class GameLauncher {
 		InputHelper.printInfo(hangmanGame.getGameId() + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
 
 		while (hangman.getLife() > 0) {
+			roundSerialNum++;
 			String alphabet=userGuess(hangman.toString());
 
-			HangmanRound round =new HangmanRound(roundCount, hangman.getLife(), hangman.getHiddenWord().toString(),alphabet);
+			HangmanRound round =new HangmanRound(roundSerialNum, hangman.getLife(), hangman.getHiddenWord().toString(),alphabet);
 			hangmanGame.saveRound(round);
 
 			List<Integer> replaceIndexes = findIndexes(hangman.getAnswer(), alphabet);
@@ -40,7 +40,6 @@ public class GameLauncher {
 					break;    // 남은 목숨 없음. 게임 종료.
 				}
 
-				roundCount++;
 				continue;
 			}
 
@@ -53,7 +52,6 @@ public class GameLauncher {
 				return;    // 정답 맞춤. 게임 종료.
 			}
 
-			roundCount++;
 		}
 		hangmanGame.setSuccess(false);
 		printResult();
@@ -62,7 +60,7 @@ public class GameLauncher {
 	private String userGuess(String hangmanStatus) {
 		while (true){
 			try {
-				String alphabet = InputHelper.singleAlphabetInput(roundCount +" 라운드 : "+hangmanStatus);
+				String alphabet = InputHelper.singleAlphabetInput(roundSerialNum +" 라운드 : "+hangmanStatus);
 				if(inputHistory.contains(alphabet)){
 					throw new DuplicateTryException();
 				}

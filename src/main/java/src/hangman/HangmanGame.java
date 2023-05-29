@@ -1,23 +1,28 @@
 package src.hangman;
 
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import src.repository.RoundRepository;
 
 public class HangmanGame {
+	private RoundRepository roundRepository= RoundRepository.getInstance();
 	private int gameId;
-	private SortedMap<Integer,HangmanRound> roundHistory;
+	private SortedSet<Integer> roundIdSet;
 	private Hangman hangman;
 	private Boolean success;
 
+
 	public HangmanGame(int gameId, Hangman hangman) {
 		this.gameId = gameId;
-		this.roundHistory =new TreeMap<>();
+		this.roundIdSet =new TreeSet<>();
 		this.hangman = hangman;
 		this.success = false;
 	}
 
 	public void saveRound(HangmanRound round){
-		roundHistory.put(round.getRoundId(),round);
+		roundRepository.save(round);
+		roundIdSet.add(round.getRoundId());
 	}
 
 	public int getGameId() {
@@ -46,7 +51,7 @@ public class HangmanGame {
 		sb.append(", 남은 목숨 : ").append(hangman.getLife());
 		sb.append(", 정답 : ").append(hangman.getAnswer());
 		sb.append("\n\n");
-		roundHistory.forEach((key, value) ->sb.append(value.toString()));
+		roundIdSet.forEach(id ->sb.append(roundRepository.getByRoundId(id).toString()));
 		sb.append("===================\n");
 
 		return sb.toString();
