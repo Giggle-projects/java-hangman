@@ -40,39 +40,43 @@ public class Game {
 
                 // 라운드 루프
                 while (true) {
-                    boolean isCorrect = false; // 라운드별 정답 여부를 체크할 boolean 변수
-                    String discoveredWord = new String(gameArray);
-                    System.out.printf("%d 라운드 : " + discoveredWord + ", 목숨 %d\n", numOfRound, numOfLife);
-                    System.out.printf("in : ");
-                    char input = Input.getGameParam();
-                    for (int i=0; i<answerArray.length; i++) {
-                        if (input == answerArray[i]) { // 같은 거 찾으면
-                            gameArray[i] = input;
-                            System.out.println("게임 어레이 확인 : " + gameArray[i]);
-                            isCorrect = true;
+                    try {
+                        boolean isCorrect = false; // 라운드별 정답 여부를 체크할 boolean 변수
+                        String discoveredWord = new String(gameArray);
+                        System.out.printf("%d 라운드 : " + discoveredWord + ", 목숨 %d\n", numOfRound, numOfLife);
+                        System.out.printf("in : ");
+                        char input = Input.getGameParam();
+                        for (int i = 0; i < answerArray.length; i++) {
+                            if (input == answerArray[i]) { // 같은 거 찾으면
+                                gameArray[i] = input;
+                                System.out.println("게임 어레이 확인 : " + gameArray[i]);
+                                isCorrect = true;
+                            }
                         }
-                    }
-                    System.out.println("isCorrect 확인 : " + isCorrect);
-                    if (! isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
-                    if (numOfLife == 0) {
-                        System.out.println("Game Over : 게임을 종료합니다.");
-                        break;
-                    }
-                    if (! new String(gameArray).contains("_")) {
-                        numOfPlayedGame++;
-                        if (numOfGame == 1) {
-                            System.out.println("게임끝");
-                            System.exit(0);
-                        } else if (numOfPlayedGame < numOfGame) {
-                            System.out.println("다음 게임을 시작합니다.");
+                        System.out.println("isCorrect 확인 : " + isCorrect);
+                        if (!isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
+                        if (numOfLife == 0) {
+                            System.out.println("Game Over : 게임을 종료합니다.");
                             break;
-                        } else { // 총 게임 횟수가 1번 아니고, 게임 플레이 횟수와 총 게임 횟수가 같아질 때
-                            System.out.println("횟수 끝 게임끝");
-                            System.exit(0);
                         }
+                        if (!new String(gameArray).contains("_")) {
+                            System.out.println("축하합니다. 정답입니다.");
+                            numOfPlayedGame++;
+                            if (numOfGame == 1) {
+                                System.out.println("게임끝");
+                                System.exit(0);
+                            } else if (numOfPlayedGame < numOfGame) {
+                                System.out.println("다음 게임을 시작합니다.");
+                                break;
+                            } else { // 총 게임 횟수가 1번 아니고, 게임 플레이 횟수와 총 게임 횟수가 같아질 때
+                                System.out.println("횟수 끝 게임끝");
+                                System.exit(0);
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
                 }
-                //numOfPlayedGame++;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

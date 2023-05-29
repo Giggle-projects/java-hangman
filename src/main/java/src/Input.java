@@ -1,5 +1,8 @@
 package src;
 
+import src.exception.IllegalInputLengthException;
+import src.util.Message;
+
 import java.util.Scanner;
 
 public class Input {
@@ -26,7 +29,6 @@ public class Input {
             System.out.println(e.getMessage());
             return getInitiationParam();
         }
-
     }
 
     /**
@@ -36,8 +38,14 @@ public class Input {
     public static char getGameParam() {
         try {
             String str = new Scanner(System.in).next();
+            if (str.length() > 1) {
+                throw new IllegalInputLengthException();
+            }
             str = str.toUpperCase();
             return str.charAt(0);
+        } catch (IllegalInputLengthException e) {
+            System.out.println(Message.ERR_INPUT_RANGE);
+            return getGameParam();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return getGameParam();
