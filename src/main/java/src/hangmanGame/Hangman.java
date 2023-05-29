@@ -26,16 +26,42 @@ public class Hangman {
 
     public void gameSet() {
         HangmanGame hangmanGame;
-
         for (int gameCount = 0; gameCount < hangmanInfo.numberGames; gameCount++) {
             hangmanGame = generateHangmanGame(gameCount);
+
+            chooseMenu();
+
             hangmanGame.start();
             if (!isLastGame(gameCount)) {
                 OutputView.printMessage(GAME_NEXT_MESSAGE);
             }
         }
-
         OutputView.printMessage(GAME_END_MESSAGE);
+    }
+
+    private void chooseMenu() {
+        int menuNumber = InputView.inputMenuNumber();
+        switch (menuNumber) {
+            case 1:
+                break;
+            case 2:
+                viewGameResult();
+                chooseMenu();
+            case 3:
+                viewGameResultOfRound();
+                chooseMenu();
+        }
+    }
+
+    private void viewGameResultOfRound() {
+        System.out.println("call viewGameResultOfRound");
+    }
+
+    private void viewGameResult() {
+        System.out.println("게임 id를 입력해주세요.");
+        int gameId = InputView.inputNumber();
+        HangmanGameRoundTable roundTable = gameTable.getRoundTable(gameId);
+        System.out.println(roundTable.gameResutToString());
     }
 
     private HangmanGame generateHangmanGame(int gameCount) {
