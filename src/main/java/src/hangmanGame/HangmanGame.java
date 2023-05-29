@@ -47,6 +47,7 @@ public class HangmanGame {
             startRound(gameRound++);
         } while (!checkGameResult());
 
+        saveResult();
         printResult();
     }
 
@@ -95,19 +96,11 @@ public class HangmanGame {
                 new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
     }
 
+    private void saveResult() {
+        roundTable.saveGameResult(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
+    }
+
     private void printResult() {
-        Iterator<Integer> iterator = roundTable.iterator();
-        StringBuilder gameResultTable = new StringBuilder();
-        gameResultTable.append("\n=== Game Result ===\n");
-        gameResultTable.append(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
-
-        while (iterator.hasNext()) {
-            Integer round = iterator.next();
-            gameResultTable.append(String.format(GAME_ROUND_RESULT_FORMAT, round, roundTable.getRound(round)))
-                    .append("\n");
-        }
-
-        gameResultTable.append("===================\n");
-        OutputView.printMessage(gameResultTable.toString());
+        OutputView.printMessage(roundTable.gameResutToString());
     }
 }
