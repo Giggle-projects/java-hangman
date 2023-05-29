@@ -8,6 +8,9 @@ import java.util.Objects;
 public class Hangman {
 
     private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
+    private static final String INPUT_GAME_ID = "게임 id를 입력해주세요.";
+    private static final String INPUT_ROUND_ID = "라운드 id를 입력해주세요.";
+
     private static final String GAME_END_MESSAGE = "게임 종료. 이용해주셔서 감사합니다.";
     private static final String GAME_NEXT_MESSAGE = "다음 게임을 시작합니다.";
 
@@ -56,10 +59,10 @@ public class Hangman {
 
     private void viewGameResultOfRound() {
         try {
-            int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
+            int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
 
-            int roundId = InputView.inputNumberOf("라운드 id를 입력해주세요.");
+            int roundId = InputView.inputNumberOf(INPUT_ROUND_ID);
             OutputView.printMessage(String.format(GAME_ROUND_RESULT_FORMAT, roundId, roundTable.getRound(roundId).toString()));
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
@@ -68,7 +71,7 @@ public class Hangman {
 
     private void viewGameResult() {
         try {
-            int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
+            int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
             OutputView.printMessage(roundTable.gameResutToString());
         } catch (IllegalArgumentException exception) {
@@ -95,6 +98,7 @@ public class Hangman {
     }
 
     public static class HangmanInfo {
+
         public final int numberGames;
         public final int life;
 
