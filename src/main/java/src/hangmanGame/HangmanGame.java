@@ -10,14 +10,15 @@ public class HangmanGame {
     private static final String BLANK_ALPHABET = "_";
     private static final String GAME_EPISODE_INFO_FORMAT = "%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.";
     private static final String GAME_ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
-    private static final String GAME_RESULT_FORMAT = "라운드 id : %d, %s";
+    private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
+    private static final String GAME_RESULT_FORMAT = "게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n";
 
-    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다. (단어: %s )\n";
+    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다.\n\n";
     private static final String GAME_FAILED_MESSAGE = "아쉽습니다. 오답입니다.\n";
     private static final int FIRST_ROUND = 1;
 
     private final String word;
-    private final int gameNumber;
+    private final int gameId;
     private final HangmanGameRoundTable roundTable;
 
     private int life;
@@ -25,7 +26,7 @@ public class HangmanGame {
     private boolean gameResult;
 
     HangmanGame(int numberGames, int life, HangmanWord word, HangmanGameRoundTable roundTable) {
-        this.gameNumber = numberGames;
+        this.gameId = numberGames;
         this.life = life;
         this.word = word.getSpelling();
         this.roundTable = roundTable;
@@ -35,7 +36,7 @@ public class HangmanGame {
     }
 
     public void start() {
-        OutputView.printMessage(String.format(GAME_EPISODE_INFO_FORMAT, gameNumber, word.length()));
+        OutputView.printMessage(String.format(GAME_EPISODE_INFO_FORMAT, gameId, word.length()));
         int gameRound = FIRST_ROUND;
 
         do {
@@ -91,17 +92,19 @@ public class HangmanGame {
 
     private void printResult() {
         Iterator<Integer> iterator = roundTable.iterator();
-
-        StringBuilder gameResult = new StringBuilder();
-        gameResult.append("\n=== Game Result ===\n");
+        
+        String gameResult = (this.gameResult) ? "성공" : "실패";
+        StringBuilder gameResultTable = new StringBuilder();
+        gameResultTable.append("\n=== Game Result ===\n");
+        gameResultTable.append(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
 
         while (iterator.hasNext()) {
             Integer round = iterator.next();
             HangmanGameRoundInfo roundInfo = roundTable.getRound(round);
-            gameResult.append(String.format(GAME_RESULT_FORMAT, round, roundInfo)).append("\n");
+            gameResultTable.append(String.format(GAME_ROUND_RESULT_FORMAT, round, roundInfo)).append("\n");
         }
 
-        gameResult.append("===================\n");
-        OutputView.printMessage(gameResult.toString());
+        gameResultTable.append("===================\n");
+        OutputView.printMessage(gameResultTable.toString());
     }
 }
