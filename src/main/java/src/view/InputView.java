@@ -22,10 +22,12 @@ public class InputView {
 
     private static final String CHOICE_GAME_MENU = "메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)";
     private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 3, 1) 숫자와 ','외의 값은 무시됩니다.";
-    private static final String INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.\n";
-    private static final String INPUT_SINGLE_ALPHABET = "하나의 알파벳만 입력해 주세요.";
-    private static final String INPUT_SINGLE_CHARACTER = "하나의 문자만 입력해 주세요.";
-    private static final String INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
+
+    private static final String ERR_INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.\n";
+    private static final String ERR_INPUT_SINGLE_ALPHABET = "하나의 알파벳만 입력해 주세요.";
+    private static final String ERR_INPUT_SINGLE_CHARACTER = "하나의 문자만 입력해 주세요.";
+    private static final String ERR_INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
+    private static final String ERR_INPUT_NUMBER = "숫자를 입력해 주세요.";
 
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
@@ -39,7 +41,7 @@ public class InputView {
             gameNumberAndLife = filteredInput.split(COMMA);
 
             if(gameNumberAndLife.length == 2) break;
-            OutputView.printMessage(INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE);
+            OutputView.printMessage(ERR_INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE);
         }
 
         int numberGames = Integer.parseInt(gameNumberAndLife[INDEX_NUMBER_GAMES]);
@@ -60,7 +62,7 @@ public class InputView {
             filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_ALPHABET, BLANK);
 
             if (filteredInput.length() == 1) break;
-            OutputView.printMessage(INPUT_SINGLE_ALPHABET);
+            OutputView.printMessage(ERR_INPUT_SINGLE_ALPHABET);
         }
         return filteredInput.toLowerCase().charAt(0);
     }
@@ -71,7 +73,7 @@ public class InputView {
         while (true) {
             input = inputOf(CHOICE_GAME_MENU);
             if (input.length() == 1) break;
-            OutputView.printMessage(INPUT_SINGLE_CHARACTER);
+            OutputView.printMessage(ERR_INPUT_SINGLE_CHARACTER);
         }
 
         try {
@@ -81,14 +83,19 @@ public class InputView {
             return menuNumber;
 
         } catch (NumberFormatException exception) {
-            OutputView.printMessage(INPUT_RANGE_OF_MENU);
+            OutputView.printMessage(ERR_INPUT_RANGE_OF_MENU);
             return inputMenuNumber();
         }
     }
 
     public static int inputNumberOf(String message) {
         String input = inputOf(message);
-        return Integer.parseInt(input);
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException exception) {
+            OutputView.printMessage(ERR_INPUT_NUMBER);
+            return inputNumberOf(message);
+        }
     }
 
     /**
