@@ -15,6 +15,6 @@ class InputViewTest {
         System.setIn(inputStream);
 
         Hangman hangman = InputView.inputHangmanInfo();
-        Assertions.assertTrue(hangman.equals(new Hangman("1", "4")));
+        Assertions.assertTrue(hangman.equals(new Hangman(1, 4)));
     }
 }
