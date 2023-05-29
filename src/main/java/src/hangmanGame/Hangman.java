@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class Hangman {
 
+    private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
     private static final String GAME_END_MESSAGE = "게임 종료. 이용해주셔서 감사합니다.";
     private static final String GAME_NEXT_MESSAGE = "다음 게임을 시작합니다.";
 
@@ -54,17 +55,25 @@ public class Hangman {
     }
 
     private void viewGameResultOfRound() {
-        int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
-        HangmanGameRoundTable roundTable = gameTable.getRoundTable(gameId);
+        try {
+            int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
+            HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
 
-        int roundId = InputView.inputNumberOf("라운드 id를 입력해주세요.");
-        OutputView.printMessage(roundId + roundTable.getRound(roundId).toString());
+            int roundId = InputView.inputNumberOf("라운드 id를 입력해주세요.");
+            OutputView.printMessage(String.format(GAME_ROUND_RESULT_FORMAT, roundId, roundTable.getRound(roundId).toString()));
+        } catch (IllegalArgumentException exception) {
+            OutputView.printMessage(exception.getMessage());
+        }
     }
 
     private void viewGameResult() {
-        int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
-        HangmanGameRoundTable roundTable = gameTable.getRoundTable(gameId);
-        OutputView.printMessage(roundTable.gameResutToString());
+        try {
+            int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
+            HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
+            OutputView.printMessage(roundTable.gameResutToString());
+        } catch (IllegalArgumentException exception) {
+            OutputView.printMessage(exception.getMessage());
+        }
     }
 
     private HangmanGame generateHangmanGame(int gameCount) {

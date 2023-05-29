@@ -8,7 +8,6 @@ public class HangmanGame {
     private static final String BLANK_ALPHABET = "_";
     private static final String GAME_EPISODE_INFO_FORMAT = "%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.";
     private static final String GAME_ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
-    private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
     private static final String GAME_RESULT_FORMAT = "게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n\n";
 
     private static final String GAME_SUCCESSFUL_MESSAGE = "축하합니다. 정답입니다.\n";
