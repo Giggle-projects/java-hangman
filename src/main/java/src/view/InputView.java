@@ -18,19 +18,25 @@ public class InputView {
     private static final int INDEX_LIFE = 1;
 
     private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 3, 1) 숫자와 ','외의 값은 무시됩니다.";
+    private static final String INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.\n";
 
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
 
     public static Hangman inputHangmanInfo() throws IllegalArgumentException {
-        String input = inputOf(NUMBER_OF_GAME_AND_LIFE);
-        String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_NUMBER_AND_COMMA, BLANK);
-        String[] gameNumberAndLife = filteredInput.split(COMMA);
+        String[] gameNumberAndLife;
 
-        if(gameNumberAndLife.length != 2) throw new IllegalArgumentException("게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.");
+        while (true) {
+            String input = inputOf(NUMBER_OF_GAME_AND_LIFE);
+            String filteredInput = input.replaceAll(REGEX_REMOVE_WITHOUT_NUMBER_AND_COMMA, BLANK);
+            gameNumberAndLife = filteredInput.split(COMMA);
 
-        String numberGames = gameNumberAndLife[INDEX_NUMBER_GAMES];
-        String life = gameNumberAndLife[INDEX_LIFE];
+            if(gameNumberAndLife.length == 2) break;
+            OutputView.printMessage(INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE);
+        }
+
+        int numberGames = Integer.parseInt(gameNumberAndLife[INDEX_NUMBER_GAMES]);
+        int life = Integer.parseInt(gameNumberAndLife[INDEX_LIFE]);
 
         return new Hangman(numberGames, life);
     }
