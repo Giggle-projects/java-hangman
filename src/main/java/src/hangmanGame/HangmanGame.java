@@ -3,8 +3,6 @@ package src.hangmanGame;
 import src.view.InputView;
 import src.view.OutputView;
 
-import java.util.Iterator;
-
 public class HangmanGame {
 
     private static final String BLANK_ALPHABET = "_";
@@ -47,7 +45,7 @@ public class HangmanGame {
             startRound(gameRound++);
         } while (!checkGameResult());
 
-        saveResult();
+        saveResultToTable();
         printResult();
     }
 
@@ -96,7 +94,7 @@ public class HangmanGame {
                 new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
     }
 
-    private void saveResult() {
+    private void saveResultToTable() {
         roundTable.saveGameResult(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
     }
 

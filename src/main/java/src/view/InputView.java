@@ -79,14 +79,15 @@ public class InputView {
             if (menuNumber < MIN_MENU_NUMBER || menuNumber > MAX_MENU_NUMBER)
                 throw new NumberFormatException();
             return menuNumber;
+
         } catch (NumberFormatException exception) {
             OutputView.printMessage(INPUT_RANGE_OF_MENU);
             return inputMenuNumber();
         }
     }
 
-    public static int inputNumber() {
-        String input = inputOf("숫자를 입력해 주세요");
+    public static int inputNumberOf(String message) {
+        String input = inputOf(message);
         return Integer.parseInt(input);
     }
 

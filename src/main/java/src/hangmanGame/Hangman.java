@@ -54,14 +54,17 @@ public class Hangman {
     }
 
     private void viewGameResultOfRound() {
-        System.out.println("call viewGameResultOfRound");
+        int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
+        HangmanGameRoundTable roundTable = gameTable.getRoundTable(gameId);
+
+        int roundId = InputView.inputNumberOf("라운드 id를 입력해주세요.");
+        OutputView.printMessage(roundId + roundTable.getRound(roundId).toString());
     }
 
     private void viewGameResult() {
-        System.out.println("게임 id를 입력해주세요.");
-        int gameId = InputView.inputNumber();
+        int gameId = InputView.inputNumberOf("게임 id를 입력해주세요.");
         HangmanGameRoundTable roundTable = gameTable.getRoundTable(gameId);
-        System.out.println(roundTable.gameResutToString());
+        OutputView.printMessage(roundTable.gameResutToString());
     }
 
     private HangmanGame generateHangmanGame(int gameCount) {
