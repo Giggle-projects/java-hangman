@@ -11,9 +11,9 @@ public class HangmanGame {
     private static final String GAME_EPISODE_INFO_FORMAT = "%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.";
     private static final String GAME_ROUND_INFO_FORMAT = "%d 라운드 : %s, 목숨 %d";
     private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
-    private static final String GAME_RESULT_FORMAT = "게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n";
+    private static final String GAME_RESULT_FORMAT = "게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n\n";
 
-    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다.\n\n";
+    private static final String GAME_SUCCESSFUL_MESSAGE_FORMAT = "축하합니다. 정답입니다.\n";
     private static final String GAME_FAILED_MESSAGE = "아쉽습니다. 오답입니다.\n";
     private static final int FIRST_ROUND = 1;
 
@@ -87,7 +87,7 @@ public class HangmanGame {
     }
 
     private void saveRoundToTable(int gameRound, char alphabet) {
-        roundTable.saveRound(gameRound, new HangmanGameRoundInfo(life, correctingWord, alphabet));
+        roundTable.saveRound(gameRound, new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
     }
 
     private void printResult() {
@@ -100,8 +100,8 @@ public class HangmanGame {
 
         while (iterator.hasNext()) {
             Integer round = iterator.next();
-            HangmanGameRoundInfo roundInfo = roundTable.getRound(round);
-            gameResultTable.append(String.format(GAME_ROUND_RESULT_FORMAT, round, roundInfo)).append("\n");
+            gameResultTable.append(String.format(GAME_ROUND_RESULT_FORMAT, round, roundTable.getRound(round)))
+                    .append("\n");
         }
 
         gameResultTable.append("===================\n");
