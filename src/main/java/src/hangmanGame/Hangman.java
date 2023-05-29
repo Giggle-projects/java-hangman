@@ -42,8 +42,9 @@ public class Hangman {
         int numberGames = gameCount + 1;
         int life = this.life;
         HangmanWord randomWord = RandomWordChooser.chooseWord();
+        HangmanGameRoundTable roundTable = new HangmanGameRoundTable();
 
-        return new HangmanGame(numberGames, life, randomWord);
+        return new HangmanGame(numberGames, life, randomWord, roundTable);
     }
 
     private boolean isLastGame(int gameCount ) {
