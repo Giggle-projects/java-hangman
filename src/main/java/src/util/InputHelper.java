@@ -54,7 +54,7 @@ public class InputHelper {
 					throw new InvalidInputFormatException(INVALID_INPUT_FORMAT_ALPHABET.getMessage());
 				}
 
-				return input;
+				return input.toLowerCase();	// 입력 대소문자 가능 -> 내부에서는 소문자로 연산
 			}catch (InputEmptyException e){
 				printInfo(e.getMessage());
 			}catch (InvalidInputFormatException e){
