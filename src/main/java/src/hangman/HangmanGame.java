@@ -1,76 +1,39 @@
 package src.hangman;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import src.util.InputHelper;
-
 public class HangmanGame {
-	private static int serialNum = 0;
 	private int gameId;
-	private int roundID;
 	private SortedMap<Integer,HangmanRound> roundHistory;
 	private Hangman hangman;
-	private Set<String> inputHistory;
 	private Boolean success;
 
-	public HangmanGame(Hangman hangman) {
-		serialNum++;
-		this.gameId = serialNum;
-		this.roundID = 1;
+	public HangmanGame(int gameId, Hangman hangman) {
+		this.gameId = gameId;
 		this.roundHistory =new TreeMap<>();
 		this.hangman = hangman;
 		this.success = false;
 	}
 
-	public Boolean start() {
-		InputHelper.printInfo(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
-		while (hangman.getLife() > 0) {
-			String alphabet = InputHelper.singleAlphabetInput(roundID+" 라운드 : "+hangman.toString());
-			roundHistory.put(roundID,new HangmanRound(roundID, hangman.getLife(), hangman.getHiddenWord().toString(),alphabet));
+	public void saveRound(HangmanRound round){
+		roundHistory.put(round.getRoundId(),round);
+	}
 
-			List<Integer> replaceIndexes = findIndexes(hangman.getAnswer(), alphabet);
+	public int getGameId() {
+		return gameId;
+	}
 
-			// 추측 실패
-			if (replaceIndexes.isEmpty()) {
-				hangman.decrementLife();
-				if (hangman.getLife() == 0) {
-					break;    // 남은 목숨 없음. 게임 종료.
-				}
+	public Hangman getHangman() {
+		return hangman;
+	}
 
-				incrementRound();
-				continue;
-			}
-
-			// 추측 성공
-			replaceIndexes.forEach(index -> hangman.replaceHiddenWord(index, alphabet));
-
-			if (hangman.answerCheck()) {
-				success = true;
-				break;    // 정답 맞춤. 게임 종료.
-			}
-
-			incrementRound();
-		}
+	public Boolean getSuccess() {
 		return success;
 	}
 
-	private void incrementRound() {
-		this.roundID++;
-	}
-	public static List<Integer> findIndexes(String word, String alphabet) {
-		List<Integer> indexList = new ArrayList<>();
-		int index = word.indexOf(alphabet);
-
-		while (index != -1) {
-			indexList.add(index);
-			index = word.indexOf(alphabet, index + 1);
-		}
-
-		return indexList;
+	public void setSuccess(Boolean success) {
+		this.success = success;
 	}
 
 	@Override
