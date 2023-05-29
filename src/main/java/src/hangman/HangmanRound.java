@@ -13,6 +13,10 @@ public class HangmanRound {
 		this.roundInput = roundInput;
 	}
 
+	public int getRoundId() {
+		return roundId;
+	}
+
 	@Override
 	public String toString() {
 		return "라운드 id : " + roundId +

@@ -20,10 +20,6 @@ public class Hangman {
 		this.life=life;
 	}
 
-	public Boolean answerCheck(){
-		return answer.equals(hiddenWord.toString());
-	}
-
 	public String getAnswer() {
 		return answer;
 	}

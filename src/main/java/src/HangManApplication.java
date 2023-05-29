@@ -3,11 +3,13 @@ package src;
 import static src.exception.ErrorCode.*;
 
 import src.exception.InvalidInputFormatException;
+import src.hangman.GameLauncher;
 import src.hangman.Hangman;
 import src.hangman.HangmanGame;
 import src.util.InputHelper;
 
 public class HangManApplication {
+
     private static int playCount;
     private static int life;
     public static void main(String[] args) {
@@ -26,12 +28,9 @@ public class HangManApplication {
             }
         }
 
-
         while (playCount-->0){
-            HangmanGame newGame=new HangmanGame(new Hangman(life));
-
-            boolean result= newGame.start();
-            InputHelper.printInfo(result ? "축하합니다. 정답입니다.\n":"실패입니다. 다시 도전해보세요!\n");
+            GameLauncher gameLauncher =new GameLauncher(life);
+            gameLauncher.start();
 
             if(playCount>0){
                 InputHelper.printInfo("다음 게임을 시작합니다.");
