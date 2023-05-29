@@ -38,7 +38,12 @@ public class InputView {
         int numberGames = Integer.parseInt(gameNumberAndLife[INDEX_NUMBER_GAMES]);
         int life = Integer.parseInt(gameNumberAndLife[INDEX_LIFE]);
 
-        return new Hangman(numberGames, life);
+        try {
+            return new Hangman(numberGames, life);
+        } catch (IllegalArgumentException exception) {
+            OutputView.printMessage(exception.getMessage());
+            return inputHangmanInfo();
+        }
     }
 
     public static char inputAlphabet(String roundInfo) throws IllegalArgumentException {

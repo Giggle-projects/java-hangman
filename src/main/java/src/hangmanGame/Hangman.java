@@ -9,12 +9,20 @@ public class Hangman {
     private static final String GAME_END_MESSAGE = "게임 종료. 이용해주셔서 감사합니다.";
     private static final String GAME_NEXT_MESSAGE = "다음 게임을 시작합니다.";
 
+    private static final int MAX_NUMBER_GAMES = 100;
+    private static final int MIN_NUMBER_GAMES = 1;
+
+    private static final int MAX_LIFE = 1000;
+    private static final int MIN_LIFE = 1;
+
     private final int numberGames;
     private final int life;
 
-    public Hangman(String numberGames, String life) {
-        this.numberGames = validateNumberGames(numberGames);
-        this.life = validateLife(life);
+    public Hangman(int numberGames, int life) {
+        validateNumberGames(numberGames);
+        validateLife(life);
+        this.numberGames = numberGames;
+        this.life = life;
     }
 
     public void gameSet() {
@@ -43,19 +51,15 @@ public class Hangman {
     }
 
 
-    private int validateNumberGames(String numberGames) throws IllegalArgumentException {
-        try {
-            return Integer.parseInt(numberGames);
-        } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException("올바른 게임 횟수를 입력해 주세요.");
+    private void validateNumberGames(int numberGames) throws IllegalArgumentException {
+        if (MIN_NUMBER_GAMES > numberGames || MAX_NUMBER_GAMES < numberGames) {
+            throw new IllegalArgumentException("게임 횟수 범위 밖의 숫자입니다.");
         }
     }
 
-    private int validateLife(String life) throws IllegalArgumentException {
-        try {
-            return Integer.parseInt(life);
-        } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException("올바른 목숨을 입력해 주세요.");
+    private void validateLife(int life) throws IllegalArgumentException {
+        if (MIN_LIFE > life || MAX_LIFE < life) {
+            throw new IllegalArgumentException("목숨 횟수 범위 밖의 숫자입니다.");
         }
     }
 

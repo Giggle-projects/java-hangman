@@ -8,32 +8,32 @@ class HangmanTest {
     @Test
     void validateNumberGames_예외_테스트() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Hangman("wrong value", "2");
+            new Hangman(101, 2);
         });
     }
 
     @Test
     void validateNumberGames_예외_메시지_테스트() {
         try {
-            new Hangman("wrong value", "2");
+            new Hangman(101, 2);
         } catch (IllegalArgumentException exception) {
-            Assertions.assertEquals("올바른 게임 횟수를 입력해 주세요.", exception.getMessage());
+            Assertions.assertEquals("게임 횟수 범위 밖의 숫자입니다.", exception.getMessage());
         }
     }
 
     @Test
     void validateLife_예외_테스트() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Hangman("2", "wrong value");
+            new Hangman(2, 1001);
         });
     }
 
     @Test
     void validateLife_예외_메시지_테스트() {
         try {
-            new Hangman("2", "wrong value");
+            new Hangman(2, 1001);
         } catch (IllegalArgumentException exception) {
-            Assertions.assertEquals("올바른 목숨을 입력해 주세요.", exception.getMessage());
+            Assertions.assertEquals("목숨 횟수 범위 밖의 숫자입니다.", exception.getMessage());
         }
     }
 }
