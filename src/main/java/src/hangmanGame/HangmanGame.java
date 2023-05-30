@@ -96,8 +96,4 @@ public class HangmanGame {
     private void saveResultToTable() {
         roundTable.saveGameResult(String.format(GAME_RESULT_FORMAT, gameId, gameResult, life, word));
     }
-
-    private void printResult() {
-        OutputView.printMessage(roundTable.gameResutToString());
-    }
 }

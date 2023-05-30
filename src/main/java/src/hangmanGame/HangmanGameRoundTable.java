@@ -29,15 +29,6 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
         this.gameResult = gameResult;
     }
 
-    public String gameResutToString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n=== Game Result ===\n").append(gameResult);
-        for (Integer roundId : roundTable.keySet()){
-            result.append(roundTable.get(roundId).toString());
-        }
-        return result.append("===================\n").toString();
-    }
-
     public boolean isEmpty() {
         return roundTable.isEmpty();
     }

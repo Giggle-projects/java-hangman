@@ -7,7 +7,6 @@ import java.util.Objects;
 
 public class Hangman {
 
-    private static final String GAME_ROUND_RESULT_FORMAT = "라운드 id : %d, %s";
     private static final String INPUT_GAME_ID = "게임 id를 입력해주세요.";
     private static final String INPUT_ROUND_ID = "라운드 id를 입력해주세요.";
 
