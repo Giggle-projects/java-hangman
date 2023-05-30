@@ -1,12 +1,19 @@
 package src;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static src.message.Message.ERR_MSG_INVALID;
 
 public class HangManApplication {
     private static final String [] LIST = {"apple", "banana", "orange"};
     private static Scanner scanner;
     private static int count;
     private static int life;
+
+    // 한글
+
+    // 공백
 
     public static void main(String[] args) {
         run();
@@ -16,11 +23,19 @@ public class HangManApplication {
     }
 
     private static void run(){
-        scanner = new Scanner(System.in);
-        System.out.println("ou : 게임 횟수와 목숨을 입력하세요.");
-        count = scanner.nextInt();
-        life = scanner.nextInt();
-        System.out.printf("in : %d, %d%n", count, life);
+        while (true){
+            try{
+                scanner = new Scanner(System.in);
+                System.out.println("ou : 게임 횟수와 목숨을 입력하세요.");
+                count = scanner.nextInt();
+                life = scanner.nextInt();
+                System.out.printf("in : %d, %d%n", count, life);
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println(ERR_MSG_INVALID);
+            }
+        }
     }
 
     private static void startGame(int gameNumber , int life){
@@ -62,9 +77,10 @@ public class HangManApplication {
         }
     }
 
-    private static char getInputData(int gameNumber, int life, char[] answerChange_) {
+    private static char getInputData(int gameNumber, int life, char[] answerChange_){
         System.out.printf("ou : %d 라운드 : %s , 목숨 %d %n" , gameNumber, String.valueOf(answerChange_), life);
-        String inputDataString = scanner.next();
+
+        String inputDataString = scanner.next().toLowerCase();
         char inputData = inputDataString.charAt(0);
         System.out.printf("in : %s ", inputData);
         return inputData;
@@ -72,7 +88,6 @@ public class HangManApplication {
 
     private static String getRandomAnswer(){
         int index = (int) (Math.random() * LIST.length);
-        System.out.println("정답 : " + LIST[index]);
         return LIST[index];
     }
 }
