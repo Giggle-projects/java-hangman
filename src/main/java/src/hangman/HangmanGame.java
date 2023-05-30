@@ -6,7 +6,7 @@ import java.util.TreeSet;
 import src.repository.RoundRepository;
 
 public class HangmanGame {
-	private RoundRepository roundRepository= RoundRepository.getInstance();
+	private final RoundRepository roundRepository= RoundRepository.getInstance();
 	private int gameId;
 	private SortedSet<Integer> roundIdSet;
 	private Hangman hangman;
