@@ -22,14 +22,25 @@ public class OutputView {
         StringBuilder result = new StringBuilder();
         result.append("\n=== Game Result ===\n").append(roundTable.gameResult());
         for (Integer roundId : roundTable) {
-            HangmanGameRoundTable.HangmanGameRoundInfo round = roundTable.getRound(roundId);
+            HangmanGameRoundTable.HangmanGameRoundInfo roundInfo = roundTable.getRound(roundId);
             result.append(String.format(ROUND_PRINT_FORMAT
-                    , roundId, round.remainingLife, round.correctingWord, round.inputAlphabet));
+                    , roundId
+                    , roundInfo.remainingLife
+                    , roundInfo.correctingWord
+                    , roundInfo.inputAlphabet));
         }
         printMessage(result.append("===================\n").toString());
     }
 
-    public static void printRoundResult() {
-
+    public static void printRoundResult(Integer roundId, HangmanGameRoundTable.HangmanGameRoundInfo roundInfo) {
+        StringBuilder result = new StringBuilder();
+        result.append("\n=== Round Result ===\n")
+                .append(String.format(ROUND_PRINT_FORMAT
+                        , roundId
+                        , roundInfo.remainingLife
+                        , roundInfo.correctingWord
+                        , roundInfo.inputAlphabet))
+                .append("===================\n");
+        printMessage(result.toString());
     }
 }
