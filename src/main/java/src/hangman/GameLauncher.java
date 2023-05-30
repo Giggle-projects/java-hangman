@@ -18,6 +18,7 @@ public class GameLauncher {
 		gameSerialNum++;
 		this.inputHistory =new HashSet<>();
 		this.hangmanGame = new HangmanGame(gameSerialNum,new Hangman(life));
+		this.hangmanGame.setSuccess(false);
 	}
 
 	public void start() {
@@ -48,12 +49,9 @@ public class GameLauncher {
 
 			if (answerCheck(hangman.getAnswer(),hangman.getHiddenWord().toString())) {
 				hangmanGame.setSuccess(true);
-				printResult();
-				return;    // 정답 맞춤. 게임 종료.
+				break;    // 정답 맞춤. 게임 종료.
 			}
-
 		}
-		hangmanGame.setSuccess(false);
 		printResult();
 	}
 
