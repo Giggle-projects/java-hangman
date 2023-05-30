@@ -90,7 +90,7 @@ public class HangmanGame {
 
     private void saveRoundToTable(int gameRound, char alphabet) {
         roundTable.saveRound(gameRound,
-                new HangmanGameRoundTable.HangmanGameRoundInfo(life, correctingWord, alphabet));
+                new HangmanGameRoundTable.HangmanGameRoundInfo(gameRound, life, correctingWord, alphabet));
     }
 
     private void saveResultToTable() {

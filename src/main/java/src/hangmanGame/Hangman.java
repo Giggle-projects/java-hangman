@@ -64,7 +64,7 @@ public class Hangman {
             int roundId = InputView.inputNumberOf(INPUT_ROUND_ID);
             HangmanGameRoundTable.HangmanGameRoundInfo roundInfo = roundTable.getRound(roundId);
 
-            OutputView.printRoundResult(roundId, roundInfo);
+            OutputView.printRoundResult(roundInfo);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
         }
