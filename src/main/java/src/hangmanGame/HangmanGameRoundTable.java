@@ -49,8 +49,6 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
 
     public static class HangmanGameRoundInfo {
 
-        private static final String INFO_PRINT_FORMAT = "남은 목숨 : %d, %s, 사용자 입력 : %c\n";
-
         public final int remainingLife;
         public final String correctingWord;
         public final char inputAlphabet;
@@ -59,11 +57,6 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
             this.remainingLife = remainingLife;
             this.correctingWord = correctingWord;
             this.inputAlphabet = inputAlphabet;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(INFO_PRINT_FORMAT, remainingLife, correctingWord, inputAlphabet);
         }
     }
 }

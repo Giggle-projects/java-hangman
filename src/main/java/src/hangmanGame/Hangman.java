@@ -52,18 +52,20 @@ public class Hangman {
                 viewGameResult();
                 chooseMenu();
             case 3:
-                viewGameResultOfRound();
+                viewRoundResult();
                 chooseMenu();
         }
     }
 
-    private void viewGameResultOfRound() {
+    private void viewRoundResult() {
         try {
             int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
 
             int roundId = InputView.inputNumberOf(INPUT_ROUND_ID);
-            OutputView.printMessage(String.format(GAME_ROUND_RESULT_FORMAT, roundId, roundTable.getRound(roundId).toString()));
+            HangmanGameRoundTable.HangmanGameRoundInfo roundInfo = roundTable.getRound(roundId);
+
+            OutputView.printRoundResult(roundId, roundInfo);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
         }
