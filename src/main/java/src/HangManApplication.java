@@ -1,6 +1,10 @@
 package src;
 
+import src.result.GameResult;
+import src.result.RoundResult;
+
 import java.util.InputMismatchException;
+import java.util.*;
 import java.util.Scanner;
 
 import static src.message.Message.ERR_MSG_INVALID;
@@ -10,10 +14,7 @@ public class HangManApplication {
     private static Scanner scanner;
     private static int count;
     private static int life;
-
-    // 한글
-
-    // 공백
+    static List<GameResult> gameResults = new ArrayList<>();
 
     public static void main(String[] args) {
         run();
@@ -51,6 +52,8 @@ public class HangManApplication {
 
         System.out.printf("%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.%n", gameNumber, answerLength);
 
+        List<RoundResult> roundResults = new ArrayList<>();
+
         while (correctCount < answerLength && life > 0){
 
             char inputData = getInputData(gameNumber, life, change);
@@ -66,15 +69,26 @@ public class HangManApplication {
                     }
                 }
             }
+
             if (!found) {
                 life--;
             }
+
+            roundResults.add(new RoundResult(gameNumber, life, String.valueOf(change), inputData));
+
         }
-        if (correctCount == answerLength) {
+
+        boolean gameSuccess = (correctCount == answerLength);
+
+        GameResult gameResult = new GameResult(gameNumber, gameSuccess, life, answer, roundResults);
+        gameResults.add(gameResult);
+
+        if (gameSuccess) {
             System.out.println("ou : 축하합니다. 정답입니다.");
         } else {
             System.out.println("\nou : 실패입니다.");
         }
+        printGameResult(gameResult);
     }
 
     private static char getInputData(int gameNumber, int life, char[] answerChange_){
@@ -82,12 +96,26 @@ public class HangManApplication {
 
         String inputDataString = scanner.next().toLowerCase();
         char inputData = inputDataString.charAt(0);
-        System.out.printf("in : %s ", inputData);
+        System.out.printf("in : %s %n", inputData);
         return inputData;
     }
 
     private static String getRandomAnswer(){
         int index = (int) (Math.random() * LIST.length);
         return LIST[index];
+    }
+
+    private static void printGameResult(GameResult gameResult) {
+        System.out.println("=== Game Result ===");
+        System.out.printf("게임 id: %d, 추측: %s, 남은 목숨: %d, 정답: %s%n",
+                gameResult.getId(), gameResult.isSuccess() ? "성공" : "실패", gameResult.getLife(), gameResult.getAnswer());
+        System.out.println();
+
+        List<RoundResult> roundResults = gameResult.getRoundResults();
+        for (RoundResult roundResult : roundResults) {
+            System.out.printf("라운드 id: %d, 남은 목숨: %d, %s, 사용자 입력: %s%n",
+                    roundResult.getId(), roundResult.getLife(), roundResult.getAnswerChange(), roundResult.getInputData());
+        }
+        System.out.println("===================");
     }
 }
