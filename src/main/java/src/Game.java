@@ -12,7 +12,6 @@ public class Game {
     }
 
     private Game() {
-
     }
 
     public int[] initGame() {
@@ -31,7 +30,6 @@ public class Game {
                 char[] answerArray = word.toCharArray();
 
                 System.out.printf("%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.\n", numOfPlayedGame + 1, lengthOfWord);
-                System.out.println("확인용 numOfPlayedGame : " + numOfPlayedGame);
 
                 char[] gameArray = new char[lengthOfWord];
                 for (int j=0; j<lengthOfWord; j++) {
@@ -49,18 +47,17 @@ public class Game {
                         for (int i = 0; i < answerArray.length; i++) {
                             if (input == answerArray[i]) { // 같은 거 찾으면
                                 gameArray[i] = input;
-                                System.out.println("게임 어레이 확인 : " + gameArray[i]);
                                 isCorrect = true;
                             }
                         }
-                        System.out.println("isCorrect 확인 : " + isCorrect);
-                        if (!isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
+                        if (! isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
                         if (numOfLife == 0) {
                             System.out.println("Game Over : 게임을 종료합니다.");
                             break;
                         }
                         if (!new String(gameArray).contains("_")) {
                             System.out.println("축하합니다. 정답입니다.");
+                            //System.out.printf("게임 id : " + gameId + ", 남은 목숨 : " + numOfLife + ", 정답 : " + word);
                             numOfPlayedGame++;
                             if (numOfGame == 1) {
                                 System.out.println("게임끝");
@@ -69,7 +66,7 @@ public class Game {
                                 System.out.println("다음 게임을 시작합니다.");
                                 break;
                             } else { // 총 게임 횟수가 1번 아니고, 게임 플레이 횟수와 총 게임 횟수가 같아질 때
-                                System.out.println("횟수 끝 게임끝");
+                                System.out.println("모든 게임이 끝났습니다. 프로그램을 종료합니다.");
                                 System.exit(0);
                             }
                         }
@@ -83,9 +80,13 @@ public class Game {
         }
     }
 
-    public void getScore() {
+    public void getGameScore() {
         System.out.println("게임끝, 종료");
         System.exit(0);
+    }
+
+    public void getRoundScore() {
+
     }
 
 }

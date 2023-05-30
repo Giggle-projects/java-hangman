@@ -20,6 +20,11 @@ public class HangManApplication {
         System.out.println(user2.getId());
         System.out.println(user2.getRegDate());
 
+        run();
+    }
+
+    public static void run() {
+        Input.chooseMenu();
         int[] arr = game.initGame();
         game.startGame(arr[0], arr[1]);
     }
