@@ -6,11 +6,13 @@ package src.hangman;
 	import java.util.Set;
 
 	import src.exception.DuplicateTryException;
+	import src.repository.GameRepository;
 	import src.util.InputHelper;
 
 public class GameLauncher {
 	private static int gameSerialNum = 0;
 	private static int roundSerialNum=0;
+	private final GameRepository gameRepository = GameRepository.getInstance();
 	private Set inputHistory;
 	private HangmanGame hangmanGame;
 
@@ -52,6 +54,7 @@ public class GameLauncher {
 				break;    // 정답 맞춤. 게임 종료.
 			}
 		}
+		gameRepository.save(hangmanGame);
 		printResult();
 	}
 
