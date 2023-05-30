@@ -21,6 +21,10 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
         return roundTable.get(roundId);
     }
 
+    public String gameResult() {
+        return gameResult;
+    }
+
     public void saveGameResult(String gameResult) {
         this.gameResult = gameResult;
     }
@@ -43,7 +47,7 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
         return roundTable.keySet().iterator();
     }
 
-    static class HangmanGameRoundInfo {
+    public static class HangmanGameRoundInfo {
 
         private static final String INFO_PRINT_FORMAT = "남은 목숨 : %d, %s, 사용자 입력 : %c\n";
 

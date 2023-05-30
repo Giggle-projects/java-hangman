@@ -45,7 +45,7 @@ public class HangmanGame {
         } while (!checkGameResult());
 
         saveResultToTable();
-        printResult();
+        OutputView.printGameResult(roundTable);
     }
 
     private void startRound(int gameRound) {

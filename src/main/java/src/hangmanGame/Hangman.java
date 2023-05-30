@@ -73,7 +73,7 @@ public class Hangman {
         try {
             int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
-            OutputView.printMessage(roundTable.gameResutToString());
+            OutputView.printGameResult(roundTable);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
         }
