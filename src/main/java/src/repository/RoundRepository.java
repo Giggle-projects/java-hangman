@@ -10,9 +10,9 @@ import src.hangman.HangmanRound;
 
 public class RoundRepository {
 	private static RoundRepository roundRepository;	//singleton
-	private SortedMap<Integer, HangmanRound> roundHistory;	// gameId,HangmanRound
+	private SortedMap<Integer, HangmanRound> roundDB;	// gameId,HangmanRound
 	private RoundRepository(){
-		roundHistory =new TreeMap<>();
+		roundDB =new TreeMap<>();
 	}
 	public static RoundRepository getInstance() {
 		if (roundRepository == null) {
@@ -22,13 +22,13 @@ public class RoundRepository {
 	}
 
 	public void save(HangmanRound round){
-		roundHistory.put(round.getRoundId(),round);
+		roundDB.put(round.getRoundId(),round);
 	}
 
 	public HangmanRound getByRoundId(Integer roundID) throws NoSuchElementException{
-		if(!roundHistory.containsKey(roundID)){
+		if(!roundDB.containsKey(roundID)){
 			throw new NoSuchElementException(NO_SUCH_ROUND_ID.getMessage());
 		}
-		return roundHistory.get(roundID);
+		return roundDB.get(roundID);
 	}
 }
