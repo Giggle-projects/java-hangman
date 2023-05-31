@@ -24,6 +24,7 @@ public class GameLauncher {
 	}
 
 	public void start() {
+		gameRepository.save(hangmanGame);
 		Hangman hangman = hangmanGame.getHangman();
 		InputHelper.printInfo(hangmanGame.getGameId() + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
 
@@ -54,7 +55,6 @@ public class GameLauncher {
 				break;    // 정답 맞춤. 게임 종료.
 			}
 		}
-		gameRepository.save(hangmanGame);
 		printResult();
 	}
 
