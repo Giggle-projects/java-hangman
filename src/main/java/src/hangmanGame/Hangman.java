@@ -45,14 +45,10 @@ public class Hangman {
     private void chooseMenu() {
         int menuNumber = InputView.inputMenuNumber();
         switch (menuNumber) {
-            case 1:
-                break;
-            case 2:
-                viewGameResult();
-                chooseMenu();
-            case 3:
-                viewRoundResult();
-                chooseMenu();
+            case 1: break;
+            case 2: viewGameResult();
+            case 3: viewRoundResult();
+            default: chooseMenu();
         }
     }
 
@@ -60,7 +56,6 @@ public class Hangman {
         try {
             int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
-
             int roundId = InputView.inputNumberOf(INPUT_ROUND_ID);
             HangmanGameRoundTable.HangmanGameRoundInfo roundInfo = roundTable.getRound(roundId);
 
@@ -74,6 +69,7 @@ public class Hangman {
         try {
             int gameId = InputView.inputNumberOf(INPUT_GAME_ID);
             HangmanGameRoundTable roundTable = gameTable.getRoundTableWithException(gameId);
+
             OutputView.printGameResult(roundTable);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());

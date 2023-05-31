@@ -2,8 +2,6 @@ package src.view;
 
 import src.hangmanGame.HangmanGameRoundTable;
 
-import java.util.Iterator;
-
 public class OutputView {
 
     private static final String OU = "ou : ";
@@ -23,7 +21,7 @@ public class OutputView {
         result.append("\n=== Game Result ===\n").append(roundTable.gameResult());
         for (Integer roundId : roundTable) {
             HangmanGameRoundTable.HangmanGameRoundInfo roundInfo = roundTable.getRound(roundId);
-            result.append(roundResultToString(roundInfo));
+            result.append(roundInfoToString(roundInfo));
         }
         printMessage(result.append("===================\n").toString());
     }
@@ -31,12 +29,12 @@ public class OutputView {
     public static void printRoundResult(HangmanGameRoundTable.HangmanGameRoundInfo roundInfo) {
         StringBuilder result = new StringBuilder();
         result.append("\n=== Round Result ===\n")
-                .append(roundResultToString(roundInfo))
+                .append(roundInfoToString(roundInfo))
                 .append("===================\n");
         printMessage(result.toString());
     }
 
-    private static String roundResultToString(HangmanGameRoundTable.HangmanGameRoundInfo roundInfo) {
+    private static String roundInfoToString(HangmanGameRoundTable.HangmanGameRoundInfo roundInfo) {
         return String.format(ROUND_PRINT_FORMAT
                 , roundInfo.roundId
                 , roundInfo.remainingLife
