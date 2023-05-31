@@ -115,7 +115,10 @@ public class HangManApplication {
         System.out.println("게임 id를 입력해주세요.");
         int gameId = scanner.nextInt();
         int index = (gameId - 1);
-
+        if (gameInfoList.size() == 0) {
+            System.out.println("아직 진행하지 않은 게임의 정보는 조회할 수 없습니다.");
+            return;
+        }
         gameInfoList.get(index).printGameResult();
     }
 
