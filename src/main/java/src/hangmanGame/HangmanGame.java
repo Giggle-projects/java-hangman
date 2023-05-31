@@ -1,5 +1,6 @@
 package src.hangmanGame;
 
+import src.dto.SingleAlphabet;
 import src.view.InputView;
 import src.view.OutputView;
 
@@ -50,10 +51,11 @@ public class HangmanGame {
 
     private void startRound(int gameRound) {
         String roundInfo = String.format(GAME_ROUND_INFO_FORMAT, gameRound, correctingWord, life);
-        char alphabet = InputView.inputAlphabet(roundInfo);
-        checkContainedWord(alphabet);
+        SingleAlphabet singleAlphabet = InputView.inputSingleAlphabet(roundInfo);
+        char inputAlphabet = singleAlphabet.alphabet();
 
-        saveRoundToTable(gameRound, alphabet);
+        checkContainedWord(inputAlphabet);
+        saveRoundToTable(gameRound, inputAlphabet);
     }
 
     private void checkContainedWord(char alphabet) {
