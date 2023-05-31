@@ -21,6 +21,10 @@ public class RoundRepository {
 		return roundRepository;
 	}
 
+	public boolean isEmpty(){
+		return roundDB.isEmpty();
+	}
+
 	public void save(HangmanRound round){
 		roundDB.put(round.getRoundId(),round);
 	}

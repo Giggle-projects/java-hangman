@@ -116,6 +116,11 @@ public class HangManApplication {
         return null;
     }
     private static Void showGameResult() {
+        if(gameRepository.isEmpty()){
+            InputHelper.printInfo(NO_GAME_HISTORY.getMessage());
+            return null;
+        }
+
         while (true){
             try{
                 int input = InputHelper.singleIntegerInput("게임 id를 입력해주세요.");
@@ -131,6 +136,11 @@ public class HangManApplication {
     }
 
     private static Void showRoundResult() {
+        if(roundRepository.isEmpty()){
+            InputHelper.printInfo(NO_GAME_HISTORY.getMessage());
+            return null;
+        }
+
         while (true){
             try{
                 int input = InputHelper.singleIntegerInput("라운드 id를 입력해주세요.");

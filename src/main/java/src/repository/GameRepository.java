@@ -21,6 +21,9 @@ public class GameRepository {
 		return gameRepository;
 	}
 
+	public boolean isEmpty(){
+		return gameDB.isEmpty();
+	}
 	public void save(HangmanGame hangmanGame){
 		gameDB.put(hangmanGame.getGameId(),hangmanGame);
 	}
