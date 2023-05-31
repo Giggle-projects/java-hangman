@@ -50,7 +50,7 @@ public class GameLauncher {
 			}
 
 			// 알파벳 추측 성공
-			replaceIndexes.forEach(index -> hangman.replaceHiddenWord(index, alphabet));
+			hangman.guessUpdate(replaceIndexes, alphabet);
 
 			if (answerCheck(hangman.getAnswer(),hangman.getHiddenWord().toString())) {
 				hangmanGame.setSuccess(true);

@@ -1,12 +1,18 @@
 package src.hangman;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import src.util.WordBook;
 
 public class Hangman {
+	private static final Character HIDDEN_SPECIAL_CHARACTERS ='_';
 	private final String answer;
 	private int wordSize;
 	private StringBuilder hiddenWord;
 	private int life;
+	private Set<String> guessedAlphabet;
 
 	public Hangman(int life) {
 		answer= WordBook.getRandom();
@@ -14,10 +20,11 @@ public class Hangman {
 
 		hiddenWord=new StringBuilder();
 		while(hiddenWord.length()<wordSize) {
-			hiddenWord.append('_');
+			hiddenWord.append(HIDDEN_SPECIAL_CHARACTERS);
 		}
 
 		this.life=life;
+		guessedAlphabet=new HashSet<>();
 	}
 
 	public String getAnswer() {
@@ -36,8 +43,11 @@ public class Hangman {
 		return life;
 	}
 
-	public void replaceHiddenWord(int index,String alphabet) {
-		hiddenWord.replace(index,index+1,alphabet);
+	public void guessUpdate(List<Integer> replaceIndexes,String alphabet) {
+		guessedAlphabet.add(alphabet);
+		replaceIndexes.forEach(
+			index -> hiddenWord.replace(index,index+1,alphabet)
+		);
 	}
 
 	public void decrementLife() {
