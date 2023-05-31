@@ -1,6 +1,7 @@
 package src;
 
 import static src.exception.ErrorCode.*;
+import static src.util.Description.*;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -93,7 +94,7 @@ public class HangManApplication {
                 Integer[] inputs = InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
 
                 if (inputs.length != 2) {
-                    throw new InvalidInputFormatException(INVALID_INPUT_COUNT.getMessage());
+                    throw new InvalidInputFormatException(ERROR_INVALID_INPUT_COUNT.getMessage());
                 }
 
                 playCount = inputs[0];
@@ -117,7 +118,7 @@ public class HangManApplication {
     }
     private static Void showGameResult() {
         if(gameRepository.isEmpty()){
-            InputHelper.printInfo(NO_GAME_HISTORY.getMessage());
+            InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
             return null;
         }
 
@@ -137,7 +138,7 @@ public class HangManApplication {
 
     private static Void showRoundResult() {
         if(roundRepository.isEmpty()){
-            InputHelper.printInfo(NO_GAME_HISTORY.getMessage());
+            InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
             return null;
         }
 

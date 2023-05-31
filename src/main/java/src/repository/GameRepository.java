@@ -30,7 +30,7 @@ public class GameRepository {
 
 	public HangmanGame getByGameId(Integer gameID) throws NoSuchElementException{
 		if(!gameDB.containsKey(gameID)){
-			throw new NoSuchElementException(NO_SUCH_GAME_ID.getMessage());
+			throw new NoSuchElementException(ERROR_NO_SUCH_GAME_ID.getMessage());
 		}
 		return gameDB.get(gameID);
 	}

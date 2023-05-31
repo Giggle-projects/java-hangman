@@ -51,7 +51,7 @@ public class InputHelper {
 				}
 
 				if(!input.matches(ALPHABET_PATTERN)){
-					throw new InvalidInputFormatException(INVALID_INPUT_FORMAT_ALPHABET.getMessage());
+					throw new InvalidInputFormatException(ERROR_INVALID_INPUT_FORMAT_ALPHABET.getMessage());
 				}
 
 				return input.toLowerCase();	// 입력 대소문자 가능 -> 내부에서는 소문자로 연산
@@ -85,7 +85,7 @@ public class InputHelper {
 			}catch (InputEmptyException e){
 				printInfo(e.getMessage());
 			}catch (NumberFormatException e) {
-				printInfo(INVALID_INPUT_FORMAT.getMessage());
+				printInfo(ERROR_INVALID_INPUT_FORMAT.getMessage());
 			}catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -126,7 +126,7 @@ public class InputHelper {
 			}catch (InvalidDelimiterException e) {
 				printInfo(e.getMessage());
 			}catch (NumberFormatException e) {
-				printInfo(INVALID_INPUT_FORMAT.getMessage());
+				printInfo(ERROR_INVALID_INPUT_FORMAT.getMessage());
 			}catch (IOException e) {
 				e.printStackTrace();
 			}

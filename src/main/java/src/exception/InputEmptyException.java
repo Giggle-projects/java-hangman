@@ -4,6 +4,6 @@ import static src.exception.ErrorCode.*;
 
 public class InputEmptyException extends RuntimeException{
 	public InputEmptyException() {
-		super(INPUT_EMPTY.getMessage());
+		super(ERROR_INPUT_EMPTY.getMessage());
 	}
 }

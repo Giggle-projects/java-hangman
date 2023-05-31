@@ -31,7 +31,7 @@ public class RoundRepository {
 
 	public HangmanRound getByRoundId(Integer roundID) throws NoSuchElementException{
 		if(!roundDB.containsKey(roundID)){
-			throw new NoSuchElementException(NO_SUCH_ROUND_ID.getMessage());
+			throw new NoSuchElementException(ERROR_NO_SUCH_ROUND_ID.getMessage());
 		}
 		return roundDB.get(roundID);
 	}

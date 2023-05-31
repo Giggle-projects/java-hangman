@@ -4,6 +4,6 @@ import static src.exception.ErrorCode.*;
 
 public class InvalidDelimiterException extends RuntimeException{
 	public InvalidDelimiterException() {
-		super(INVALID_INPUT_DELIMITER.getMessage());
+		super(ERROR_INVALID_INPUT_DELIMITER.getMessage());
 	}
 }
