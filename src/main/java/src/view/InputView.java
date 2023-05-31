@@ -63,7 +63,7 @@ public class InputView {
     public static MenuNumber inputMenuNumber() {
         try {
             int input = inputNumberOf(CHOICE_GAME_MENU);
-            return new MenuNumber(input);
+            return MenuNumber.of(input);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
             return inputMenuNumber();
