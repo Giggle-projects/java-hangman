@@ -1,22 +1,32 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class HangManApplication {
+
+    private static final Random random = new Random();
+    private static final List<String> wordList = new ArrayList<>();
 
     public static void main(String[] args) {
 
         List<GameInfo> gameInfoList = new ArrayList<>();
-        List<String> wordList = new ArrayList<>();
+
         wordList.add("apple");
         wordList.add("strawberry");
         wordList.add("grape");
 
-        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
 
+        while(true) {
+            System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)");
+            int inputNumber = scanner.nextInt();
+            if (inputNumber == 1) {
+                game(gameInfoList);
+            }
+        }
+    }
+    public static void game(List<GameInfo> gameInfoList) {
         Scanner scanner = new Scanner(System.in);
 
         int numberGames = 0;
@@ -39,11 +49,11 @@ public class HangManApplication {
         }
 
         int roundNumber = 1;
-        for (int i = 0; i < numberGames; i++) {
+        for (int i = 1; i <= numberGames; i++) {
             List<Round> roundList = new ArrayList<>();
 
             String word = wordList.get(random.nextInt(wordList.size()));
-            System.out.println((i+1) + "번째 게임이 시작됩니다. 정답 단어는 " + word.length() + "글자 입니다.");
+            System.out.println((i) + "번째 게임이 시작됩니다. 정답 단어는 " + word.length() + "글자 입니다.");
 
             char[] guessedWord = new char[word.length()];
             for (int j = 0; j < word.length(); j++) {
@@ -82,13 +92,13 @@ public class HangManApplication {
                     break;
                 }
             }
-            GameInfo gameInfo = new GameInfo(i, word, isSaved, numberLives, roundList);
-            gameInfoList.add(gameInfo);
-            gameInfoList.get(i).printGameResult();
 
-            if (i < numberGames - 1 && numberLives > 0) {
+            if (i < numberGames && numberLives > 0) {
                 System.out.println("다음 게임을 시작합니다.");
             }
+
+            GameInfo gameInfo = new GameInfo(i, word, isSaved, numberLives, roundList);
+            gameInfoList.add(gameInfo);
         }
     }
 }
