@@ -92,7 +92,7 @@ public class GameLauncher {
 
 	public void printResult(){
 		InputHelper.printInfo(hangmanGame.getSuccess() ? "축하합니다. 정답입니다.":"실패입니다. 다시 도전해보세요!");
-		InputHelper.printInfo(hangmanGame.toString());
+		InputHelper.printInfo(hangmanGame.resultString());
 	}
 
 }

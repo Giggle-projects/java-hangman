@@ -41,8 +41,7 @@ public class HangmanGame {
 		this.success = success;
 	}
 
-	@Override
-	public String toString() {
+	public String resultString() {
 		StringBuilder sb =new StringBuilder();
 
 		sb.append("\n=== Game Result ===\n");

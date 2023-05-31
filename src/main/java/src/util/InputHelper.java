@@ -21,7 +21,7 @@ public class InputHelper {
 	private static final String INVALID_DELIMITER_PATTERN = ".*[^a-zA-Z0-9"+INPUT_DELIMITER+"].*";	// 영문자, 숫자, INPUT_DELIMITER 이외의 특수문자
 	private static final String ONLY_WHITESPACE_PATTERN = "\\s*";	// 공백으로만 이루어진 문자열
 
-	private static void setBuilder(){
+	private static void refreshBuilder(){
 		OU.setLength(0);
 		IN.setLength(0);
 
@@ -29,14 +29,14 @@ public class InputHelper {
 		IN.append("in : ");
 	}
 	public static void printInfo(String infoStr){
-		setBuilder();
+		refreshBuilder();
 
 		OU.append(infoStr);
 		System.out.println(OU);
 	}
 
 	public static String singleAlphabetInput(String message) {
-		setBuilder();
+		refreshBuilder();
 
 		OU.append(message);
 		System.out.println(OU);
@@ -67,7 +67,7 @@ public class InputHelper {
 	}
 
 	public static int singleIntegerInput(String message)  {
-		setBuilder();
+		refreshBuilder();
 
 		OU.append(message);
 		System.out.println(OU);
@@ -81,9 +81,7 @@ public class InputHelper {
 					throw new InputEmptyException();
 				}
 
-				int parsedInput = Integer.parseInt(input);
-
-				return parsedInput;
+				return Integer.parseInt(input);
 			}catch (InputEmptyException e){
 				printInfo(e.getMessage());
 			}catch (NumberFormatException e) {
@@ -95,7 +93,7 @@ public class InputHelper {
 	}
 
 	public static Integer[] multiIntegerInput(String message)  {
-		setBuilder();
+		refreshBuilder();
 
 		OU.append(message);
 		System.out.println(OU);

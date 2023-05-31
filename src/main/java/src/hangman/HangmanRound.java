@@ -19,9 +19,13 @@ public class HangmanRound {
 
 	@Override
 	public String toString() {
-		return "라운드 id : " + roundId +
-			", 남은 목숨 : " + roundLife +
-			", " + roundBoard +
-			", 사용자 입력 : " + roundInput + '\n' ;
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("라운드 id : ").append(roundId);
+		sb.append(", 남은 목숨 : ").append(roundLife);
+		sb.append(", ").append(roundBoard);
+		sb.append(", 사용자 입력 : ").append(roundInput).append('\n');
+
+		return sb.toString();
 	}
 }
