@@ -17,11 +17,25 @@ public class HangManApplication {
         Random random = new Random();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("게임 횟수와 목숨을 입력하세요.");
-        String input = scanner.nextLine();
-        String[] inputs = input.split(",");
-        int numberGames = Integer.parseInt(inputs[0]);
-        int numberLives = Integer.parseInt(inputs[1]);
+
+        int numberGames = 0;
+        int numberLives = 0;
+
+        while (true) {
+            try {
+                System.out.println("게임 횟수와 목숨을 입력하세요.");
+                String input = scanner.nextLine();
+                String[] inputs = input.split(",");
+                if (inputs.length != 2) {
+                    throw new IllegalArgumentException("게임 횟수와 목숨 횟수만 입력하세요.");
+                }
+                numberGames = Integer.parseInt(inputs[0].trim());
+                numberLives = Integer.parseInt(inputs[1].trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("','로 구분하여 숫자로 입력해주세요.");
+            }
+        }
 
         for (int i = 1; i <= numberGames; i++) {
 
