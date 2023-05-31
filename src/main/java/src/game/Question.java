@@ -65,7 +65,10 @@ public class Question {
             if (targetInput.length() != 1) {
                 throw new IllegalArgumentException("한 글자만 입력해주세요.");
             }
-            return targetInput.charAt(0);
+            char targetChar = targetInput.charAt(0);
+            if (targetChar < 'a' || targetChar > 'z')
+                throw new IllegalArgumentException("a-z, A-Z 사이의 글자만 입력해주세요.");
+            return targetChar;
         } catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
             return getChar();
