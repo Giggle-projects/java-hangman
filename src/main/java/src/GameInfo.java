@@ -19,7 +19,7 @@ public class GameInfo {
     }
 
     public int getGameId() {
-        return ++gameId;
+        return gameId;
     }
 
 

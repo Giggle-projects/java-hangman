@@ -23,6 +23,11 @@ public class HangManApplication {
             int inputNumber = scanner.nextInt();
             if (inputNumber == 1) {
                 game(gameInfoList);
+            } else if (inputNumber == 2) {
+                System.out.println("게임 id를 입력해주세요.");
+                int gameId = scanner.nextInt();
+                int index = (gameId - 1);
+                gameInfoList.get(index).printGameResult();
             }
         }
     }
