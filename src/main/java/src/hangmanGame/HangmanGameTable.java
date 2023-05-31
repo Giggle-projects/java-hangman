@@ -1,7 +1,6 @@
 package src.hangmanGame;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class HangmanGameTable {
 
