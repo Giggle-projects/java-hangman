@@ -1,12 +1,12 @@
 package src;
 
-public class Round {
+public class RoundInfo {
     private int roundId;
     private int lives;
     private String guess;
     private char input;
 
-    Round(int roundId, int lives, String guess, char input) {
+    RoundInfo(int roundId, int lives, String guess, char input) {
         this.roundId = roundId;
         this.lives = lives;
         this.guess = guess;
