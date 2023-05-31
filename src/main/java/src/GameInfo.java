@@ -32,6 +32,4 @@ public class GameInfo {
         }
         System.out.println("===================");
     }
-
-
 }
