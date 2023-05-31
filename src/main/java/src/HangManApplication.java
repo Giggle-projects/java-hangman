@@ -11,6 +11,7 @@ public class HangManApplication {
     public static void main(String[] args) {
 
         List<GameInfo> gameInfoList = new ArrayList<>();
+        Map<Integer, Round> map = new HashMap<>();
 
         wordList.add("apple");
         wordList.add("strawberry");
@@ -22,16 +23,29 @@ public class HangManApplication {
             System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)");
             int inputNumber = scanner.nextInt();
             if (inputNumber == 1) {
-                game(gameInfoList);
+                game(gameInfoList, map);
             } else if (inputNumber == 2) {
                 System.out.println("게임 id를 입력해주세요.");
                 int gameId = scanner.nextInt();
                 int index = (gameId - 1);
                 gameInfoList.get(index).printGameResult();
+            } else if (inputNumber == 3) {
+                System.out.println("라운드 id를 입력해주세요.");
+                int roundId = scanner.nextInt();
+                int index = 1;
+                System.out.println("=== Round Result ===");
+                Iterator<Integer> keys = map.keySet().iterator();
+                while(keys.hasNext()){
+                    Integer key = keys.next();
+                    if (key == roundId) {
+                        System.out.println(map.get(key+index));
+                    }
+                }
+                System.out.println("===================");
             }
         }
     }
-    public static void game(List<GameInfo> gameInfoList) {
+    public static void game(List<GameInfo> gameInfoList,  Map<Integer, Round> map) {
         Scanner scanner = new Scanner(System.in);
 
         int numberGames = 0;
@@ -71,6 +85,7 @@ public class HangManApplication {
                 System.out.println(roundNumber + "라운드 : " + guess + ", 목숨 " + numberLives);
                 char inputGuess = scanner.next().charAt(0);
                 Round round = new Round(roundNumber++, numberLives, guess, inputGuess);
+                map.put(roundNumber, round);
                 roundList.add(round);
 
                 isSaved = false;
