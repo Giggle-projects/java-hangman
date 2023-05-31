@@ -8,6 +8,7 @@ public enum WordBook {
 	JAVA, MOUNTAIN, RAINBOW, SPRING, SUNSHINE;
 
 	public static String getRandom() {
-		return values()[new Random().nextInt(WordBook.values().length)].name().toLowerCase();
+		int randomIndex = new Random().nextInt(WordBook.values().length);
+		return values()[randomIndex].name().toLowerCase();
 	}
 }
