@@ -11,7 +11,8 @@ public enum ErrorCode {
 	ERROR_DUPLICATE_ALPHABET_TRY("이미 시도한 알파벳 입니다. 다시 입력해주세요."),
 	ERROR_NO_GAME_HISTORY("플레이 이력이 없습니다. 게임을 먼저 진행해주세요"),
 	ERROR_NO_SUCH_ROUND_ID("id가 일치하는 라운드가 존재하지 않습니다. 다시 입력해주세요."),
-	ERROR_NO_SUCH_GAME_ID("id가 일치하는 게임이 존재하지 않습니다. 다시 입력해주세요.");
+	ERROR_NO_SUCH_GAME_ID("id가 일치하는 게임이 존재하지 않습니다. 다시 입력해주세요."),
+	ERROR_NO_SUCH_MENU("메뉴 번호가 일치하지 않습니다. 다시 입력해주세요.");
 
 	private final String message;
 

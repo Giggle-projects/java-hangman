@@ -22,12 +22,16 @@ public class HangManApplication {
 
     public static void main(String[] args) {
         while (true){
-            int inputs = InputHelper.singleIntegerInput(RootMenu.chooseDescription());
-            RootMenu rootMenu=RootMenu.findByCode(inputs);
-            rootMenu.run();
+            try{
+                int inputs = InputHelper.singleIntegerInput(RootMenu.chooseDescription());
+                RootMenu rootMenu = RootMenu.findByCode(inputs);
+                rootMenu.run();
 
-            if(rootMenu == RootMenu.END){
-                break;
+                if (rootMenu == RootMenu.END) {
+                    break;
+                }
+            }catch(NoSuchElementException e){
+                InputHelper.printInfo(e.getMessage());
             }
         }
     }
@@ -59,7 +63,7 @@ public class HangManApplication {
             return Arrays.stream(RootMenu.values())
                 .filter(m -> m.getCode() == code)
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(()->new NoSuchElementException(ERROR_NO_SUCH_MENU.getMessage()));
         }
         public static String chooseDescription(){
             StringBuilder sb = new StringBuilder();
