@@ -17,16 +17,12 @@ public class InputView {
     private static final int INDEX_NUMBER_GAMES = 0;
     private static final int INDEX_LIFE = 1;
 
-    private static final int MIN_MENU_NUMBER = 1;
-    private static final int MAX_MENU_NUMBER = 3;
-
     private static final String CHOICE_GAME_MENU = "메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)";
     private static final String NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 입력하세요. (ex. 3, 1) 숫자와 ','외의 값은 무시됩니다.";
 
     private static final String ERR_INPUT_CORRECT_VALUE_NUMBER_OF_GAME_AND_LIFE = "게임 횟수와 목숨을 ','로 구분하여 차례대로 입력 해주세요.\n";
     private static final String ERR_INPUT_SINGLE_ALPHABET = "하나의 알파벳만 입력해 주세요.";
     private static final String ERR_INPUT_SINGLE_CHARACTER = "하나의 문자만 입력해 주세요.";
-    private static final String ERR_INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
     private static final String ERR_INPUT_NUMBER = "숫자를 입력해 주세요.";
 
     // Suppresses default constructor, ensuring non-instantiability.
@@ -67,23 +63,12 @@ public class InputView {
         return filteredInput.toLowerCase().charAt(0);
     }
 
-    public static int inputMenuNumber() {
-        String input;
-
-        while (true) {
-            input = inputOf(CHOICE_GAME_MENU);
-            if (input.length() == 1) break;
-            OutputView.printMessage(ERR_INPUT_SINGLE_CHARACTER);
-        }
-
+    public static MenuNumber inputMenuNumber() {
         try {
-            int menuNumber = Integer.parseInt(input);
-            if (menuNumber < MIN_MENU_NUMBER || menuNumber > MAX_MENU_NUMBER)
-                throw new NumberFormatException();
-            return menuNumber;
-
-        } catch (NumberFormatException exception) {
-            OutputView.printMessage(ERR_INPUT_RANGE_OF_MENU);
+            int input = inputNumberOf(CHOICE_GAME_MENU);
+            return new MenuNumber(input);
+        } catch (IllegalArgumentException exception) {
+            OutputView.printMessage(exception.getMessage());
             return inputMenuNumber();
         }
     }
@@ -107,5 +92,29 @@ public class InputView {
         System.out.println(OU + message);
         System.out.print(IN);
         return Console.readLine();
+    }
+
+    // menuNumber 래퍼 클래스
+    public static class MenuNumber {
+
+        private static final String ERR_INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
+        private static final int MIN_MENU_NUMBER = 1;
+        private static final int MAX_MENU_NUMBER = 3;
+
+        private int number;
+
+        public MenuNumber(int MenuNumber) throws IllegalArgumentException {
+            validateRangeOfMenuNumber(number);
+            this.number = MenuNumber;
+        }
+
+        private void validateRangeOfMenuNumber(int number) throws IllegalArgumentException {
+            if (number > MAX_MENU_NUMBER || number < MIN_MENU_NUMBER)
+                throw new IllegalArgumentException(ERR_INPUT_RANGE_OF_MENU);
+        }
+
+        public int number() {
+            return number;
+        }
     }
 }
