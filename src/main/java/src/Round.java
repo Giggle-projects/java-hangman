@@ -15,6 +15,6 @@ public class Round {
 
     @Override
     public String toString() {
-        return "라운드 id :" + this.roundId + ", 남은 목숨 : " + this.lives + "," + this.guess + ", 사용자 입력 :" + this.input;
+        return "라운드 id :" + this.roundId + ", 남은 목숨 : " + this.lives + ", " + this.guess + ", 사용자 입력 :" + this.input;
     }
 }
