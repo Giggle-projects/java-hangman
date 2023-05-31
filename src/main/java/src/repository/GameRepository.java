@@ -25,7 +25,7 @@ public class GameRepository {
 		gameDB.put(hangmanGame.getGameId(),hangmanGame);
 	}
 
-	public HangmanGame getByGameId(Integer gameID){
+	public HangmanGame getByGameId(Integer gameID) throws NoSuchElementException{
 		if(!gameDB.containsKey(gameID)){
 			throw new NoSuchElementException(NO_SUCH_GAME_ID.getMessage());
 		}

@@ -6,15 +6,19 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import src.exception.InvalidInputFormatException;
 import src.hangman.GameLauncher;
+import src.hangman.HangmanGame;
+import src.hangman.HangmanRound;
+import src.repository.GameRepository;
+import src.repository.RoundRepository;
 import src.util.InputHelper;
 
 public class HangManApplication {
-    private static int playCount;
-    private static int life;
+    private final static GameRepository gameRepository = GameRepository.getInstance();
+    private final static RoundRepository roundRepository = RoundRepository.getInstance();
+
     public static void main(String[] args) {
         while (true){
             int inputs = InputHelper.singleIntegerInput(RootMenu.chooseDescription());
@@ -28,7 +32,7 @@ public class HangManApplication {
     }
 
     private enum RootMenu{
-        PLAY_GAME("게임하기",1,HangManApplication::playGame),
+        PLAY_GAME("게임하기",1, HangManApplication::playGame),
         SHOW_GAME_RESULT("게임 결과 보기",2,HangManApplication::showGameResult),
         SHOW_ROUND_RESULT("라운드 결과 보기",3,HangManApplication::showRoundResult),
         END("종료",4,() -> {
@@ -81,6 +85,9 @@ public class HangManApplication {
     }
 
     private static Void playGame() {
+        int playCount;
+        int life;
+
         while (true){
             try{
                 Integer[] inputs = InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
@@ -88,6 +95,7 @@ public class HangManApplication {
                 if (inputs.length != 2) {
                     throw new InvalidInputFormatException(INVALID_INPUT_COUNT.getMessage());
                 }
+
                 playCount = inputs[0];
                 life = inputs[1];
                 break;
@@ -108,10 +116,32 @@ public class HangManApplication {
         return null;
     }
     private static Void showGameResult() {
+        while (true){
+            try{
+                int input = InputHelper.singleIntegerInput("게임 id를 입력해주세요.");
+
+                HangmanGame game =gameRepository.getByGameId(input);
+                InputHelper.printInfo(game.resultString());
+                break;
+            }catch(NoSuchElementException e){
+                InputHelper.printInfo(e.getMessage());
+            }
+        }
         return null;
     }
 
     private static Void showRoundResult() {
+        while (true){
+            try{
+                int input = InputHelper.singleIntegerInput("라운드 id를 입력해주세요.");
+
+                HangmanRound round =roundRepository.getByRoundId(input);
+                InputHelper.printInfo(round.resultString());
+                break;
+            }catch(NoSuchElementException e){
+                InputHelper.printInfo(e.getMessage());
+            }
+        }
         return null;
     }
 }

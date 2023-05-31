@@ -28,4 +28,14 @@ public class HangmanRound {
 
 		return sb.toString();
 	}
+
+	public String resultString(){
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("\n=== Round Result ===\n");
+		sb.append(this.toString());
+		sb.append("===================\n");
+
+		return sb.toString();
+	}
 }
