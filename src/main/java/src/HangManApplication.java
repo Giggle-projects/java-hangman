@@ -61,7 +61,7 @@ public class HangManApplication {
 
         public static RootMenu findByCode(int code){
             return Arrays.stream(RootMenu.values())
-                .filter(m -> m.getCode() == code)
+                .filter(m -> m.getCode().equals(code))
                 .findFirst()
                 .orElseThrow(()->new NoSuchElementException(ERROR_NO_SUCH_MENU.getMessage()));
         }
