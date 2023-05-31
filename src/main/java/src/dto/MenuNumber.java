@@ -1,6 +1,8 @@
 package src.dto;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 public class MenuNumber {
 
@@ -8,13 +10,15 @@ public class MenuNumber {
     private static final int MIN_MENU_NUMBER = 1;
     private static final int MAX_MENU_NUMBER = 3;
 
-    private static final List<MenuNumber> MENU_NUMBERS;
+    private static final Map<Integer, MenuNumber> MENU_NUMBERS;
 
     static {
-        MENU_NUMBERS = List.of(new MenuNumber(1), new MenuNumber(2), new MenuNumber(3));
+        MENU_NUMBERS = new HashMap<>();
+        IntStream.range(MIN_MENU_NUMBER, MAX_MENU_NUMBER)
+                .forEach(i -> MENU_NUMBERS.put(i, new MenuNumber(i)));
     }
 
-    private int number;
+    private final int number;
 
     private MenuNumber(int MenuNumber) {
         this.number = MenuNumber;
@@ -28,7 +32,7 @@ public class MenuNumber {
 
     public static MenuNumber of(int menuNumber) {
         validateRangeOfMenuNumber(menuNumber);
-        return MENU_NUMBERS.get(menuNumber-1);
+        return MENU_NUMBERS.get(menuNumber);
     }
 
     public int number() {
