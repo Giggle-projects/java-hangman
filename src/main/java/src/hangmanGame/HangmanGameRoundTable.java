@@ -40,13 +40,11 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
 
     public static class HangmanGameRoundInfo {
 
-        public final int roundId;
         public final int remainingLife;
         public final String correctingWord;
         public final char inputAlphabet;
 
-        public HangmanGameRoundInfo(int roundId, int remainingLife, String correctingWord, char inputAlphabet) {
-            this.roundId = roundId;
+        public HangmanGameRoundInfo(int remainingLife, String correctingWord, char inputAlphabet) {
             this.remainingLife = remainingLife;
             this.correctingWord = correctingWord;
             this.inputAlphabet = inputAlphabet;
