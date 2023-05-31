@@ -4,14 +4,12 @@ import java.util.*;
 
 
 public class HangManApplication {
-
     private static final Random random = new Random();
     private static final List<String> wordList = new ArrayList<>();
+    private static final List<GameInfo> gameInfoList = new ArrayList<>();
+    private static final Map<Integer, Round> map = new HashMap<>();
 
     public static void main(String[] args) {
-
-        List<GameInfo> gameInfoList = new ArrayList<>();
-        Map<Integer, Round> map = new HashMap<>();
 
         wordList.add("apple");
         wordList.add("strawberry");
@@ -22,26 +20,18 @@ public class HangManApplication {
         while(true) {
             System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)");
             int inputNumber = scanner.nextInt();
-            if (inputNumber == 1) {
-                game(gameInfoList, map);
-            } else if (inputNumber == 2) {
-                System.out.println("게임 id를 입력해주세요.");
-                int gameId = scanner.nextInt();
-                int index = (gameId - 1);
-                gameInfoList.get(index).printGameResult();
-            } else if (inputNumber == 3) {
-                System.out.println("라운드 id를 입력해주세요.");
-                int roundId = scanner.nextInt();
-                int index = 1;
-                System.out.println("=== Round Result ===");
-                Iterator<Integer> keys = map.keySet().iterator();
-                while(keys.hasNext()){
-                    Integer key = keys.next();
-                    if (key == roundId) {
-                        System.out.println(map.get(key+index));
-                    }
-                }
-                System.out.println("===================");
+            switch (inputNumber) {
+                case 1 :
+                    game(gameInfoList, map);
+                    break;
+                case 2 :
+                    gameResult(scanner);
+                    break;
+                case 3 :
+                    roundResult(scanner);
+                    break;
+                default :
+                    return;
             }
         }
     }
@@ -120,5 +110,27 @@ public class HangManApplication {
             GameInfo gameInfo = new GameInfo(i, word, isSaved, numberLives, roundList);
             gameInfoList.add(gameInfo);
         }
+    }
+    public static void gameResult(Scanner scanner) {
+        System.out.println("게임 id를 입력해주세요.");
+        int gameId = scanner.nextInt();
+        int index = (gameId - 1);
+
+        gameInfoList.get(index).printGameResult();
+    }
+
+    public static void roundResult(Scanner scanner) {
+        System.out.println("라운드 id를 입력해주세요.");
+        int roundId = scanner.nextInt();
+        int index = 1;
+        System.out.println("=== Round Result ===");
+        Iterator<Integer> keys = map.keySet().iterator();
+        while(keys.hasNext()){
+            Integer key = keys.next();
+            if (key == roundId) {
+                System.out.println(map.get(key+index));
+            }
+        }
+        System.out.println("===================");
     }
 }
