@@ -10,7 +10,7 @@ public enum Animal implements Example {
     HORSE("horse"), BUTTERFLY("butterfly"), BULL("bull"), PIG("pig"), RHINO("rhino"),
     SHEEP("sheep"), SNAKE("snake"), PANDA("panda"), EAGLE("eagle"), SWAN("swan");
 
-    private String name;
+    private final String name;
 
     Animal(String name) {
         this.name = name;

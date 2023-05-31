@@ -3,7 +3,7 @@ package src.example;
 public enum ExampleList {
     ANIMAL("Animal"), BODY("Body");
 
-    private String name;
+    private final String name;
 
     ExampleList(String name) {
         this.name = name;

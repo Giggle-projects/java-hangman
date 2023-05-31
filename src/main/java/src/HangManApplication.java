@@ -3,8 +3,6 @@ package src;
 import src.game.Game;
 import src.game.Question;
 import src.util.Message;
-
-import java.io.IOException;
 import java.util.List;
 
 public class HangManApplication {

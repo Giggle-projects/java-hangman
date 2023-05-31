@@ -9,7 +9,7 @@ public enum Body implements Example {
     EARS("ears"), HAIR("hair"), SHOULDER("shoulder"), TONGUE("tongue"), BONES("bones"),
     HAND("hand"), FINGER("finger"), KNEE("knee"), MOUSTACHE("moustache"), ANKLE("ankle"),
     NOSE("node"), LEG("leg"), THUMB("thumb"), NECK("neck"), HEEL("heel");
-    private String name;
+    private final String name;
 
     Body(String name) {
         this.name = name;

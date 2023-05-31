@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Question {
-    private String targetQuestion;
-    private String enteredAnswer;
+    private final String targetQuestion;
+    private final String enteredAnswer;
 
     public Question(String targetQuestion) {
         this.targetQuestion = targetQuestion;
