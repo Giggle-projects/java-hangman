@@ -65,6 +65,9 @@ public class HangManApplication {
                     break;
                 }
             }
+            if (i < numberGames && numberLives > 0) {
+                System.out.println("다음 게임을 시작합니다.");
+            }
         }
 
     }
