@@ -1,5 +1,7 @@
 package src.hangman;
 
+	import static src.util.Description.*;
+
 	import java.util.ArrayList;
 	import java.util.HashSet;
 	import java.util.List;
@@ -26,7 +28,7 @@ public class GameLauncher {
 	public void start() {
 		gameRepository.save(hangmanGame);
 		Hangman hangman = hangmanGame.getHangman();
-		InputHelper.printInfo(hangmanGame.getGameId() + "번째 게임이 시작됩니다. 정답 단어는 " + hangman.getWordSize() + "글자 입니다.");
+		InputHelper.printInfo(String.format(FORMAT_INFO_GAME_ORDER_AND_WORD_SIZE,hangmanGame.getGameId(),hangman.getWordSize()));
 
 		while (hangman.getLife() > 0) {
 			roundSerialNum++;
@@ -61,7 +63,8 @@ public class GameLauncher {
 	private String userGuess(String hangmanStatus) {
 		while (true){
 			try {
-				String alphabet = InputHelper.singleAlphabetInput(roundSerialNum +" 라운드 : "+hangmanStatus);
+				String alphabet = InputHelper.singleAlphabetInput(String.format(FORMAT_INPUT_GUESS_WITH_ROUND_INFO,roundSerialNum ,hangmanStatus));
+
 				if(inputHistory.contains(alphabet)){
 					throw new DuplicateTryException();
 				}
@@ -91,7 +94,7 @@ public class GameLauncher {
 	}
 
 	public void printResult(){
-		InputHelper.printInfo(hangmanGame.getSuccess() ? "축하합니다. 정답입니다.":"실패입니다. 다시 도전해보세요!");
+		InputHelper.printInfo(hangmanGame.getSuccess() ? INFO_SUCCESS:INFO_FAIL);
 		InputHelper.printInfo(hangmanGame.resultString());
 	}
 

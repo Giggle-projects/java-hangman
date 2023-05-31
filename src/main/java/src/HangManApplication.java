@@ -33,11 +33,11 @@ public class HangManApplication {
     }
 
     private enum RootMenu{
-        PLAY_GAME("게임하기",1, HangManApplication::playGame),
-        SHOW_GAME_RESULT("게임 결과 보기",2,HangManApplication::showGameResult),
-        SHOW_ROUND_RESULT("라운드 결과 보기",3,HangManApplication::showRoundResult),
-        END("종료",4,() -> {
-            InputHelper.printInfo("프로그램을 종료합니다.");
+        PLAY_GAME(ROOT_MENU_PLAY_GAME,1, HangManApplication::playGame),
+        SHOW_GAME_RESULT(ROOT_MENU_SHOW_GAME_RESULT,2,HangManApplication::showGameResult),
+        SHOW_ROUND_RESULT(ROOT_MENU_SHOW_ROUND_RESULT,3,HangManApplication::showRoundResult),
+        END(ROOT_MENU_END,4,() -> {
+            InputHelper.printInfo(INFO_END_APPLICATION);
             return null;
         });
 
@@ -91,7 +91,7 @@ public class HangManApplication {
 
         while (true){
             try{
-                Integer[] inputs = InputHelper.multiIntegerInput("게임 횟수와 목숨을 입력하세요.");
+                Integer[] inputs = InputHelper.multiIntegerInput(INPUT_GAME_COUNT_AND_LIFE);
 
                 if (inputs.length != 2) {
                     throw new InvalidInputFormatException(ERROR_INVALID_INPUT_COUNT.getMessage());
@@ -110,7 +110,7 @@ public class HangManApplication {
             gameLauncher.start();
 
             if(playCount>0){
-                InputHelper.printInfo("다음 게임을 시작합니다.");
+                InputHelper.printInfo(INFO_START_NEXT_GAME);
             }
         }
 
@@ -124,7 +124,7 @@ public class HangManApplication {
 
         while (true){
             try{
-                int input = InputHelper.singleIntegerInput("게임 id를 입력해주세요.");
+                int input = InputHelper.singleIntegerInput(INPUT_GAME_ID);
 
                 HangmanGame game =gameRepository.getByGameId(input);
                 InputHelper.printInfo(game.resultString());
@@ -144,7 +144,7 @@ public class HangManApplication {
 
         while (true){
             try{
-                int input = InputHelper.singleIntegerInput("라운드 id를 입력해주세요.");
+                int input = InputHelper.singleIntegerInput(INPUT_ROUND_ID);
 
                 HangmanRound round =roundRepository.getByRoundId(input);
                 InputHelper.printInfo(round.resultString());
