@@ -40,23 +40,20 @@ public class HangManApplication {
         PLAY_GAME(ROOT_MENU_PLAY_GAME,1, HangManApplication::playGame),
         SHOW_GAME_RESULT(ROOT_MENU_SHOW_GAME_RESULT,2,HangManApplication::showGameResult),
         SHOW_ROUND_RESULT(ROOT_MENU_SHOW_ROUND_RESULT,3,HangManApplication::showRoundResult),
-        END(ROOT_MENU_END,4,() -> {
-            InputHelper.printInfo(INFO_END_APPLICATION);
-            return null;
-        });
+        END(ROOT_MENU_END,4,() -> InputHelper.printInfo(INFO_END_APPLICATION));
 
         String description;
         Integer code;
-        Supplier<Void> function;
+        Runnable function;
 
-        RootMenu(String description, Integer code, Supplier<Void> function) {
+        RootMenu(String description, Integer code, Runnable function) {
             this.description = description;
             this.code = code;
             this.function = function;
         }
 
-        public Void run(){
-            return function.get();
+        public void run(){
+             function.run();
         }
 
         public static RootMenu findByCode(int code){
@@ -89,7 +86,7 @@ public class HangManApplication {
         }
     }
 
-    private static Void playGame() {
+    private static void playGame() {
         int playCount;
         int life;
 
@@ -117,13 +114,11 @@ public class HangManApplication {
                 InputHelper.printInfo(INFO_START_NEXT_GAME);
             }
         }
-
-        return null;
     }
-    private static Void showGameResult() {
+    private static void showGameResult() {
         if(gameRepository.isEmpty()){
             InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
-            return null;
+            return ;
         }
 
         while (true){
@@ -137,13 +132,12 @@ public class HangManApplication {
                 InputHelper.printInfo(e.getMessage());
             }
         }
-        return null;
     }
 
-    private static Void showRoundResult() {
+    private static void showRoundResult() {
         if(roundRepository.isEmpty()){
             InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
-            return null;
+            return;
         }
 
         while (true){
@@ -157,6 +151,5 @@ public class HangManApplication {
                 InputHelper.printInfo(e.getMessage());
             }
         }
-        return null;
     }
 }
