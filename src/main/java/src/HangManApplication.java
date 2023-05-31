@@ -50,12 +50,20 @@ public class HangManApplication {
 
                 if (!isSaved) {
                     numberLives--;
+                    if (numberLives == 0) {
+                        System.out.println("목숨이 소진 되었습니다.");
+                        break;
+                    }
                 }
-
+                j++;
                 roundNumber++;
 
                 guess = new String(guessedWord);
-
+                if (guess.equals(word)) {
+                    System.out.println(roundNumber + "라운드 : " + guess + ", 목숨 " + numberLives);
+                    System.out.println("축하합니다. 정답입니다.");
+                    break;
+                }
             }
         }
 
