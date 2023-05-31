@@ -1,5 +1,6 @@
 package src.view;
 
+import src.dto.MenuNumber;
 import src.hangmanGame.Hangman;
 import src.util.Console;
 
@@ -63,10 +64,10 @@ public class InputView {
         return filteredInput.toLowerCase().charAt(0);
     }
 
-    public static int inputMenuNumber() {
+    public static MenuNumber inputMenuNumber() {
         try {
             int input = inputNumberOf(CHOICE_GAME_MENU);
-            return new MenuNumber(input).number;
+            return new MenuNumber(input);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
             return inputMenuNumber();
@@ -92,25 +93,5 @@ public class InputView {
         System.out.println(OU + message);
         System.out.print(IN);
         return Console.readLine();
-    }
-
-    // menuNumber 래퍼 클래스
-    private static class MenuNumber {
-
-        private static final String ERR_INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
-        private static final int MIN_MENU_NUMBER = 1;
-        private static final int MAX_MENU_NUMBER = 3;
-
-        private int number;
-
-        public MenuNumber(int MenuNumber) throws IllegalArgumentException {
-            validateRangeOfMenuNumber(number);
-            this.number = MenuNumber;
-        }
-
-        private void validateRangeOfMenuNumber(int number) throws IllegalArgumentException {
-            if (number > MAX_MENU_NUMBER || number < MIN_MENU_NUMBER)
-                throw new IllegalArgumentException(ERR_INPUT_RANGE_OF_MENU);
-        }
     }
 }

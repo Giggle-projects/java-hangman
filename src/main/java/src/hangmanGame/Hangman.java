@@ -1,5 +1,6 @@
 package src.hangmanGame;
 
+import src.dto.MenuNumber;
 import src.view.InputView;
 import src.view.OutputView;
 
@@ -43,8 +44,8 @@ public class Hangman {
     }
 
     private void chooseMenu() {
-        int menuNumber = InputView.inputMenuNumber();
-        switch (menuNumber) {
+        MenuNumber menuNumber = InputView.inputMenuNumber();
+        switch (menuNumber.number()) {
             case 1: break;
             case 2: viewGameResult();
             case 3: viewRoundResult();
