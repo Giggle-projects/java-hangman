@@ -53,7 +53,7 @@ public class InputView {
     public static SingleAlphabet inputSingleAlphabet(String roundInfo) {
         try {
             String input = inputOf(roundInfo);
-            return new SingleAlphabet(input);
+            return SingleAlphabet.of(input);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
             return inputSingleAlphabet(roundInfo);
