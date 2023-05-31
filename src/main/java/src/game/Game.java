@@ -1,5 +1,7 @@
 package src.game;
 
+import src.util.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,11 +18,11 @@ public class Game {
         this.life = life;
     }
 
-    public static Game createGame() throws IOException {
+    public static Game createGame() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true){
             try {
-                System.out.println("게임 횟수와 목숨을 입력하세요.");
+                System.out.println(Message.MSG_GAME_START);
                 String input = br.readLine();
                 StringTokenizer st = new StringTokenizer(input, ",");
 
@@ -30,9 +32,11 @@ public class Game {
 
                 return new Game(gameRound, life);
             } catch (NumberFormatException e){
-                System.out.println("잘못된 입력입니다. 숫자로 다시 입력해주세요.");
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_NUMBER_FORMAT);
             } catch (NoSuchElementException e){
-                System.out.println("잘못된 입력입니다. 게임 횟수와 목숨을 ','로 구분하여 다시 입력해주세요.");
+                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

@@ -1,5 +1,9 @@
 package src.game;
 
+import src.exception.InputCharFormatException;
+import src.exception.InputCharRangeException;
+import src.util.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,34 +50,35 @@ public class Question {
 
             if (targetQuestion.contentEquals(enteredAnswer)) {
                 System.out.println(round + " 라운드 : " + enteredAnswer + ", 목숨 " + life);
-                System.out.println("축하합니다. 정답입니다.");
+                System.out.println(Message.MSG_ROUND_CLEAR);
                 life = -1;
             }
 
             if (life == 0){
-                System.out.println("주어진 목숨을 전부 사용하셨습니다.");
+                System.out.println(Message.MSG_ROUND_OVER);
                 life = -1;
             }
         }
     }
 
     public static char getChar()  {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String targetInput = br.readLine().toLowerCase();
+        while (true) {
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String targetInput = br.readLine().toLowerCase();
 
-            if (targetInput.length() != 1) {
-                throw new IllegalArgumentException("한 글자만 입력해주세요.");
+                if (targetInput.length() != 1) {
+                    throw new InputCharRangeException();
+                }
+                char targetChar = targetInput.charAt(0);
+                if (targetChar < 'a' || targetChar > 'z')
+                    throw new InputCharFormatException();
+                return targetChar;
+            } catch (InputCharFormatException | InputCharRangeException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
             }
-            char targetChar = targetInput.charAt(0);
-            if (targetChar < 'a' || targetChar > 'z')
-                throw new IllegalArgumentException("a-z, A-Z 사이의 글자만 입력해주세요.");
-            return targetChar;
-        } catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-            return getChar();
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
         }
     }
 
