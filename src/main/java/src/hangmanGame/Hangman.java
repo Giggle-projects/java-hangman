@@ -43,8 +43,8 @@ public class Hangman {
     }
 
     private void chooseMenu() {
-        InputView.MenuNumber menuNumber = InputView.inputMenuNumber();
-        switch (menuNumber.number()) {
+        int menuNumber = InputView.inputMenuNumber();
+        switch (menuNumber) {
             case 1: break;
             case 2: viewGameResult();
             case 3: viewRoundResult();

@@ -51,7 +51,7 @@ public class InputView {
         }
     }
 
-    public static char inputAlphabet(String roundInfo) throws IllegalArgumentException {
+    public static char inputSingleAlphabet(String roundInfo) throws IllegalArgumentException {
         String filteredInput;
         while (true) {
             String input = inputOf(roundInfo);
@@ -63,10 +63,10 @@ public class InputView {
         return filteredInput.toLowerCase().charAt(0);
     }
 
-    public static MenuNumber inputMenuNumber() {
+    public static int inputMenuNumber() {
         try {
             int input = inputNumberOf(CHOICE_GAME_MENU);
-            return new MenuNumber(input);
+            return new MenuNumber(input).number;
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
             return inputMenuNumber();
@@ -95,7 +95,7 @@ public class InputView {
     }
 
     // menuNumber 래퍼 클래스
-    public static class MenuNumber {
+    private static class MenuNumber {
 
         private static final String ERR_INPUT_RANGE_OF_MENU = "메뉴 범위의 숫자를 입력해 주세요.";
         private static final int MIN_MENU_NUMBER = 1;
@@ -111,10 +111,6 @@ public class InputView {
         private void validateRangeOfMenuNumber(int number) throws IllegalArgumentException {
             if (number > MAX_MENU_NUMBER || number < MIN_MENU_NUMBER)
                 throw new IllegalArgumentException(ERR_INPUT_RANGE_OF_MENU);
-        }
-
-        public int number() {
-            return number;
         }
     }
 }
