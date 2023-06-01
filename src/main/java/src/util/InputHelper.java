@@ -55,9 +55,7 @@ public class InputHelper {
 				}
 
 				return input.toLowerCase();	// 입력 대소문자 가능 -> 내부에서는 소문자로 연산
-			}catch (InputEmptyException e){
-				printInfo(e.getMessage());
-			}catch (InvalidInputFormatException e){
+			}catch (InputEmptyException | InvalidInputFormatException e){
 				printInfo(e.getMessage());
 			}
 			catch (IOException e) {
@@ -121,9 +119,7 @@ public class InputHelper {
 				}
 
 				return arr;
-			}catch (InputEmptyException e){
-				printInfo(e.getMessage());
-			}catch (InvalidDelimiterException e) {
+			}catch (InputEmptyException | InvalidDelimiterException e){
 				printInfo(e.getMessage());
 			}catch (NumberFormatException e) {
 				printInfo(ERROR_INVALID_INPUT_FORMAT.getMessage());
