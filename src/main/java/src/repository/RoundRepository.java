@@ -2,15 +2,15 @@ package src.repository;
 
 import static src.exception.ErrorCode.*;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 import src.hangman.HangmanRound;
 
 public class RoundRepository {
 	private static RoundRepository roundRepository;	//singleton
-	private SortedMap<Integer, HangmanRound> roundDB;	// gameId,HangmanRound
+	private Map<Integer, HangmanRound> roundDB;	// gameId,HangmanRound
 	private RoundRepository(){
 		roundDB =new TreeMap<>();
 	}

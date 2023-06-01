@@ -2,15 +2,15 @@ package src.repository;
 
 import static src.exception.ErrorCode.*;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 import src.hangman.HangmanGame;
 
 public class GameRepository {
 	private static GameRepository gameRepository;	//singleton
-	private SortedMap<Integer,HangmanGame> gameDB;	// gameId,HangmanGame
+	private Map<Integer,HangmanGame> gameDB;	// gameId,HangmanGame
 	private GameRepository(){
 		gameDB =new TreeMap<>();
 	}
