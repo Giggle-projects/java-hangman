@@ -2,15 +2,11 @@ package src;
 
 import java.util.Random;
 
-public class Set {
+public class GameAnswer {
     private static String[] word = {"apple", "orange", "pineapple"};
 
     public String[] getWord() {
         return word;
-    }
-
-    public void setWord(String[] word) {
-        this.word = word;
     }
 
     public static String setAnswer(){
