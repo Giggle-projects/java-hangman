@@ -2,7 +2,6 @@ package src.dto;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 public class SingleAlphabet {
 
@@ -14,21 +13,16 @@ public class SingleAlphabet {
 
     private final char alphabet;
 
-    private SingleAlphabet(int code) throws IllegalArgumentException {
+    private SingleAlphabet(int code) {
         this.alphabet = (char) code;
     }
 
     public static SingleAlphabet of(String alphabet) throws IllegalArgumentException {
         int code = alphabetToASCIICode(alphabet);
-
         if (!SINGLE_ALPHABETS.containsKey(code)) {
             SINGLE_ALPHABETS.put(code, new SingleAlphabet(code));
         }
         return SINGLE_ALPHABETS.get(code);
-    }
-
-    public char alphabet() {
-        return alphabet;
     }
 
     private static int alphabetToASCIICode(String alphabet) throws IllegalArgumentException {
@@ -44,5 +38,9 @@ public class SingleAlphabet {
 
     private static String filteringValue(String alphabet) {
         return alphabet.replaceAll(REGEX_REMOVE_WITHOUT_ALPHABET, BLANK);
+    }
+
+    public char alphabet() {
+        return alphabet;
     }
 }
