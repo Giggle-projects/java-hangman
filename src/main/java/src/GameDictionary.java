@@ -23,11 +23,13 @@ public enum GameDictionary {
         return length;
     }
 
-    public static String getWordFromDict() {
-        GameDictionary[] words = GameDictionary.values();
-        int idx = new Random().nextInt(words.length);
-        return words[idx].getName();
-    }
+//    public static String getWordFromDict() {
+//        GameDictionary[] words = GameDictionary.values();
+//        int idx = new Random().nextInt(words.length);
+//        String word = words[idx].getName();
+//
+//        return word;
+//    }
 
 
 }
