@@ -3,9 +3,9 @@ package src;
 import java.util.*;
 
 public class HangManApplication {
-    private static Scanner scanner = new Scanner(System.in);
-    private static User user = new User();
-    private static List<Game> games = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final User user = new User();
+    private static final List<Game> games = new ArrayList<>();
 
     public static void main(String[] args) {
         while (true) {
@@ -15,8 +15,8 @@ public class HangManApplication {
                 int menuNum = scanner.nextInt();
                 switch (menuNum) {
                     case 1 -> playGame();
-                    case 2 -> showGameResult(scanner);
-                    case 3 -> showRoundResult(scanner);
+                    case 2 -> showGameResult();
+                    case 3 -> showRoundResult();
                     case 4 -> {
                         System.out.println("종료되었습니다.");
                         return;
@@ -62,12 +62,12 @@ public class HangManApplication {
                 System.out.println("\n다음 게임을 시작합니다.");
             }
             System.out.println(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + answer.length() + "글자 입니다.");
-            playRound(gameId, userLife, answer, blind, scanner);
+            playRound(gameId, userLife, answer, blind);
             gameId++;
         }
     }
 
-    private static void playRound(int gameId, int userLife, String answer, char[] blind, Scanner scanner) {
+    private static void playRound(int gameId, int userLife, String answer, char[] blind) {
         int roundId = 1;
         Set<Character> prevAlp = new HashSet<>();
         List<Round> gameRound = new ArrayList<>();
@@ -76,7 +76,7 @@ public class HangManApplication {
             String blindScreen = String.valueOf(blind);
             System.out.println(roundId + " 라운드 : " + blindScreen + ", 목숨 " + userLife);
 
-            char guess = getValidAlphabetInput("알파벳을 입력해주세요: ");
+            char guess = getValidAlphabetInput();
             guess = Character.toLowerCase(guess);
 
             if (prevAlp.contains(guess)) {
@@ -150,8 +150,8 @@ public class HangManApplication {
         System.out.println("===================");
     }
 
-    public static void showGameResult(Scanner scanner) {
-        int gameId = getValidInput("게임 ID를 입력하세요: ", "숫자를 입력해주세요.");
+    public static void showGameResult() {
+        int gameId = getValidInput("게임 ID를 입력하세요: ");
 
         if (gameId <= 0 || gameId > games.size()) {
             System.out.println("해당 결과가 존재하지 않습니다.");
@@ -160,16 +160,16 @@ public class HangManApplication {
         }
     }
 
-    public static void showRoundResult(Scanner scanner) {
+    public static void showRoundResult() {
         System.out.println("게임 ID를 입력하세요.");
-        int gameId = getValidInput("게임 ID를 입력하세요: ", "숫자를 입력해주세요.");
+        int gameId = getValidInput("게임 ID를 입력하세요: ");
 
         if (gameId <= 0 || gameId > games.size()) {
             System.out.println("해당 결과가 존재하지 않습니다.");
             return;
         }
 
-        int roundId = getValidInput("라운드 ID를 입력하세요: ", "숫자를 입력해주세요.");
+        int roundId = getValidInput("라운드 ID를 입력하세요: ");
 
         Game game = games.get(gameId - 1);
         List<Round> roundList = game.getRounds();
@@ -181,7 +181,7 @@ public class HangManApplication {
         }
     }
 
-    private static int getValidInput(String msg, String errorMessage) {
+    private static int getValidInput(String msg) {
         while (true) {
             try {
                 System.out.print(msg);
@@ -189,16 +189,16 @@ public class HangManApplication {
                 scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
-                System.out.println(errorMessage);
+                System.out.println("숫자를 입력해주세요.");
                 scanner.nextLine();
             }
         }
     }
 
-    private static char getValidAlphabetInput(String msg) {
+    private static char getValidAlphabetInput() {
         while (true) {
             try {
-                System.out.print(msg);
+                System.out.print("알파벳을 입력해주세요.");
                 String input = scanner.nextLine().toLowerCase();
                 if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
                     return input.charAt(0);

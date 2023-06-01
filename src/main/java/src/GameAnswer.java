@@ -3,7 +3,7 @@ package src;
 import java.util.Random;
 
 public class GameAnswer {
-    private static String[] word = {"apple", "orange", "pineapple"};
+    private static final String[] word = {"apple", "orange", "pineapple"};
 
     public static String setAnswer(){
         int idx = new Random().nextInt(word.length);

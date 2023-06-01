@@ -1,10 +1,10 @@
 package src;
 
 public class Round {
-    private int roundId;
-    private int userLife;
-    private String blindScreen;
-    private char userAnswer;
+    private final int roundId;
+    private final int userLife;
+    private final String blindScreen;
+    private final char userAnswer;
 
     public Round(int roundId, int userLife, String blindScreen, char userAnswer) {
         this.roundId = roundId;
