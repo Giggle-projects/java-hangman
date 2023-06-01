@@ -6,13 +6,16 @@ import src.result.GameResult;
 import src.result.GameResultSingleton;
 import src.result.RoundResult;
 import src.result.RoundResultSingleton;
+import src.util.Menu;
 import src.util.Message;
 import src.util.Utils;
 
+import java.io.IOException;
 import java.util.List;
 
 import static src.game.Game.createProblems;
-import static src.util.Menu.chooseCategory;
+import static src.util.InputMenu.chooseCategory;
+import static src.util.InputMenu.chooseMenu;
 
 public class HangManApplication {
     static GameResultSingleton gameResultSingleton = GameResultSingleton.getInstance();
@@ -20,15 +23,40 @@ public class HangManApplication {
 
     public static void main(String[] args) {
 
-        Game game = Game.createGame();
-        String categoryName = chooseCategory();
-        List<String> problems = createProblems(game.getGameRound(), categoryName);
-        int life = game.getLife();
+        while (true){
+            final Menu menu = chooseMenu();
 
-        playHangmanGame(game, problems, life);
-        printGameResult();
+            if (menu == Menu.PLAY_GAME){
+                System.out.println(Message.MSG_GAME_START);
+                Game game = Game.createGame();
+                String categoryName = chooseCategory();
+                List<String> problems = createProblems(game.getGameRound(), categoryName);
+                int life = game.getLife();
+
+                playHangmanGame(game, problems, life);
+            }
 
 
+            if (menu == Menu.SHOW_GAME_RESULT) {
+                System.out.println(Message.MSG_INPUT_GAME_ID);
+                final int gameId = Utils.getInt();
+
+                System.out.println(gameResultSingleton.printGameResult(gameId));
+            }
+
+            if (menu == Menu.SHOW_ROUND_RESULT) {
+                System.out.println(Message.MSG_INPUT_GAME_ID);
+                final int gameId = Utils.getInt();
+                System.out.println(Message.MSG_INPUT_ROUND_ID);
+                final int roundId = Utils.getInt();
+
+                System.out.println(roundResultSingleton.printRoundResult(gameId, roundId));
+            }
+
+            if (menu.isEnd()){
+                break;
+            }
+        }
     }
 
     private static void playHangmanGame(Game game, List<String> problems, int life) {
@@ -41,13 +69,15 @@ public class HangManApplication {
             System.out.println(gameNum+"번째 게임이 시작됩니다. 정답 단어는 "
                     + problem.length() +"글자 입니다.");
 
-            guessingWords(gameNum, life, problem);
+            guessingWords(life, problem);
         }
     }
 
-    public static void guessingWords(int gameNum, int life, String problem){
+    public static void guessingWords(int life, String problem) {
         GameResult gameResult;
         RoundResult roundResult;
+        int gameSeqNum = GameResult.getGameSeqNum();
+        System.out.println(gameSeqNum);
         int round = 1;
 
         Question newRound = new Question(problem);
@@ -72,7 +102,7 @@ public class HangManApplication {
             }
             enteredAnswer = answer.toString();
 
-            roundResult = RoundResult.createRoundResult(round, life, enteredAnswer, targetChar, gameNum);
+            roundResult = RoundResult.createRoundResult(round, life, enteredAnswer, targetChar, gameSeqNum);
             roundResultSingleton.addRoundResult(roundResult);
 
             round++;
@@ -80,22 +110,18 @@ public class HangManApplication {
             if (newRound.getTargetQuestion().contentEquals(enteredAnswer)) {
                 System.out.println(round + " 라운드 : " + enteredAnswer + ", 목숨 " + life);
                 System.out.println(Message.MSG_ROUND_CLEAR);
-                gameResult = GameResult.createGameResult(gameNum, life, true, newRound.getTargetQuestion());
+                gameResult = GameResult.createGameResult(life, true, newRound.getTargetQuestion());
                 gameResultSingleton.addGameResult(gameResult);
                 life = -1;
             }
-
             if (life == 0){
                 System.out.println(Message.MSG_ROUND_OVER);
-                gameResult = GameResult.createGameResult(gameNum, life, false, newRound.getTargetQuestion());
+                gameResult = GameResult.createGameResult(life, false, newRound.getTargetQuestion());
                 gameResultSingleton.addGameResult(gameResult);
                 life = -1;
             }
         }
-    }
-
-    public static void printGameResult(){
-        System.out.println(gameResultSingleton.printGameResult());
-        System.out.println(roundResultSingleton.printRoundResult());
+        System.out.println(gameResultSingleton.printGameResult(gameSeqNum));
+        System.out.println(roundResultSingleton.printRoundResult(gameSeqNum));
     }
 }

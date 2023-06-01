@@ -3,10 +3,10 @@ package src.game;
 import src.problem.Problem;
 import src.util.Message;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
+
+import static src.util.Utils.inputGameRoundAndLife;
 
 public class Game {
     private static final int MAX_GAME_ROUND = 20;
@@ -36,37 +36,17 @@ public class Game {
     }
 
     public static Game createGame() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        while (true){
-            try {
-                System.out.println(Message.MSG_GAME_START);
-                String input = br.readLine();
-                StringTokenizer st = new StringTokenizer(input, ",");
+        List<Integer> inputArr = inputGameRoundAndLife();
 
-                int gameRound = Integer.parseInt(st.nextToken());
-                int life = Integer.parseInt(st.nextToken());
+        int gameRound = inputArr.get(0);
+        int life = inputArr.get(1);
 
-                System.out.println(gameRound+ "," + life);
-
-                if (st.hasMoreTokens()) {
-                    System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-                    continue;
-                }
-
-                if (gameRound > MAX_GAME_ROUND) {
-                    System.out.println(Message.ERR_MSG_INVALID_INPUT_ROUND_RANGE);
-                    continue;
-                }
-
-                return new Game(gameRound, life);
-            } catch (NumberFormatException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_NUMBER_FORMAT);
-            } catch (NoSuchElementException e){
-                System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        if (gameRound > MAX_GAME_ROUND) {
+            System.out.println(Message.ERR_MSG_INVALID_INPUT_ROUND_RANGE);
+            return createGame();
         }
+
+        return new Game(gameRound, life);
     }
 
     public static List<String> createProblems(int gameRound, String categoryName){

@@ -1,24 +1,34 @@
 package src.result;
 
 public class GameResult {
-    private int gameId;
+    private final int gameNum;
     private int remainingLives;
     private boolean successStatus;
     private String answer;
 
-    private GameResult(int gameId, int remainingLives, boolean successStatus, String answer) {
-        this.gameId = gameId;
+    private static int gameSeqNum = 1;
+
+    private GameResult() {
+        gameNum = gameSeqNum;
+        remainingLives = 0;
+        successStatus = true;
+        answer = null;
+        gameSeqNum++;
+    }
+
+    private GameResult(int remainingLives, boolean successStatus, String answer) {
+        this();
         this.remainingLives = remainingLives;
         this.successStatus = successStatus;
         this.answer = answer;
     }
 
-    public static GameResult createGameResult(int gameId, int remainingLives, boolean successStatus, String answer) {
-        return new GameResult(gameId, remainingLives, successStatus, answer);
+    public static GameResult createGameResult(int remainingLives, boolean successStatus, String answer) {
+        return new GameResult(remainingLives, successStatus, answer);
     }
 
-    public int getGameId() {
-        return gameId;
+    public int getGameNum() {
+        return gameNum;
     }
 
     public int getRemainingLives() {
@@ -33,10 +43,14 @@ public class GameResult {
         return answer;
     }
 
+    public static int getGameSeqNum() {
+        return gameSeqNum;
+    }
+
     @Override
     public String toString() {
         return "GameResult{" +
-                "gameId=" + gameId +
+                "gameId=" + gameNum +
                 ", remainingLives=" + remainingLives +
                 ", successStatus=" + successStatus +
                 ", answer='" + answer + '\'' +

@@ -1,11 +1,11 @@
 package src.result;
 
 public class RoundResult {
-    private int roundId;
-    private int life;
-    private String enteredAnswer;
-    private char userInput;
-    private int gameId;
+    private final int roundId;
+    private final int life;
+    private final String enteredAnswer;
+    private final char userInput;
+    private final int gameId;
 
     private RoundResult(int roundId, int life, String enteredAnswer, char userInput, int gameId) {
         this.roundId = roundId;
