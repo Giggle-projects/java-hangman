@@ -16,27 +16,28 @@ public class Utils {
             br = new BufferedReader(new InputStreamReader(System.in));
         }
 
-        List<Integer> inputArr = new ArrayList<>();
-        String inputLine;
-
         while (true) {
             try {
-                inputArr.clear();
-                inputLine = br.readLine();
-                StringTokenizer st = new StringTokenizer(inputLine, ",");
+                String inputLine = br.readLine();
+                String delimiter =  ",";
+                String[] userInput = inputLine.split(delimiter,2);
+                List<Integer> inputArr = new ArrayList<>();
 
-                for (int i = 0; i < 2; i++) {
-                    inputArr.add(Integer.parseInt(st.nextToken()));
+
+                for (String token : userInput) {
+                    if (isNumeric(token)) {
+                        int number = Integer.parseInt(token);
+                        inputArr.add(number);
+                    } else {
+                        throw new NumberFormatException();
+                    }
                 }
 
-                if (st.hasMoreTokens()) {
+                if (inputArr.size() > 2 || inputArr.size() == 1) {
                     System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-                    continue;
+                } else {
+                    return inputArr;
                 }
-
-                System.out.println(inputArr);
-                return inputArr;
-
             } catch (NumberFormatException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_NUMBER_FORMAT);
             } catch (NoSuchElementException e){
@@ -46,6 +47,16 @@ public class Utils {
             }
         }
     }
+
+    private static boolean isNumeric(String str) {
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static int getInt() {
         try {
