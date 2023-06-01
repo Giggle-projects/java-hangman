@@ -1,11 +1,11 @@
-package src.example;
+package src.problem;
 
-public enum ExampleList {
+public enum ProblemList {
     ANIMAL("Animal"), BODY("Body");
 
     private final String name;
 
-    ExampleList(String name) {
+    ProblemList(String name) {
         this.name = name;
     }
 

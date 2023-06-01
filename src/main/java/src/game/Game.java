@@ -1,10 +1,7 @@
 package src.game;
 
-import src.example.Example;
-import src.example.ExampleList;
-import src.exception.InputCategoryRangeException;
+import src.problem.Problem;
 import src.util.Message;
-import src.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,12 +10,6 @@ import java.util.*;
 
 public class Game {
     private static final int MAX_GAME_ROUND = 20;
-    private static final Map<Integer, ExampleList> GAME_CATEGORY = new LinkedHashMap<>();
-
-    static {
-        GAME_CATEGORY.put(1, ExampleList.ANIMAL);
-        GAME_CATEGORY.put(2, ExampleList.BODY);
-    }
 
     private final int gameRound;
     private final int life;
@@ -78,44 +69,18 @@ public class Game {
         }
     }
 
-    public static List<String> chooseCategory(int gameRound){
-
-        while (true){
-            try {
-                printCategory();
-                System.out.println(Message.MSG_CHOOSE_CATEGORY);
-                final int categoryNum = Utils.getInt();
-                String categoryName = GAME_CATEGORY.get(categoryNum).getName();
-                if (categoryNum < 1 || categoryNum > GAME_CATEGORY.size()) {
-                    throw new InputCategoryRangeException();
-                }
-                return createProblems(gameRound, categoryName);
-            } catch (InputCategoryRangeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private static void printCategory(){
-        for (int categoryNum : GAME_CATEGORY.keySet()) {
-            final ExampleList ex = GAME_CATEGORY.get(categoryNum);
-            System.out.println(categoryNum + ". " + ex.name());
-        }
-    }
-
-    private static List<String> createProblems(int gameRound, String categoryName){
+    public static List<String> createProblems(int gameRound, String categoryName){
         List<String> problems;
         try {
-
-            Class<?> enumClass = Class.forName("src.example."+categoryName);
-            Example ex = (Example) enumClass.getEnumConstants()[0];
+            Class<?> enumClass = Class.forName("src.problem." + categoryName);
+            Problem ex = (Problem) enumClass.getEnumConstants()[0];
             problems = ex.getNameList();
 
             Collections.shuffle(problems);
 
             for (int i = 0; i < gameRound; i++) {
-                String exampleName = problems.get(i);
-                problems.add(exampleName);
+                String problemName = problems.get(i);
+                problems.add(problemName);
             }
             return problems;
 

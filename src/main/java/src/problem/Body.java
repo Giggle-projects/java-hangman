@@ -1,9 +1,9 @@
-package src.example;
+package src.problem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Body implements Example {
+public enum Body implements Problem {
 
     EYES("eyes"), TEETH("teeth"), TOES("toes"), HEAD("head"), EYEBROW("eyebrow"),
     EARS("ears"), HAIR("hair"), SHOULDER("shoulder"), TONGUE("tongue"), BONES("bones"),

@@ -1,9 +1,9 @@
-package src.example;
+package src.problem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Animal implements Example {
+public enum Animal implements Problem {
 
     CAT("cat"), FROG("frog"), CHICKEN("chicken"), TURTLE("turtle"), CRAB("crab"),
     RABBIT("rabbit"), SHARK("shark"), CROCODILE("crocodile"), GIRAFFE("giraffe"), COW("cow"),

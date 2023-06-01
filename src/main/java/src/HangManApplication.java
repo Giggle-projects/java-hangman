@@ -11,39 +11,46 @@ import src.util.Utils;
 
 import java.util.List;
 
+import static src.game.Game.createProblems;
+import static src.util.Menu.chooseCategory;
+
 public class HangManApplication {
     static GameResultSingleton gameResultSingleton = GameResultSingleton.getInstance();
     static RoundResultSingleton roundResultSingleton = RoundResultSingleton.getInstance();
 
     public static void main(String[] args) {
+
         Game game = Game.createGame();
-        List<String> exampleList = Game.chooseCategory(game.getGameRound());
+        String categoryName = chooseCategory();
+        List<String> problems = createProblems(game.getGameRound(), categoryName);
         int life = game.getLife();
 
-        playHangmanGame(game, exampleList, life);
+        playHangmanGame(game, problems, life);
         printGameResult();
+
+
     }
 
-    private static void playHangmanGame(Game game, List<String> exampleList, int life) {
+    private static void playHangmanGame(Game game, List<String> problems, int life) {
         for (int gameNum = 1; gameNum <= game.getGameRound(); gameNum++) {
             if (gameNum > 1)
                 System.out.println(Message.MSG_NEXT_GAME);
 
-            String example = exampleList.get(gameNum);
+            String problem = problems.get(gameNum);
 
             System.out.println(gameNum+"번째 게임이 시작됩니다. 정답 단어는 "
-                    + example.length() +"글자 입니다.");
+                    + problem.length() +"글자 입니다.");
 
-            guessingWords(gameNum, life, example);
+            guessingWords(gameNum, life, problem);
         }
     }
 
-    public static void guessingWords(int gameNum, int life, String example){
+    public static void guessingWords(int gameNum, int life, String problem){
         GameResult gameResult;
         RoundResult roundResult;
         int round = 1;
 
-        Question newRound = new Question(example);
+        Question newRound = new Question(problem);
         System.out.println(newRound);
 
         String enteredAnswer = newRound.getEnteredAnswer();
