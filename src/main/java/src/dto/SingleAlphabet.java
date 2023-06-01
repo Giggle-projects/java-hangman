@@ -10,16 +10,7 @@ public class SingleAlphabet {
     private static final String REGEX_REMOVE_WITHOUT_ALPHABET = "[^a-zA-Z]";
     private static final String BLANK = "";
 
-    private static final int START_ALPHABET_ASCII_DECIMAL = 97;
-    private static final int END_ALPHABET_ASCII_DECIMAL = 122;
-
-    private static final Map<Integer, SingleAlphabet> SINGLE_ALPHABETS;
-
-    static {
-        SINGLE_ALPHABETS = new HashMap<>();
-        IntStream.range(START_ALPHABET_ASCII_DECIMAL, END_ALPHABET_ASCII_DECIMAL)
-                .forEach(i -> SINGLE_ALPHABETS.put(i, new SingleAlphabet(i)));
-    }
+    private static final Map<Integer, SingleAlphabet> SINGLE_ALPHABETS = new HashMap<>();
 
     private final char alphabet;
 
@@ -29,6 +20,10 @@ public class SingleAlphabet {
 
     public static SingleAlphabet of(String alphabet) throws IllegalArgumentException {
         int code = alphabetToASCIICode(alphabet);
+
+        if (!SINGLE_ALPHABETS.containsKey(code)) {
+            SINGLE_ALPHABETS.put(code, new SingleAlphabet(code));
+        }
         return SINGLE_ALPHABETS.get(code);
     }
 
