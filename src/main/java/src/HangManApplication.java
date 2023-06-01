@@ -10,7 +10,6 @@ import src.util.Menu;
 import src.util.Message;
 import src.util.Utils;
 
-import java.io.IOException;
 import java.util.List;
 
 import static src.game.Game.createProblems;
@@ -77,12 +76,9 @@ public class HangManApplication {
         GameResult gameResult;
         RoundResult roundResult;
         int gameSeqNum = GameResult.getGameSeqNum();
-        System.out.println(gameSeqNum);
         int round = 1;
 
         Question newRound = new Question(problem);
-        System.out.println(newRound);
-
         String enteredAnswer = newRound.getEnteredAnswer();
 
         while (life > -1) {

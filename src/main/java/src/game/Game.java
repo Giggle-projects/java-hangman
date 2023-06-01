@@ -3,7 +3,6 @@ package src.game;
 import src.problem.Problem;
 import src.util.Message;
 
-import java.io.IOException;
 import java.util.*;
 
 import static src.util.Utils.inputGameRoundAndLife;
