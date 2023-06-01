@@ -13,7 +13,7 @@ public class Round {
         this.userAnswer = userAnswer;
     }
 
-    public void PrintRoundResult() {
+    public void printRoundResult() {
         System.out.println("라운드 id : " + roundId
             + ", 남은 목숨 : " + userLife
             + ", " + blindScreen

@@ -5,10 +5,6 @@ import java.util.Random;
 public class GameAnswer {
     private static String[] word = {"apple", "orange", "pineapple"};
 
-    public String[] getWord() {
-        return word;
-    }
-
     public static String setAnswer(){
         int idx = new Random().nextInt(word.length);
         return word[idx];

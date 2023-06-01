@@ -3,28 +3,29 @@ package src;
 import java.util.*;
 
 public class HangManApplication {
-    public static Scanner scanner = new Scanner(System.in);
-    static User user = new User();
-    private static List<Round> rounds = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+    private static User user = new User();
     private static List<Game> games = new ArrayList<>();
-    private static boolean isSuccess;
 
     public static void main(String[] args) {
         while (true) {
+            System.out.println("===================");
             System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기, 4 : 게임종료)");
-            int menuNum = scanner.nextInt();
-            switch (menuNum) {
-                case 1 -> playGame();
-                case 2 -> {
-                    showGameResult(scanner);
+            if (scanner.hasNextInt()) {
+                int menuNum = scanner.nextInt();
+                switch (menuNum) {
+                    case 1 -> playGame();
+                    case 2 -> showGameResult(scanner);
+                    case 3 -> showRoundResult(scanner);
+                    case 4 -> {
+                        System.out.println("종료되었습니다.");
+                        return;
+                    }
+                    default -> System.out.println("잘못된 번호입니다.");
                 }
-                case 3 -> {
-                    showRoundResult(scanner);
-                }
-                case 4 -> {
-                    return;
-                }
-                default -> System.out.println("잘못된 번호입니다.");
+            } else {
+                System.out.println("숫자를 입력해주세요.");
+                scanner.next();
             }
         }
     }
@@ -35,7 +36,9 @@ public class HangManApplication {
         while (!isValidInput) {
             try {
                 System.out.println("게임 횟수와 목숨을 입력하세요.");
-                String[] input = scanner.nextLine().split(",");
+                scanner.nextLine();
+                String str = scanner.nextLine();
+                String[] input = str.split(",");
                 if (input.length < 2) {
                     throw new IllegalArgumentException("숫자, 숫자 형태로 입력해주세요.");
                 }
@@ -59,125 +62,152 @@ public class HangManApplication {
                 System.out.println("\n다음 게임을 시작합니다.");
             }
             System.out.println(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + answer.length() + "글자 입니다.");
-            round(userLife, answer, blind, scanner);
-            Game game = new Game(gameId, isSuccess, userLife, answer);
-            games.add(game);
-            GameResult(gameId);
+            playRound(gameId, userLife, answer, blind, scanner);
             gameId++;
         }
     }
 
-    private static void round(int userLife, String answer, char[] blind, Scanner scanner) {
-        String blindScreen;
-
+    private static void playRound(int gameId, int userLife, String answer, char[] blind, Scanner scanner) {
         int roundId = 1;
         Set<Character> prevAlp = new HashSet<>();
+        List<Round> gameRound = new ArrayList<>();
 
         while (userLife > 0) {
-            blindScreen = String.valueOf(blind);
+            String blindScreen = String.valueOf(blind);
             System.out.println(roundId + " 라운드 : " + blindScreen + ", 목숨 " + userLife);
-            boolean isValid = true;
-            char ch = '\0';
-            while (isValid) {
-                ch = scanner.next().charAt(0);
-                if (Character.isLowerCase(ch)) {
-                    isValid = false;
-                } else if (Character.isUpperCase(ch)) {
-                    ch = Character.toLowerCase(ch);
-                    isValid = false;
-                } else {
-                    System.out.println("알파벳을 입력해주세요.");
-                }
 
-                if (prevAlp.contains(ch)) {
-                    System.out.println("이미 입력하였던 알파벳입니다.");
-                    isValid = true;
-                }
+            char guess = getValidAlphabetInput("알파벳을 입력해주세요: ");
+            guess = Character.toLowerCase(guess);
+
+            if (prevAlp.contains(guess)) {
+                System.out.println("이미 입력하였던 알파벳입니다.");
+                continue;
             }
-            prevAlp.add(ch);
+            prevAlp.add(guess);
 
             boolean isMatch = false;
             for (int j = 0; j < answer.length(); j++) {
-                if (answer.charAt(j) == ch) {
-                    blind[j] = ch;
+                if (answer.charAt(j) == guess) {
+                    blind[j] = guess;
                     isMatch = true;
                 }
             }
+
             if (!isMatch) {
                 userLife--;
             }
-
-            isSuccess = true;
-            for (char c : blind) {
-                if (c == '_') {
-                    isSuccess = false;
-                    break;
-                }
-            }
-
-            Round result = new Round(roundId, userLife, blindScreen, ch);
-            rounds.add(result);
+            Round result = new Round(roundId, userLife, blindScreen, guess);
+            gameRound.add(result);
             roundId++;
 
-            if (isSuccess) {
+            if (isSuccess(blind)) {
                 System.out.println("축하합니다. 정답입니다.");
                 break;
             }
+
             if (userLife == 0) {
                 System.out.println("정답 맞추기에 실패하셨습니다.");
             }
         }
+
+        Game game = new Game(gameId, isSuccess(blind), userLife, answer, gameRound);
+        games.add(game);
+        GameResult(gameId);
+    }
+
+    private static boolean isSuccess(char[] blind){
+        for (char c : blind) {
+            if (c == '_') {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void GameResult(int gameId) {
         int idx = gameId - 1;
-        games.get(idx).PrintGameResult();
-
-        for (Round round : rounds) {
-            round.PrintRoundResult();
+        Game game = games.get(idx);
+        game.printGameResult();
+        System.out.println();
+        List<Round> roundList = game.getRounds();
+        for (Round round : roundList) {
+            round.printRoundResult();
         }
+        System.out.println("===================");
     }
 
-    public static void RoundResult(int roundId) {
+    public static void RoundResult(int gameId, int roundId) {
+        int gameIdx = gameId - 1;
+        int roundIdx = roundId - 1;
         System.out.println("=== Round Result ===");
-        rounds.get(roundId).PrintRoundResult();
+        Game game = games.get(gameIdx);
+        List<Round> roundList = game.getRounds();
+        if (roundIdx >= 0 && roundIdx < roundList.size()) {
+            roundList.get(roundIdx).printRoundResult();
+        } else {
+            System.out.println("해당 라운드 결과가 존재하지 않습니다.");
+        }
+        System.out.println("===================");
     }
 
     public static void showGameResult(Scanner scanner) {
-        System.out.println("게임 ID를 입력하세요.");
-        try {
-            int gameId = scanner.nextInt() - 1;
-            if (gameId < 0) {
-                throw new IllegalArgumentException("1 이상의 숫자만 입력해주세요.");
-            } else {
-                GameResult(gameId);
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("숫자를 입력해주세요.");
-            scanner.nextLine();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            scanner.nextLine();
+        int gameId = getValidInput("게임 ID를 입력하세요: ", "숫자를 입력해주세요.");
+
+        if (gameId <= 0 || gameId > games.size()) {
+            System.out.println("해당 결과가 존재하지 않습니다.");
+        } else {
+            GameResult(gameId);
         }
     }
 
     public static void showRoundResult(Scanner scanner) {
-        System.out.println("라운드 ID를 입력하세요.");
-        try {
-            int roundId = scanner.nextInt() - 1;
-            if (roundId < 0) {
-                throw new IllegalArgumentException("1 이상의 숫자만 입력해주세요.");
-            } else if (roundId >= rounds.size() || rounds.isEmpty()) {
-                System.out.println("해당 결과가 존재하지 않습니다.");
-            } else {
-                RoundResult(roundId);
+        System.out.println("게임 ID를 입력하세요.");
+        int gameId = getValidInput("게임 ID를 입력하세요: ", "숫자를 입력해주세요.");
+
+        if (gameId <= 0 || gameId > games.size()) {
+            System.out.println("해당 결과가 존재하지 않습니다.");
+            return;
+        }
+
+        int roundId = getValidInput("라운드 ID를 입력하세요: ", "숫자를 입력해주세요.");
+
+        Game game = games.get(gameId - 1);
+        List<Round> roundList = game.getRounds();
+
+        if (roundId <= 0 || roundId > roundList.size()) {
+            System.out.println("해당 결과가 존재하지 않습니다.");
+        } else {
+            RoundResult(gameId, roundId);
+        }
+    }
+
+    private static int getValidInput(String msg, String errorMessage) {
+        while (true) {
+            try {
+                System.out.print(msg);
+                int input = scanner.nextInt();
+                scanner.nextLine();
+                return input;
+            } catch (InputMismatchException e) {
+                System.out.println(errorMessage);
+                scanner.nextLine();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("숫자를 입력해주세요.");
-            scanner.nextLine();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            scanner.nextLine();
+        }
+    }
+
+    private static char getValidAlphabetInput(String msg) {
+        while (true) {
+            try {
+                System.out.print(msg);
+                String input = scanner.nextLine().toLowerCase();
+                if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
+                    return input.charAt(0);
+                } else {
+                    System.out.println("알파벳을 입력해주세요.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("알파벳을 입력해주세요.");
+            }
         }
     }
 }
