@@ -4,6 +4,7 @@ import src.example.Example;
 import src.example.ExampleList;
 import src.exception.InputCategoryRangeException;
 import src.util.Message;
+import src.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -83,7 +84,7 @@ public class Game {
             try {
                 printCategory();
                 System.out.println(Message.MSG_CHOOSE_CATEGORY);
-                final int categoryNum = getInt();
+                final int categoryNum = Utils.getInt();
                 String categoryName = GAME_CATEGORY.get(categoryNum).getName();
                 if (categoryNum < 1 || categoryNum > GAME_CATEGORY.size()) {
                     throw new InputCategoryRangeException();
@@ -120,15 +121,6 @@ public class Game {
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    private static int getInt() {
-        try {
-            return Integer.parseInt(new Scanner(System.in).nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println(Message.ERR_MSG_INVALID_INPUT_NUMBER_FORMAT);
-            return getInt();
         }
     }
 }
