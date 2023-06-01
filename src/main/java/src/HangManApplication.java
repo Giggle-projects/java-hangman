@@ -42,9 +42,9 @@ public class HangManApplication {
         SHOW_ROUND_RESULT(ROOT_MENU_SHOW_ROUND_RESULT,3,HangManApplication::showRoundResult),
         END(ROOT_MENU_END,4,() -> InputHelper.printInfo(INFO_END_APPLICATION));
 
-        String description;
-        Integer code;
-        Runnable function;
+        private final String description;
+        private final Integer code;
+        private final Runnable function;
 
         RootMenu(String description, Integer code, Runnable function) {
             this.description = description;
