@@ -26,13 +26,14 @@ public class Input {
                 System.out.printf(") : \n");
 
                 String str = scanner.next();
-                int numOfChosen = Integer.parseInt(str);
+                int choice = Integer.parseInt(str);
 
-                if (numOfChosen == 1) {
-                    game.initGame();
-                } else if (numOfChosen == 2) {
+                if (choice == 1) {
+                    int[] arr = game.initGame();
+                    game.startGame(arr[0], arr[1]);
+                } else if (choice == 2) {
                     game.getGameScore();
-                } else if (numOfChosen == 3) {
+                } else if (choice == 3) {
                     game.getRoundScore();
                 }
 
