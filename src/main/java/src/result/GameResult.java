@@ -12,7 +12,7 @@ public class GameResult {
     private List<RoundResult> rounds;
 
     public GameResult() {
-
+        this.rounds = new ArrayList<>();
     }
 
     public void startGame() {
@@ -20,11 +20,11 @@ public class GameResult {
     }
 
     public GameResult(String isWin, int numOfLife, String answer) {
+        this();
         GAME_ID++;
         this.isWin = isWin;
         this.numOfLife = numOfLife;
         this.answer = answer;
-        this.rounds = new ArrayList<>();
     }
 
     public void addRound(RoundResult roundResult) {
