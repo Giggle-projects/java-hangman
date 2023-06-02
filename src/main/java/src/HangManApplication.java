@@ -5,7 +5,6 @@ import static src.util.Description.*;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import src.exception.InvalidInputFormatException;
@@ -17,139 +16,144 @@ import src.repository.RoundRepository;
 import src.util.InputHelper;
 
 public class HangManApplication {
-    private final static GameRepository gameRepository = GameRepository.getInstance();
-    private final static RoundRepository roundRepository = RoundRepository.getInstance();
+	private final static GameRepository gameRepository = GameRepository.getInstance();
+	private final static RoundRepository roundRepository = RoundRepository.getInstance();
 
-    public static void main(String[] args) {
-        while (true){
-            try{
-                int inputs = InputHelper.singleIntegerInput(RootMenu.chooseDescription());
-                RootMenu rootMenu = RootMenu.findByCode(inputs);
-                rootMenu.run();
+	public static void main(String[] args) {
+		while (true) {
+			try {
+				int inputs = InputHelper.singleIntegerInput(RootMenu.chooseDescription());
+				RootMenu rootMenu = RootMenu.findByCode(inputs);
+				rootMenu.run();
 
-                if (rootMenu == RootMenu.END) {
-                    break;
-                }
-            }catch(NoSuchElementException e){
-                InputHelper.printInfo(e.getMessage());
-            }
-        }
-    }
+				if (rootMenu == RootMenu.END) {
+					break;
+				}
+			} catch (NoSuchElementException e) {
+				InputHelper.printInfo(e.getMessage());
+			}
+		}
+	}
 
-    private enum RootMenu{
-        PLAY_GAME(ROOT_MENU_PLAY_GAME,1, HangManApplication::playGame),
-        SHOW_GAME_RESULT(ROOT_MENU_SHOW_GAME_RESULT,2,HangManApplication::showGameResult),
-        SHOW_ROUND_RESULT(ROOT_MENU_SHOW_ROUND_RESULT,3,HangManApplication::showRoundResult),
-        END(ROOT_MENU_END,4,() -> InputHelper.printInfo(INFO_END_APPLICATION));
+	private enum RootMenu {
+		PLAY_GAME(ROOT_MENU_PLAY_GAME, 1, HangManApplication::playGame),
+		SHOW_GAME_RESULT(ROOT_MENU_SHOW_GAME_RESULT, 2, HangManApplication::showGameResult),
+		SHOW_ROUND_RESULT(ROOT_MENU_SHOW_ROUND_RESULT, 3, HangManApplication::showRoundResult),
+		END(ROOT_MENU_END, 4, () -> {
+			InputHelper.printInfo(INFO_END_APPLICATION);
+			InputHelper.close();
+		});
 
-        private final String description;
-        private final Integer code;
-        private final Runnable function;
+		private final String description;
+		private final Integer code;
+		private final Runnable function;
 
-        RootMenu(String description, Integer code, Runnable function) {
-            this.description = description;
-            this.code = code;
-            this.function = function;
-        }
+		RootMenu(String description, Integer code, Runnable function) {
+			this.description = description;
+			this.code = code;
+			this.function = function;
+		}
 
-        public void run(){
-             function.run();
-        }
+		public void run() {
+			function.run();
+		}
 
-        public static RootMenu findByCode(int code){
-            return Arrays.stream(RootMenu.values())
-                .filter(m -> m.getCode().equals(code))
-                .findFirst()
-                .orElseThrow(()->new NoSuchElementException(ERROR_NO_SUCH_MENU.getMessage()));
-        }
-        public static String chooseDescription(){
-            StringBuilder sb = new StringBuilder();
-            sb.append("메뉴를 선택합니다. (");
-            sb.append(
-                Arrays.stream(RootMenu.values())
-                    .map(RootMenu::toString)
-                    .collect(Collectors.joining(", "))
-                    .toString()
-            );
-            sb.append(")");
+		public static RootMenu findByCode(int code) {
+			return Arrays.stream(RootMenu.values())
+				.filter(m -> m.getCode().equals(code))
+				.findFirst()
+				.orElseThrow(() -> new NoSuchElementException(ERROR_NO_SUCH_MENU.getMessage()));
+		}
 
-            return sb.toString();
-        }
+		public static String chooseDescription() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("메뉴를 선택합니다. (");
+			sb.append(
+				Arrays.stream(RootMenu.values())
+					.map(RootMenu::toString)
+					.collect(Collectors.joining(", "))
+					.toString()
+			);
+			sb.append(")");
 
-        public Integer getCode() {
-            return code;
-        }
+			return sb.toString();
+		}
 
-        @Override
-        public String toString() {
-            return code + " : " + description  ;
-        }
-    }
+		public Integer getCode() {
+			return code;
+		}
 
-    private static void playGame() {
-        int playCount;
-        int life;
+		@Override
+		public String toString() {
+			return code + " : " + description;
+		}
+	}
 
-        while (true){
-            try{
-                Integer[] inputs = InputHelper.multiIntegerInput(INPUT_GAME_COUNT_AND_LIFE);
+	private static void playGame() {
+		int playCount;
+		int life;
 
-                if (inputs.length != 2) {
-                    throw new InvalidInputFormatException(ERROR_INVALID_INPUT_COUNT.getMessage());
-                }
+		while (true) {
+			try {
+				Integer[] inputs = InputHelper.multiIntegerInput(INPUT_GAME_COUNT_AND_LIFE);
 
-                playCount = inputs[0];
-                life = inputs[1];
-                break;
-            }catch(InvalidInputFormatException e){
-               InputHelper.printInfo(e.getMessage());
-            }
-        }
+				if (inputs.length != 2) {
+					throw new InvalidInputFormatException(ERROR_INVALID_INPUT_COUNT.getMessage());
+				}
 
-        while (playCount-->0){
-            GameLauncher gameLauncher =new GameLauncher(life);
-            gameLauncher.start();
+				playCount = inputs[0];
+				life = inputs[1];
+				break;
+			} catch (InvalidInputFormatException e) {
+				InputHelper.printInfo(e.getMessage());
+			}
+		}
 
-            if(playCount>0){
-                InputHelper.printInfo(INFO_START_NEXT_GAME);
-            }
-        }
-    }
-    private static void showGameResult() {
-        if(gameRepository.isEmpty()){
-            InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
-            return ;
-        }
+		while (playCount-- > 0) {
+			GameLauncher gameLauncher = new GameLauncher(life);
+			gameLauncher.start();
 
-        while (true){
-            try{
-                int input = InputHelper.singleIntegerInput(INPUT_GAME_ID);
+			if (playCount > 0) {
+				InputHelper.printInfo(INFO_START_NEXT_GAME);
+			}
+		}
+	}
 
-                HangmanGame game =gameRepository.getByGameId(input);
-                InputHelper.printInfo(game.resultString());
-                break;
-            }catch(NoSuchElementException e){
-                InputHelper.printInfo(e.getMessage());
-            }
-        }
-    }
+	private static void showGameResult() {
+		if (gameRepository.isEmpty()) {
+			InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
+			return;
+		}
 
-    private static void showRoundResult() {
-        if(roundRepository.isEmpty()){
-            InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
-            return;
-        }
+		while (true) {
+			try {
+				int input = InputHelper.singleIntegerInput(INPUT_GAME_ID);
 
-        while (true){
-            try{
-                int input = InputHelper.singleIntegerInput(INPUT_ROUND_ID);
+				HangmanGame game = gameRepository.getByGameId(input);
+				InputHelper.printInfo(game.resultString());
+				break;
+			} catch (NoSuchElementException e) {
+				InputHelper.printInfo(e.getMessage());
+			}
+		}
+	}
 
-                HangmanRound round =roundRepository.getByRoundId(input);
-                InputHelper.printInfo(round.resultString());
-                break;
-            }catch(NoSuchElementException e){
-                InputHelper.printInfo(e.getMessage());
-            }
-        }
-    }
+	private static void showRoundResult() {
+		if (roundRepository.isEmpty()) {
+			InputHelper.printInfo(ERROR_NO_GAME_HISTORY.getMessage());
+			return;
+		}
+
+		while (true) {
+			try {
+				int input = InputHelper.singleIntegerInput(INPUT_ROUND_ID);
+
+				HangmanRound round = roundRepository.getByRoundId(input);
+				InputHelper.printInfo(round.resultString());
+				break;
+			} catch (NoSuchElementException e) {
+				InputHelper.printInfo(e.getMessage());
+			}
+		}
+	}
 }
