@@ -87,7 +87,14 @@ public class Game {
                         if (! isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
                         if (numOfLife == 0) {
                             System.out.println("Game Over : 게임을 종료합니다.");
-                            break;
+
+                            gameResult.setNumOfLife(numOfLife);
+                            gameResult.setIsWin("실패");
+                            gameResult.setAnswer(wordOfGame);
+                            numOfPlayedGame++;
+
+                            printGameScore(gameResult);
+                            Input.chooseMenu();
                         }
 
                         numOfRound++;
@@ -133,8 +140,9 @@ public class Game {
     }
 
     public static void printRoundScore(RoundResult roundResult) {
-        System.out.println("=== Round Result");
+        System.out.println("=== Round Result ===");
         System.out.printf("라운드 id : %d, 남은 목숨 : %d, %s, 사용자 입력 : %c\n", roundResult.getRoundId(), roundResult.getNumOfLife(), roundResult.getDiscoveredWord(), roundResult.getStrFromUser());
+        System.out.println("==================");
     }
 
     public static void findGameById(int numOfGameId) {
