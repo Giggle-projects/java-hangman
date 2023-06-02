@@ -109,8 +109,8 @@ public class Game {
                             printGameScore(gameResult);
 
                             if (numOfGame == 1) {
-                                System.out.println("게임끝");
-                                System.exit(0);
+                                System.out.println("게임이 끝났습니다. 초기 메뉴화면을 출력합니다.");
+                                Input.chooseMenu();
                             } else if (numOfPlayedGame < numOfGame) {
                                 System.out.println("다음 게임을 시작합니다.");
                                 break;
