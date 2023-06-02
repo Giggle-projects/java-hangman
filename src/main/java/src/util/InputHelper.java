@@ -38,10 +38,7 @@ public class InputHelper {
 	}
 
 	public static String singleAlphabetInput(String message) {
-		refreshBuilder();
-
-		OU.append(message);
-		System.out.println(OU);
+		printInfo(message);
 
 		while (true) {
 			try {
@@ -66,10 +63,7 @@ public class InputHelper {
 	}
 
 	public static int singleIntegerInput(String message) {
-		refreshBuilder();
-
-		OU.append(message);
-		System.out.println(OU);
+		printInfo(message);
 
 		while (true) {
 			try {
@@ -92,10 +86,7 @@ public class InputHelper {
 	}
 
 	public static Integer[] multiIntegerInput(String message) {
-		refreshBuilder();
-
-		OU.append(message);
-		System.out.println(OU);
+		printInfo(message);
 
 		while (true) {
 			try {
