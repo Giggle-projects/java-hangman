@@ -42,11 +42,19 @@ public class Input {
                     }
                     System.out.printf("게임 ID를 입력해 주세요 : ");
                     String input = scanner.next();
-                    Integer numOfId = Integer.parseInt(input);
-                    Game.findGameById(numOfId);
+                    Integer numOfGameId = Integer.parseInt(input);
+                    Game.findGameById(numOfGameId);
                     chooseMenu();
                 } else if (choice == 3) {
-                    game.getRoundScore();
+                    if (gameResults.isEmpty()) {
+                        System.out.println("게임 정보가 없습니다. 게임을 먼저 진행해 주십시오.");
+                        chooseMenu();
+                    }
+                    System.out.printf("라운드 ID를 입력해 주세요 : ");
+                    String input = scanner.next();
+                    Integer numOfRoundId = Integer.parseInt(input);
+                    Game.findRoundById(numOfRoundId);
+                    chooseMenu();
                 }
 
             } catch (NumberFormatException e) {

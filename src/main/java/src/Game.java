@@ -13,6 +13,7 @@ public class Game {
     private static Game game;
     private static List<GameDictionary> wordList = new ArrayList<>(Arrays.asList(GameDictionary.values()));
     public static List<GameResult> gameResults = new ArrayList<>();
+    public static List<RoundResult> roundResults = new ArrayList<>();
 
     public static Game getInstance() {
         if (game == null) {
@@ -78,8 +79,9 @@ public class Game {
                         roundResult.setDiscoveredWord(new String(gameArray));
                         roundResult.setStrFromUser(input);
                         roundResult.setRoundId(RoundResult.ROUND_ID);
+
+                        roundResults.add(roundResult);
                         gameResult.addRound(roundResult);
-                        System.out.println("test ROUND_ID : " + RoundResult.ROUND_ID);
                         gameResults.add(gameResult);
 
                         if (! isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
@@ -130,30 +132,35 @@ public class Game {
         System.out.println("==================");
     }
 
-    public void getRoundScore() {
-
+    public static void printRoundScore(RoundResult roundResult) {
+        System.out.println("=== Round Result");
+        System.out.printf("라운드 id : %d, 남은 목숨 : %d, %s, 사용자 입력 : %c\n", roundResult.getRoundId(), roundResult.getNumOfLife(), roundResult.getDiscoveredWord(), roundResult.getStrFromUser());
     }
 
-    public static void findGameById(int numOfId) {
-
-        if (gameResults.isEmpty()) {
-            System.out.println("게임 정보가 없습니다. 게임을 먼저 진행해 주십시오.");
-            return;
-        }
+    public static void findGameById(int numOfGameId) {
 
         int idx = -1;
 
         for (int i=0; i<gameResults.size(); i++) {
-            if (numOfId == gameResults.get(i).getGameId()) {
+            if (numOfGameId == gameResults.get(i).getGameId()) {
                 idx = i;
             }
         }
-        printGameScore(gameResults.get(idx));
 
+        printGameScore(gameResults.get(idx));
     }
 
-    public static void findRoundById() {
+    public static void findRoundById(int numOfRoundId) {
 
+        int idx = -1;
+
+        for (int i=0; i<roundResults.size(); i++) {
+            if (numOfRoundId == roundResults.get(i).getRoundId()) {
+                idx = i;
+            }
+        }
+
+        printRoundScore(roundResults.get(idx));
     }
 
 }
