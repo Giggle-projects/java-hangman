@@ -56,4 +56,13 @@ public class GameResult {
     public void setRoundResults(List<RoundResult> roundResults) {
         this.roundResults = roundResults;
     }
+
+    public static GameResult findGameResultById(List<GameResult> gameResults, int gameId) {
+        for (GameResult gameResult : gameResults) {
+            if (gameResult.getId() == gameId) {
+                return gameResult;
+            }
+        }
+        return null;
+    }
 }

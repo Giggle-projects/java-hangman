@@ -1,24 +1,34 @@
 package src.result;
 
 public class RoundResult {
-    private int id;
+    private int gameId;
+    private int roundId;
     private int life;
     private String answerChange;
     private char inputData;
 
-    public RoundResult(int id, int life, String answerChange, char inputData) {
-        this.id = id;
+    public RoundResult(int gameId, int roundId, int life, String answerChange, char inputData) {
+        this.gameId = gameId;
+        this.roundId = roundId;
         this.life = life;
         this.answerChange = answerChange;
         this.inputData = inputData;
     }
 
-    public int getId() {
-        return id;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public int getRoundId() {
+        return roundId;
+    }
+
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public int getLife() {
