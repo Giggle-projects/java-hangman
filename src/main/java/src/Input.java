@@ -30,7 +30,9 @@ public class Input {
 
                 if (choice == 1) {
                     int[] arr = game.initGame();
-                    game.startGame(arr[0], arr[1]);
+                    int numOfGame = arr[0];
+                    int numOfLife = arr[1];
+                    game.startGame(numOfGame, numOfLife);
                 } else if (choice == 2) {
                     //game.printGameScore();
                 } else if (choice == 3) {
