@@ -12,7 +12,7 @@ public class Game {
 
     private static Game game;
     private static List<GameDictionary> wordList = new ArrayList<>(Arrays.asList(GameDictionary.values()));
-    private  List<GameResult> gameResults = new ArrayList<>();
+    public static List<GameResult> gameResults = new ArrayList<>();
 
     public static Game getInstance() {
         if (game == null) {
@@ -120,7 +120,7 @@ public class Game {
         }
     }
 
-    public void printGameScore(GameResult gameResult) {
+    public static void printGameScore(GameResult gameResult) {
         System.out.println("=== Game Result ===");
         System.out.printf("게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n", gameResult.getGameId(), gameResult.getIsWin(), gameResult.getNumOfLife(), gameResult.getAnswer());
         System.out.println();
@@ -131,6 +131,28 @@ public class Game {
     }
 
     public void getRoundScore() {
+
+    }
+
+    public static void findGameById(int numOfId) {
+
+        if (gameResults.isEmpty()) {
+            System.out.println("게임 정보가 없습니다. 게임을 먼저 진행해 주십시오.");
+            return;
+        }
+
+        int idx = -1;
+
+        for (int i=0; i<gameResults.size(); i++) {
+            if (numOfId == gameResults.get(i).getGameId()) {
+                idx = i;
+            }
+        }
+        printGameScore(gameResults.get(idx));
+
+    }
+
+    public static void findRoundById() {
 
     }
 
