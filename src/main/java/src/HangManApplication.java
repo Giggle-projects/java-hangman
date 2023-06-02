@@ -59,9 +59,9 @@ public class HangManApplication {
         }
 
         int roundNumber = 1;
+        int initialNumberLives = numberLives;
         for (int game = 1; game <= numberGames; game++) {
             List<RoundInfo> roundList = new ArrayList<>();
-
             String word = wordList.get(random.nextInt(wordList.size()));
             System.out.println((game) + "번째 게임이 시작됩니다. 정답 단어는 " + word.length() + "글자 입니다.");
 
@@ -71,8 +71,10 @@ public class HangManApplication {
             }
             String guess = new String(guessedWord);
 
+            boolean isGameOver = false;
             boolean isSaved = false;
-            for (int remainingLives = numberLives; remainingLives > livesExhausted; remainingLives--) {
+
+            while (!isGameOver) {
                 System.out.println(roundNumber + "라운드 : " + guess + ", 목숨 " + numberLives);
                 char inputGuess = scanner.next().charAt(0);
                 RoundInfo round = new RoundInfo(roundNumber++, numberLives, guess, inputGuess);
@@ -90,11 +92,10 @@ public class HangManApplication {
                 if (!isSaved) {
                     numberLives--;
                     if (numberLives == livesExhausted) {
-                        System.out.println("목숨이 소진 되었습니다.");
+                        System.out.println("정답 맞추기에 실패하였습니다.");
                         break;
                     }
                 }
-                remainingLives++;
 
                 guess = new String(guessedWord);
                 if (guess.equals(word)) {
@@ -110,6 +111,7 @@ public class HangManApplication {
 
             GameInfo gameInfo = new GameInfo(game, word, isSaved, numberLives, roundList);
             gameInfoList.add(gameInfo);
+            numberLives = initialNumberLives;
         }
     }
     public static void gameResult(Scanner scanner) {
