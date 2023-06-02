@@ -44,7 +44,7 @@ public class Game {
 
     public void startGame(int numOfGame, int numOfLife) {
         int numOfPlayedGame = 0;
-        // 게임 루프
+
         while (numOfPlayedGame <= numOfGame) {
             GameResult gameResult = new GameResult();
             try {
@@ -60,21 +60,21 @@ public class Game {
                     gameArray[j] = '_';
                 }
 
-                // 라운드 루프 제어 블럭
                 while (true) {
                     RoundResult roundResult = new RoundResult();
                     try {
-                        boolean isCorrect = false; // 라운드별 정답 여부를 체크할 boolean 변수
+                        boolean isCorrect = false;
                         String discoveredWord = new String(gameArray);
                         System.out.printf("%d 라운드 : " + discoveredWord + ", 목숨 %d\n", numOfRound, numOfLife);
                         System.out.printf("in : ");
                         char input = Input.getGameParam();
                         for (int i = 0; i < answerArray.length; i++) {
-                            if (input == answerArray[i]) { // 같은 거 찾으면
+                            if (input == answerArray[i]) {
                                 gameArray[i] = input;
                                 isCorrect = true;
                             }
                         }
+
                         roundResult.setNumOfLife(numOfLife);
                         roundResult.setDiscoveredWord(new String(gameArray));
                         roundResult.setStrFromUser(input);
@@ -84,7 +84,7 @@ public class Game {
                         gameResult.addRound(roundResult);
                         gameResults.add(gameResult);
 
-                        if (! isCorrect) numOfLife--; // 정답을 맞추지 못했다면 목숨을 차감한다
+                        if (! isCorrect) numOfLife--;
                         if (numOfLife == 0) {
                             System.out.println("Game Over : 게임을 종료합니다.");
 
@@ -101,6 +101,7 @@ public class Game {
 
                         if (!new String(gameArray).contains("_")) {
                             System.out.println("축하합니다. 정답입니다.");
+
                             gameResult.setNumOfLife(numOfLife);
                             gameResult.setIsWin("성공");
                             gameResult.setAnswer(wordOfGame);
@@ -114,7 +115,7 @@ public class Game {
                             } else if (numOfPlayedGame < numOfGame) {
                                 System.out.println("다음 게임을 시작합니다.");
                                 break;
-                            } else { // 총 게임 횟수가 1번 아니고, 게임 플레이 횟수와 총 게임 횟수가 같아질 때
+                            } else {
                                 System.out.println("모든 게임이 끝났습니다. 초기 메뉴화면을 출력합니다.");
                                 Input.chooseMenu();
                             }
@@ -146,7 +147,6 @@ public class Game {
     }
 
     public static void findGameById(int numOfGameId) {
-
         int idx = -1;
 
         for (int i=0; i<gameResults.size(); i++) {
@@ -159,7 +159,6 @@ public class Game {
     }
 
     public static void findRoundById(int numOfRoundId) {
-
         int idx = -1;
 
         for (int i=0; i<roundResults.size(); i++) {
