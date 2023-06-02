@@ -89,6 +89,9 @@ public class Input {
         } catch (IllegalInputLengthException e) {
             System.out.println(e.getMessage());
             return getInitiationParam();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getInitiationParam();
         }
     }
 
