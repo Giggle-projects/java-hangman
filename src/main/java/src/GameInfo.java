@@ -5,20 +5,20 @@ import java.util.List;
 public class GameInfo {
     private int gameId;
     private int lives;
-    private boolean guess;
+    private boolean isGameSuccess;
     private String answer;
     private List<RoundInfo> roundList;
 
-    GameInfo(int gameId, String answer, boolean guess, int lives, List<RoundInfo> roundList) {
+    GameInfo(int gameId, String answer, boolean isGameSuccess, int lives, List<RoundInfo> roundList) {
         this.gameId = gameId;
         this.answer = answer;
-        this.guess = guess;
+        this.isGameSuccess = isGameSuccess;
         this.lives = lives;
         this.roundList = roundList;
     }
 
     public String getGuessResult() {
-        if (!this.guess) {
+        if (!this.isGameSuccess) {
             return "실패";
         }
         return "성공";
