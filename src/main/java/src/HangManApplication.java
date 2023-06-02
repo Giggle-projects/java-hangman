@@ -2,16 +2,16 @@ package src;
 import java.util.*;
 
 public class HangManApplication {
-    private static final Random random = new Random();
-    private static final List<String> wordList = new ArrayList<>();
+    private static final Random RANDOM = new Random();
+    private static final List<String> WORDLIST = new ArrayList<>();
     private static final List<GameInfo> gameInfoList = new ArrayList<>();
     private static final Map<Integer, RoundInfo> roundInfoMap = new HashMap<>();
 
     public static void main(String[] args) {
 
-        wordList.add("apple");
-        wordList.add("strawberry");
-        wordList.add("grape");
+        WORDLIST.add("apple");
+        WORDLIST.add("strawberry");
+        WORDLIST.add("grape");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -62,7 +62,7 @@ public class HangManApplication {
         int initialNumberLives = numberLives;
         for (int game = 1; game <= numberGames; game++) {
             List<RoundInfo> roundList = new ArrayList<>();
-            String word = wordList.get(random.nextInt(wordList.size()));
+            String word = WORDLIST.get(RANDOM.nextInt(WORDLIST.size()));
             System.out.println((game) + "번째 게임이 시작됩니다. 정답 단어는 " + word.length() + "글자 입니다.");
 
             char[] guessedWord = new char[word.length()];
@@ -119,7 +119,7 @@ public class HangManApplication {
         int gameId = scanner.nextInt();
         int index = (gameId - 1);
         int numOfElements = 0;
-        if (gameInfoList.size() == numOfElements) {
+        if (gameInfoList.size() == numOfElements || gameInfoList.size() < gameId) {
             System.out.println("아직 진행하지 않은 게임의 정보는 조회할 수 없습니다.");
             return;
         }
