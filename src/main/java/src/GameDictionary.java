@@ -22,14 +22,4 @@ public enum GameDictionary {
     public int getLength() {
         return length;
     }
-
-//    public static String getWordFromDict() {
-//        GameDictionary[] words = GameDictionary.values();
-//        int idx = new Random().nextInt(words.length);
-//        String word = words[idx].getName();
-//
-//        return word;
-//    }
-
-
 }

@@ -13,10 +13,6 @@ public class RoundResult {
         ROUND_ID++;
     }
 
-    public void startRound() {
-        roundId++;
-    }
-
     public RoundResult(int numOfLife, String discoveredWord, char strFromUser) {
         this();
         this.numOfLife = numOfLife;

@@ -30,14 +30,6 @@ public class GameResult {
         rounds.add(roundResult);
     }
 
-    public void printGameResult() {
-        System.out.println("=== Game Result ===");
-        System.out.printf("게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s\n", gameId, isWin, numOfLife, answer);
-        for (RoundResult round : rounds) {
-            System.out.printf("");
-        }
-    }
-
     public int getGameId() {
         return gameId;
     }
