@@ -2,31 +2,34 @@ package src.result;
 
 public class RoundResult {
 
-    private static int ROUND_ID = 0;
+    private int roundId = 0;
     private int numOfLife;
     private String discoveredWord;
     private char strFromUser;
 
+    public static int ROUND_ID = 0;
+
     public RoundResult() {
+        ROUND_ID++;
     }
 
     public void startRound() {
-        ROUND_ID++;
+        roundId++;
     }
 
     public RoundResult(int numOfLife, String discoveredWord, char strFromUser) {
-        ROUND_ID++;
+        this();
         this.numOfLife = numOfLife;
         this.discoveredWord = discoveredWord;
         this.strFromUser = strFromUser;
     }
 
-    public static int getRoundId() {
-        return ROUND_ID;
+    public int getRoundId() {
+        return roundId;
     }
 
-    public static void setRoundId(int roundId) {
-        ROUND_ID = roundId;
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public int getNumOfLife() {

@@ -32,7 +32,7 @@ public class Input {
                     int[] arr = game.initGame();
                     game.startGame(arr[0], arr[1]);
                 } else if (choice == 2) {
-                    game.getGameScore();
+                    //game.printGameScore();
                 } else if (choice == 3) {
                     game.getRoundScore();
                 }
