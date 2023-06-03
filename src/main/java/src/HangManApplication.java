@@ -2,8 +2,8 @@ package src;
 
 import src.domain.HangmanInfo;
 import src.hangmanGame.Hangman;
-import src.hangmanGame.HangmanGameRoundTable;
-import src.hangmanGame.HangmanGameTable;
+import src.domain.HangmanGameRoundTable;
+import src.domain.HangmanGameTable;
 import src.util.Console;
 import src.view.InputView;
 

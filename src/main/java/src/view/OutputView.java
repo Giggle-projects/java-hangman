@@ -1,6 +1,6 @@
 package src.view;
 
-import src.hangmanGame.HangmanGameRoundTable;
+import src.domain.HangmanGameRoundTable;
 
 public class OutputView {
 

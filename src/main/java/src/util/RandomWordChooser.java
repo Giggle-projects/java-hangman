@@ -1,4 +1,4 @@
-package src.hangmanGame;
+package src.util;
 
 import src.vo.HangmanWord;
 

@@ -1,4 +1,4 @@
-package src.hangmanGame;
+package src.domain;
 
 import java.util.Map;
 

@@ -1,6 +1,9 @@
 package src.hangmanGame;
 
+import src.domain.HangmanGameRoundTable;
+import src.domain.HangmanGameTable;
 import src.domain.HangmanInfo;
+import src.util.RandomWordChooser;
 import src.vo.HangmanWord;
 import src.vo.MenuNumber;
 import src.view.InputView;
