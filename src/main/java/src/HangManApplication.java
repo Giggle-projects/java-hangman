@@ -17,20 +17,26 @@ public class HangManApplication {
 
         while(true) {
             System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기)");
-            int inputNumber = scanner.nextInt();
-            switch (inputNumber) {
-                case 1 :
-                    hangManGame(gameInfoList, roundInfoMap);
-                    break;
-                case 2 :
-                    gameResult(scanner);
-                    break;
-                case 3 :
-                    roundResult(scanner);
-                    break;
-                default :
-                    System.out.println("프로그램이 종료 되었습니다.");
-                    return;
+
+            try {
+                int inputNumber = scanner.nextInt();
+                switch (inputNumber) {
+                    case 1 :
+                        hangManGame(gameInfoList, roundInfoMap);
+                        break;
+                    case 2 :
+                        gameResult(scanner);
+                        break;
+                    case 3 :
+                        roundResult(scanner);
+                        break;
+                    default :
+                        System.out.println("프로그램이 종료 되었습니다.");
+                        return;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("숫자만 입력해주세요.");
+                scanner.nextLine();
             }
         }
     }
@@ -117,7 +123,7 @@ public class HangManApplication {
     public static void gameResult(Scanner scanner) {
         System.out.println("게임 id를 입력해주세요.");
         int gameId = scanner.nextInt();
-        int index = (gameId - 1);
+        int index = --gameId;
         int numOfElements = 0;
         if (gameInfoList.size() == numOfElements || gameInfoList.size() < gameId) {
             System.out.println("아직 진행하지 않은 게임의 정보는 조회할 수 없습니다.");
