@@ -8,7 +8,6 @@ public class OutputView {
 
     private static final String ROUND_PRINT_FORMAT = "라운드 id: %d, 남은 목숨 : %d, %s, 사용자 입력 : %c\n";
 
-
     // Suppresses default constructor, ensuring non-instantiability.
     private OutputView() {}
 

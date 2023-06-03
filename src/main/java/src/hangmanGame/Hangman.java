@@ -1,6 +1,7 @@
 package src.hangmanGame;
 
-import src.dto.MenuNumber;
+import src.domain.HangmanInfo;
+import src.vo.MenuNumber;
 import src.view.InputView;
 import src.view.OutputView;
 
@@ -14,12 +15,6 @@ public class Hangman {
     private static final String GAME_END_MESSAGE = "게임 종료. 이용해주셔서 감사합니다.";
     private static final String GAME_NEXT_MESSAGE = "다음 게임을 시작합니다.";
 
-    private static final int MAX_NUMBER_GAMES = 100;
-    private static final int MIN_NUMBER_GAMES = 1;
-
-    private static final int MAX_LIFE = 1000;
-    private static final int MIN_LIFE = 1;
-
     private final HangmanInfo hangmanInfo;
     private final HangmanGameTable gameTable;
 
@@ -30,7 +25,7 @@ public class Hangman {
 
     public void gameSet() {
         HangmanGame hangmanGame;
-        for (int gameCount = 0; gameCount < hangmanInfo.numberGames; gameCount++) {
+        for (int gameCount = 0; gameCount < hangmanInfo.numberGames(); gameCount++) {
             hangmanGame = generateHangmanGame(gameCount);
 
             chooseMenu();
@@ -79,7 +74,7 @@ public class Hangman {
 
     private HangmanGame generateHangmanGame(int gameCount) {
         int numberGames = gameCount + 1;
-        int life = hangmanInfo.life;
+        int life = hangmanInfo.life();
         HangmanWord randomWord = RandomWordChooser.chooseWord();
         HangmanGameRoundTable roundTable = gameTable.getRoundTable(numberGames);
 
@@ -87,41 +82,11 @@ public class Hangman {
     }
 
     private boolean isLastGame(int gameCount) {
-        return gameCount == hangmanInfo.numberGames - 1;
+        return gameCount == hangmanInfo.numberGames() - 1;
     }
 
     public boolean equals(Hangman that) {
         return this.hangmanInfo.equals(that.hangmanInfo)
                 && Objects.equals(this.gameTable, that.gameTable);
-    }
-
-    public static class HangmanInfo {
-
-        public final int numberGames;
-        public final int life;
-
-        public HangmanInfo(int numberGames, int life) {
-            validateNumberGames(numberGames);
-            validateLife(life);
-            this.numberGames = numberGames;
-            this.life = life;
-        }
-
-        private void validateNumberGames(int numberGames) throws IllegalArgumentException {
-            if (MIN_NUMBER_GAMES > numberGames || MAX_NUMBER_GAMES < numberGames) {
-                throw new IllegalArgumentException("게임 횟수 범위 밖의 숫자입니다.");
-            }
-        }
-
-        private void validateLife(int life) throws IllegalArgumentException {
-            if (MIN_LIFE > life || MAX_LIFE < life) {
-                throw new IllegalArgumentException("목숨 횟수 범위 밖의 숫자입니다.");
-            }
-        }
-
-        public boolean equals(HangmanInfo that) {
-            return Objects.equals(numberGames, that.numberGames)
-                    && Objects.equals(life, that.life);
-        }
     }
 }

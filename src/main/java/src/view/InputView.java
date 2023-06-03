@@ -1,7 +1,8 @@
 package src.view;
 
-import src.dto.MenuNumber;
-import src.dto.SingleAlphabet;
+import src.domain.HangmanInfo;
+import src.vo.MenuNumber;
+import src.vo.SingleAlphabet;
 import src.hangmanGame.Hangman;
 import src.util.Console;
 
@@ -27,7 +28,7 @@ public class InputView {
     // Suppresses default constructor, ensuring non-instantiability.
     private InputView() {}
 
-    public static Hangman.HangmanInfo inputHangmanInfo() {
+    public static HangmanInfo inputHangmanInfo() {
         String[] gameNumberAndLife;
 
         while (true) {
@@ -43,7 +44,7 @@ public class InputView {
         int life = Integer.parseInt(gameNumberAndLife[INDEX_LIFE]);
 
         try {
-            return new Hangman.HangmanInfo(numberGames, life);
+            return new HangmanInfo(numberGames, life);
         } catch (IllegalArgumentException exception) {
             OutputView.printMessage(exception.getMessage());
             return inputHangmanInfo();

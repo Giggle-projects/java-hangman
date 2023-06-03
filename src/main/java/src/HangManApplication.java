@@ -1,5 +1,6 @@
 package src;
 
+import src.domain.HangmanInfo;
 import src.hangmanGame.Hangman;
 import src.hangmanGame.HangmanGameRoundTable;
 import src.hangmanGame.HangmanGameTable;
@@ -19,9 +20,9 @@ public class HangManApplication {
     }
 
     public static Hangman generateHangman() {
-        Hangman.HangmanInfo hangmanInfo = InputView.inputHangmanInfo();
+        HangmanInfo hangmanInfo = InputView.inputHangmanInfo();
         Map<Integer, HangmanGameRoundTable> hangmanGameRoundTableMap = new HashMap<>();
-        for (int i = 0; i < hangmanInfo.numberGames; i++) {
+        for (int i = 0; i < hangmanInfo.numberGames(); i++) {
             hangmanGameRoundTableMap.put(i+1, new HangmanGameRoundTable(new TreeMap<>()));
         }
         return new Hangman(hangmanInfo, new HangmanGameTable(hangmanGameRoundTableMap));

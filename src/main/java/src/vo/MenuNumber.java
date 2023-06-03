@@ -1,4 +1,4 @@
-package src.dto;
+package src.vo;
 
 import java.util.HashMap;
 import java.util.Map;
