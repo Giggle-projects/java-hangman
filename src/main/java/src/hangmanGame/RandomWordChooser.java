@@ -1,5 +1,7 @@
 package src.hangmanGame;
 
+import src.vo.HangmanWord;
+
 import java.util.List;
 
 public class RandomWordChooser {

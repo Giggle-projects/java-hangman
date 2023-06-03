@@ -1,6 +1,7 @@
 package src.hangmanGame;
 
 import src.domain.HangmanInfo;
+import src.vo.HangmanWord;
 import src.vo.MenuNumber;
 import src.view.InputView;
 import src.view.OutputView;

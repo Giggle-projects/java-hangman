@@ -1,5 +1,6 @@
 package src.hangmanGame;
 
+import src.vo.HangmanWord;
 import src.vo.SingleAlphabet;
 import src.view.InputView;
 import src.view.OutputView;

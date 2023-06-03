@@ -1,4 +1,4 @@
-package src.hangmanGame;
+package src.vo;
 
 public enum HangmanWord {
 
