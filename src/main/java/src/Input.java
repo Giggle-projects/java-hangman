@@ -75,6 +75,7 @@ public class Input {
 
     public static int[] getInitiationParam() {
         try {
+            scanner.nextLine(); // 버퍼를 비워주기 위한 라인
             int[] res = new int[2];
             String input = scanner.nextLine();
             String[] splittedArr = input.split(",");
