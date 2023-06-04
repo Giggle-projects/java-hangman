@@ -85,24 +85,27 @@ public class HangManApplication {
 
             while (!isGameOver) {
                 System.out.println(roundNumber + "라운드 : " + guess + ", 목숨 " + numberLives);
-                char inputGuess = scanner.next().charAt(0);
-                RoundInfo round = new RoundInfo(roundNumber++, numberLives, guess, inputGuess);
-                roundInfoMap.put(roundNumber, round);
-                roundList.add(round);
-
-                if (guessedChars.contains(inputGuess)) {
-                    System.out.println("이미 입력한 알파벳입니다.");
-                    continue;
-                }
-                guessedChars.add(inputGuess);
-
-                isSaved = false;
-                for (int k = 0; k < word.length(); k++) {
-                    if (word.charAt(k) == inputGuess) {
-                        guessedWord[k] = inputGuess;
-                        isSaved = true;
+                    char inputGuess = scanner.next().charAt(0);
+                    if (inputGuess < 'a' || inputGuess > 'z') {
+                        System.out.println("알파벳만 입력해주세요.");
+                        continue;
                     }
-                }
+                    RoundInfo round = new RoundInfo(roundNumber++, numberLives, guess, inputGuess);
+                    roundInfoMap.put(roundNumber, round);
+                    roundList.add(round);
+                    if (guessedChars.contains(inputGuess)) {
+                        System.out.println("이미 입력한 알파벳입니다.");
+                        continue;
+                    }
+                    guessedChars.add(inputGuess);
+
+                    isSaved = false;
+                    for (int k = 0; k < word.length(); k++) {
+                        if (word.charAt(k) == inputGuess) {
+                            guessedWord[k] = inputGuess;
+                            isSaved = true;
+                        }
+                    }
 
                 if (!isSaved) {
                     numberLives--;
