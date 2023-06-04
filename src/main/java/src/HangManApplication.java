@@ -46,23 +46,31 @@ public class HangManApplication {
         int numberGames = 0;
         int numberLives = 0;
         int inputNumberLength = 2;
+        int negative = 0;
 
         while (true) {
             try {
                 System.out.println("게임 횟수와 목숨을 입력하세요.");
                 String input = scanner.nextLine();
                 String[] inputNumbers = input.split(",");
+
                 if (inputNumbers.length != inputNumberLength) {
-                    throw new IllegalArgumentException("게임 횟수와 목숨 횟수만 입력하세요.");
+                    throw new ArrayIndexOutOfBoundsException();
                 }
+
                 numberGames = Integer.parseInt(inputNumbers[0].trim());
                 numberLives = Integer.parseInt(inputNumbers[1].trim());
+                if (numberGames < negative || numberLives < negative) {
+                    throw new IllegalArgumentException();
+                }
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
-            } catch (IllegalArgumentException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
-            }
+            } catch (IllegalArgumentException e) {
+                System.out.println("음수는 입력할 수 없습니다.");
+           }
         }
 
         int roundNumber = 1;
