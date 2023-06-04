@@ -35,7 +35,7 @@ public class HangManApplication {
                         return;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("숫자만 입력해주세요.");
+                System.out.println("숫자를 입력해주세요 : ");
                 scanner.nextLine();
             }
         }
@@ -60,7 +60,9 @@ public class HangManApplication {
                 numberLives = Integer.parseInt(inputNumbers[1].trim());
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("','로 구분하여 숫자로 입력해주세요.");
+                System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
             }
         }
 
