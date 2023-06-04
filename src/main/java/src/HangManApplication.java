@@ -46,7 +46,6 @@ public class HangManApplication {
         int numberGames = 0;
         int numberLives = 0;
         int inputNumberLength = 2;
-        int livesExhausted = 0;
 
         while (true) {
             try {
@@ -67,7 +66,9 @@ public class HangManApplication {
         }
 
         int roundNumber = 1;
+        int livesExhausted = 0;
         int initialNumberLives = numberLives;
+        Set<Character> guessedChars = new LinkedHashSet<>();
         for (int game = 1; game <= numberGames; game++) {
             List<RoundInfo> roundList = new ArrayList<>();
             String word = WORDLIST.get(RANDOM.nextInt(WORDLIST.size()));
@@ -88,6 +89,12 @@ public class HangManApplication {
                 RoundInfo round = new RoundInfo(roundNumber++, numberLives, guess, inputGuess);
                 roundInfoMap.put(roundNumber, round);
                 roundList.add(round);
+
+                if (guessedChars.contains(inputGuess)) {
+                    System.out.println("이미 입력한 알파벳입니다.");
+                    continue;
+                }
+                guessedChars.add(inputGuess);
 
                 isSaved = false;
                 for (int k = 0; k < word.length(); k++) {
