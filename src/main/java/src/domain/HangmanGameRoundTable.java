@@ -17,6 +17,7 @@ public class HangmanGameRoundTable implements Iterable<Integer> {
     }
 
     public HangmanGameRoundInfo getRound(int roundId) throws IllegalArgumentException {
+        // roundId는 roundTable의 사이즈 범위 내에서만 생성됨
         if (roundId > roundTable.size()) throw new IllegalArgumentException("해당 라운드 정보는 존재하지 않습니다.");
         return roundTable.get(roundId);
     }

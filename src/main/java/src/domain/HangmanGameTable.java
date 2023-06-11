@@ -15,6 +15,7 @@ public class HangmanGameTable {
     }
 
     public HangmanGameRoundTable getRoundTableWithException(int gameId) throws IllegalArgumentException {
+        // gameId는 gameTable의 사이즈 범위 내에서만 생성됨
         if (gameId > gameTable.size()) throw new IllegalArgumentException("존재하지 않는 게임 회차 정보입니다.");
         HangmanGameRoundTable roundTable = gameTable.get(gameId);
         if (roundTable.isEmpty()) throw new IllegalArgumentException("아직 진행하지 않은 게임의 정보는 조회할 수 없습니다.");
