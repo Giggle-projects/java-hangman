@@ -39,8 +39,6 @@ public class HangManApplication {
         } catch (IllegalStateException e) {
             e.getMessage();
         }
-
-
     }
     public static void hangManGame(List<GameInfo> gameInfoList,  Map<Integer, RoundInfo> roundInfoMap) {
         Scanner scanner = new Scanner(System.in);
