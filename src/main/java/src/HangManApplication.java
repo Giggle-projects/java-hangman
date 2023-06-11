@@ -3,44 +3,44 @@ import java.util.*;
 
 public class HangManApplication {
     private static final Random RANDOM = new Random();
-    private static final List<String> WORDLIST = new ArrayList<>();
+    private static final List<String> WORDLIST = new ArrayList<>(List.of("apple", "strawberry", "grape"));
     private static final List<GameInfo> gameInfoList = new ArrayList<>();
     private static final Map<Integer, RoundInfo> roundInfoMap = new HashMap<>();
 
     public static void main(String[] args) {
 
-        WORDLIST.add("apple");
-        WORDLIST.add("strawberry");
-        WORDLIST.add("grape");
-
-        Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-            Menu.displayMenuOptions();
-            try {
-                int inputNumber = scanner.nextInt();
-                Menu selectedMenu = Menu.getMenuByCode(inputNumber);
-                switch (selectedMenu) {
-                    case GAME_START :
-                        hangManGame(gameInfoList, roundInfoMap);
-                        break;
-                    case GAME_RESULT :
-                        gameResult(scanner);
-                        break;
-                    case ROUND_RESULT :
-                        roundResult(scanner);
-                        break;
-                    case EXIT :
-                        System.out.println("프로그램이 종료 되었습니다.");
-                        return;
+        try (Scanner scanner = new Scanner(System.in)) {
+            while(true) {
+                Menu.displayMenuOptions();
+                try {
+                    int inputNumber = scanner.nextInt();
+                    Menu selectedMenu = Menu.getMenuByCode(inputNumber);
+                    switch (selectedMenu) {
+                        case GAME_START :
+                            hangManGame(gameInfoList, roundInfoMap);
+                            break;
+                        case GAME_RESULT :
+                            gameResult(scanner);
+                            break;
+                        case ROUND_RESULT :
+                            roundResult(scanner);
+                            break;
+                        case EXIT :
+                            System.out.println("프로그램이 종료 되었습니다.");
+                            return;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("숫자를 입력해주세요 : ");
+                    scanner.nextLine();
+                } catch (IllegalArgumentException e) {
+                    System.out.println("1 ~ 4의 숫자만 입력해주세요. ");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("숫자를 입력해주세요 : ");
-                scanner.nextLine();
-            } catch (IllegalArgumentException e) {
-                System.out.println("1 ~ 4의 숫자만 입력해주세요. ");
             }
+        } catch (IllegalStateException e) {
+            e.getMessage();
         }
+
+
     }
     public static void hangManGame(List<GameInfo> gameInfoList,  Map<Integer, RoundInfo> roundInfoMap) {
         Scanner scanner = new Scanner(System.in);
@@ -78,7 +78,6 @@ public class HangManApplication {
         int roundNumber = 1;
         int livesExhausted = 0;
         int initialNumberLives = numberLives;
-        Set<Character> guessedChars = new LinkedHashSet<>();
         for (int game = 1; game <= numberGames; game++) {
             List<RoundInfo> roundList = new ArrayList<>();
             String word = WORDLIST.get(RANDOM.nextInt(WORDLIST.size()));
@@ -93,6 +92,7 @@ public class HangManApplication {
             boolean isGameOver = false;
             boolean isSaved = false;
 
+            Set<Character> guessedChars = new LinkedHashSet<>();
             while (!isGameOver) {
                 System.out.println(roundNumber + "라운드 : " + guess + ", 목숨 " + numberLives);
                     char inputGuess = scanner.next().charAt(0);
@@ -105,6 +105,7 @@ public class HangManApplication {
                     roundList.add(round);
                     if (guessedChars.contains(inputGuess)) {
                         System.out.println("이미 입력한 알파벳입니다.");
+                        roundNumber--;
                         continue;
                     }
                     guessedChars.add(inputGuess);
