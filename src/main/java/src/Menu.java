@@ -33,11 +33,11 @@ enum Menu {
 
     public static void displayMenuOptions() {
         Menu[] menus = Menu.values();
-        int menuOptionIndex = menus.length - 1;
+        int menuOptionLength  = menus.length - 1;
         System.out.print("메뉴를 선택합니다. (");
-        for (int i = 0; i < menus.length; i++) {
-            System.out.print(menus[i].getCode() + " : " + menus[i].getDescription());
-            if (i < menuOptionIndex) {
+        for (int index = 0; index < menus.length; index++) {
+            System.out.print(menus[index].getCode() + " : " + menus[index].getDescription());
+            if (index < menuOptionLength) {
                 System.out.print(", ");
             }
         }

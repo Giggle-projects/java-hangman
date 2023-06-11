@@ -27,8 +27,8 @@ public class GameInfo {
     public void displayGameResult() {
         System.out.println("=== Game Result ===");
         System.out.println("게임 id : "+ this.gameId + ", 추측 : " +  getGuessResult() + ", 남은 목숨 :" + this.lives + ", 정답 :" + this.answer + "\n");
-        for (int k = 0; k < roundList.size(); k++) {
-            System.out.println(roundList.get(k));
+        for (int index = 0; index < roundList.size(); index++) {
+            System.out.println(roundList.get(index));
         }
         System.out.println("===================");
     }
