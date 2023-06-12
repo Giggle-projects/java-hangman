@@ -52,10 +52,10 @@ public class InputMenu {
             printCategory();
             System.out.println(Message.MSG_CHOOSE_CATEGORY);
             final int categoryNum = Utils.getInt();
-            String categoryName = GAME_CATEGORY.get(categoryNum).getName();
             if (categoryNum < 1 || categoryNum > GAME_CATEGORY.size()) {
                 throw new InputCategoryRangeException();
             }
+            String categoryName = GAME_CATEGORY.get(categoryNum).getName();
             return categoryName;
         } catch (InputCategoryRangeException e) {
             System.out.println(e.getMessage());
