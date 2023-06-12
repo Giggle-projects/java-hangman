@@ -108,13 +108,13 @@ public class HangManApplication {
                 System.out.println(Message.MSG_ROUND_CLEAR);
                 gameResult = GameResult.createGameResult(life, true, newRound.getTargetQuestion());
                 gameResultSingleton.addGameResult(gameResult);
-                life = -1;
+                break;
             }
             if (life == 0){
                 System.out.println(Message.MSG_ROUND_OVER);
                 gameResult = GameResult.createGameResult(life, false, newRound.getTargetQuestion());
                 gameResultSingleton.addGameResult(gameResult);
-                life = -1;
+                break;
             }
         }
         System.out.println(gameResultSingleton.printGameResult(gameSeqNum));
