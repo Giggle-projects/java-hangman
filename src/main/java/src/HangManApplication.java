@@ -12,7 +12,7 @@ import src.util.Utils;
 
 import java.util.List;
 
-import static src.game.Game.createProblems;
+import static src.problem.ProblemList.getContentsByCategoryName;
 import static src.util.InputMenu.chooseCategory;
 import static src.util.InputMenu.chooseMenu;
 
@@ -29,7 +29,7 @@ public class HangManApplication {
                 System.out.println(Message.MSG_GAME_START);
                 Game game = Game.createGame();
                 String categoryName = chooseCategory();
-                List<String> problems = createProblems(game.getGameRound(), categoryName);
+                List<String> problems = getContentsByCategoryName(categoryName);
                 int life = game.getLife();
 
                 playHangmanGame(game, problems, life);

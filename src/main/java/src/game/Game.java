@@ -1,6 +1,5 @@
 package src.game;
 
-import src.problem.Problem;
 import src.util.Message;
 
 import java.util.*;
@@ -46,25 +45,5 @@ public class Game {
         }
 
         return new Game(gameRound, life);
-    }
-
-    public static List<String> createProblems(int gameRound, String categoryName){
-        List<String> problems;
-        try {
-            Class<?> enumClass = Class.forName("src.problem." + categoryName);
-            Problem ex = (Problem) enumClass.getEnumConstants()[0];
-            problems = ex.getNameList();
-
-            Collections.shuffle(problems);
-
-            for (int i = 0; i < gameRound; i++) {
-                String problemName = problems.get(i);
-                problems.add(problemName);
-            }
-            return problems;
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
