@@ -156,14 +156,16 @@ public class HangManApplication {
     public static void roundResult(Scanner scanner) {
         System.out.println("라운드 id를 입력해주세요.");
         int roundId = scanner.nextInt();
-        int index = 1;
+        int index = roundId + 1;
+
+        if (roundId < 0 || roundInfoMap.size() < roundId) {
+            System.out.println("아직 진행하지 않은 라운드의 정보는 조회할 수 없습니다.");
+            return;
+        }
+
         System.out.println("=== Round Result ===");
-        Iterator<Integer> keys = roundInfoMap.keySet().iterator();
-        while(keys.hasNext()){
-            Integer key = keys.next();
-            if (key == roundId) {
-                System.out.println(roundInfoMap.get(key+index));
-            }
+        if(roundInfoMap.containsKey(roundId)) {
+            System.out.println(roundInfoMap.get(index));
         }
         System.out.println("===================");
     }
