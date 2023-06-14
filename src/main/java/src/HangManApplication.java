@@ -65,7 +65,7 @@ public class HangManApplication {
                 }
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
+                System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요. e");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("입력 형식에 맞게 ','로 구분하여 숫자로 입력해주세요.");
             } catch (IllegalArgumentException e) {
@@ -145,12 +145,11 @@ public class HangManApplication {
     public static void gameResult(Scanner scanner) {
         System.out.println("게임 id를 입력해주세요.");
         int gameId = scanner.nextInt();
-        int index = --gameId;
-        int numOfElements = 0;
-        if (gameInfoList.size() == numOfElements || gameInfoList.size() < gameId) {
+        if (gameId <= 0 || gameInfoList.size() < gameId) {
             System.out.println("아직 진행하지 않은 게임의 정보는 조회할 수 없습니다.");
             return;
         }
+        int index = gameId - 1;
         gameInfoList.get(index).displayGameResult();
     }
 
