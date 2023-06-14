@@ -9,7 +9,7 @@ public class GameInfo {
     private String answer;
     private List<RoundInfo> roundList;
 
-    GameInfo(int gameId, String answer, boolean isGameSuccess, int lives, List<RoundInfo> roundList) {
+    public GameInfo(int gameId, String answer, boolean isGameSuccess, int lives, List<RoundInfo> roundList) {
         this.gameId = gameId;
         this.answer = answer;
         this.isGameSuccess = isGameSuccess;

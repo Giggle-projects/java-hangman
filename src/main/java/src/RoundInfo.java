@@ -6,7 +6,7 @@ public class RoundInfo {
     private String guess;
     private char input;
 
-    RoundInfo(int roundId, int lives, String guess, char input) {
+    public RoundInfo(int roundId, int lives, String guess, char input) {
         this.roundId = roundId;
         this.lives = lives;
         this.guess = guess;
