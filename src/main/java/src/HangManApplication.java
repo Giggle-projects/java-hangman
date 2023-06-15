@@ -12,43 +12,46 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class HangManApplication {
-    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static final List<Game> games = new ArrayList<>();
     private static final UserList userList = new UserList();
 
     public static void main(String[] args) {
-        while (true) {
-            System.out.println("===================");
-            System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기, 4 : 게임종료)");
-
-            try {
-                int menuNum = getValidInput();
-                switch (menuNum) {
-                    case 1:
-                        startGame();
-                        break;
-                    case 2:
-                        showGameResult();
-                        break;
-                    case 3:
-                        showRoundResult();
-                        break;
-                    case 4:
-                        System.out.println("종료되었습니다.");
-                        return;
-                    default:
-                        System.out.println("잘못된 번호입니다.");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            while (true) {
+                System.out.println("===================");
+                System.out.println("메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기, 4 : 게임종료)");
+                String input = br.readLine();
+                if (!input.isEmpty()) {
+                    int menuNum = Integer.parseInt(input);
+                    switch (menuNum) {
+                        case 1:
+                            startGame(br);
+                            break;
+                        case 2:
+                            showGameResult(br);
+                            break;
+                        case 3:
+                            showRoundResult(br);
+                            break;
+                        case 4:
+                            System.out.println("종료되었습니다.");
+                            return;
+                        default:
+                            System.out.println("잘못된 번호입니다.");
+                    }
+                } else {
+                    System.out.println("숫자를 입력해주세요.");
                 }
-            } catch (IOException e) {
-                System.out.println("입력 오류가 발생했습니다.");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void startGame() {
+    public static void startGame(BufferedReader br) {
         try {
             System.out.println("게임 횟수와 목숨을 입력하세요.");
-            String str = reader.readLine();
+            String str = br.readLine();
             String[] input = str.split(",");
             if (input.length < 2) {
                 throw new IllegalArgumentException("숫자, 숫자 형태로 입력해주세요.");
@@ -56,23 +59,23 @@ public class HangManApplication {
             int gameNum = Integer.parseInt(input[0].trim());
             int life = Integer.parseInt(input[1].trim());
             System.out.println("사용자 이름을 입력하세요.");
-            String userName = reader.readLine();
+            String userName = br.readLine();
             User user = new User(userName, life, gameNum);
             userList.addUser(user);
             int startGameID = 1;
-            runGames(user, startGameID);
+            runGames(user, startGameID,br);
         } catch (NumberFormatException e) {
             System.out.println("숫자, 숫자 형태로 입력해주세요.");
-            startGame();
+            startGame(br);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            startGame();
+            startGame(br);
         } catch (IOException e) {
             System.out.println("입력 오류가 발생했습니다.");
         }
     }
 
-    private static void runGames(User user, int gameId) {
+    private static void runGames(User user, int gameId, BufferedReader br) {
         if (gameId <= user.getGameNum()) {
             String answer = GameAnswer.setAnswer();
             char[] blind = GameAnswer.hideAnswer(answer);
@@ -80,12 +83,12 @@ public class HangManApplication {
                 System.out.println("\n다음 게임을 시작합니다.");
             }
             System.out.println(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + answer.length() + "글자 입니다.");
-            playRound(gameId, user.getLife(), answer, blind);
-            runGames(user, gameId + 1);
+            playRound(gameId, user.getLife(), answer, blind, br);
+            runGames(user, gameId + 1, br);
         }
     }
 
-    private static void playRound(int gameId, int userLife, String answer, char[] blind) {
+    private static void playRound(int gameId, int userLife, String answer, char[] blind, BufferedReader br) {
         int roundId = 1;
         Set<Character> prevAlp = new HashSet<>();
         List<Round> gameRound = new ArrayList<>();
@@ -95,7 +98,7 @@ public class HangManApplication {
             System.out.println(roundId + " 라운드 : " + blindScreen + ", 목숨 " + userLife);
 
             try {
-                char guess = getValidAlphabetInput();
+                char guess = getValidAlphabetInput(br);
                 guess = Character.toLowerCase(guess);
 
                 if (prevAlp.contains(guess)) {
@@ -172,14 +175,14 @@ public class HangManApplication {
         System.out.println("===================");
     }
 
-    public static void showGameResult() {
+    public static void showGameResult(BufferedReader br) {
         if (games.isEmpty()){
             System.out.println("진행된 게임이 없습니다.");
             return;
         }
         try {
             System.out.println("게임 ID를 입력하세요.");
-            int gameId = getValidInput();
+            int gameId = getValidInput(br);
 
             if (gameId <= 0 || gameId > games.size()) {
                 System.out.println("해당 결과가 존재하지 않습니다.");
@@ -191,14 +194,14 @@ public class HangManApplication {
         }
     }
 
-    public static void showRoundResult() {
+    public static void showRoundResult(BufferedReader br) {
         if (games.isEmpty()){
             System.out.println("진행된 게임이 없습니다.");
             return;
         }
         try {
             System.out.println("게임 ID를 입력하세요.");
-            int gameId = getValidInput();
+            int gameId = getValidInput(br);
 
             if (gameId <= 0 || gameId > games.size()) {
                 System.out.println("해당 결과가 존재하지 않습니다.");
@@ -206,7 +209,7 @@ public class HangManApplication {
             }
 
             System.out.println("라운드 ID를 입력하세요.");
-            int roundId = getValidInput();
+            int roundId = getValidInput(br);
 
             Game game = games.get(gameId - 1);
             List<Round> roundList = game.getRounds();
@@ -221,19 +224,17 @@ public class HangManApplication {
         }
     }
 
-    private static int getValidInput() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static int getValidInput(BufferedReader br) throws IOException {
         try {
-            return Integer.parseInt(reader.readLine());
+            return Integer.parseInt(br.readLine());
         } catch (NumberFormatException e) {
             throw new IOException("숫자를 입력해주세요.");
         }
     }
 
-    private static char getValidAlphabetInput() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static char getValidAlphabetInput(BufferedReader br) throws IOException {
         try {
-            String input = reader.readLine();
+            String input = br.readLine();
             if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
                 return Character.toLowerCase(input.charAt(0));
             } else {
