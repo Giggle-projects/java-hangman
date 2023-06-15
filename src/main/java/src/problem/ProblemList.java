@@ -4,7 +4,6 @@ import src.util.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,7 +93,5 @@ public enum ProblemList {
             }
         }
         throw new IllegalArgumentException(Message.ERR_MSG_INVALID_INPUT_CATEGORY_RANGE);
-
-
     }
 }

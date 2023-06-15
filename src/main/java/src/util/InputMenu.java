@@ -10,11 +10,11 @@ import java.util.Map;
 public class InputMenu {
 
     private static final Map<Integer, Menu> MENU_GROUP = new LinkedHashMap<>();
-    private static final Map<Integer, ProblemList> GAME_CATEGORY = new LinkedHashMap<>();
+    private static final Map<Integer, ProblemList> PROBLEM_TYPE = new LinkedHashMap<>();
 
     static {
-        GAME_CATEGORY.put(1, ProblemList.ANIMAL);
-        GAME_CATEGORY.put(2, ProblemList.BODY);
+        PROBLEM_TYPE.put(1, ProblemList.ANIMAL);
+        PROBLEM_TYPE.put(2, ProblemList.BODY);
 
         MENU_GROUP.put(1, Menu.PLAY_GAME);
         MENU_GROUP.put(2, Menu.SHOW_GAME_RESULT);
@@ -49,24 +49,23 @@ public class InputMenu {
 
     public static String chooseProblemType(){
         try {
-            printCategory();
+            printProblemType();
             System.out.println(Message.MSG_CHOOSE_CATEGORY);
-            final int categoryNum = Utils.getInt();
-            if (categoryNum < 1 || categoryNum > GAME_CATEGORY.size()) {
+            final int inputNum = Utils.getInt();
+            if (inputNum < 1 || inputNum > PROBLEM_TYPE.size()) {
                 throw new InputCategoryRangeException();
             }
-            String problemType = GAME_CATEGORY.get(categoryNum).getProblemType();
-            return problemType;
+            return PROBLEM_TYPE.get(inputNum).getProblemType();
         } catch (InputCategoryRangeException e) {
             System.out.println(e.getMessage());
             return chooseProblemType();
         }
     }
 
-    private static void printCategory(){
-        for (int categoryNum : GAME_CATEGORY.keySet()) {
-            final ProblemList ex = GAME_CATEGORY.get(categoryNum);
-            System.out.println(categoryNum + ". " + ex.name());
+    private static void printProblemType(){
+        for (int problemType : PROBLEM_TYPE.keySet()) {
+            final ProblemList ex = PROBLEM_TYPE.get(problemType);
+            System.out.println(problemType + ". " + ex.name());
         }
     }
 
