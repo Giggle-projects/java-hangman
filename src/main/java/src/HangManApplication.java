@@ -51,7 +51,7 @@ public class HangManApplication {
                 int userLife = user.getLife();
                 for (int i = 0; i < user.getGameNum(); i++) {
                     String answer = GameAnswer.setAnswer();
-                    char[] blind = GameAnswer.setBlind(answer);
+                    char[] blind = GameAnswer.hideAnswer(answer);
                     if (i != 0) {
                         System.out.println("\n다음 게임을 시작합니다.");
                     }

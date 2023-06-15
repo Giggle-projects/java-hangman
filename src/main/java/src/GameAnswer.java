@@ -10,11 +10,11 @@ public class GameAnswer {
         return word[idx];
     }
 
-    public static char[] setBlind(String str){
-        char[] chars = new char[str.length()];
+    public static char[] hideAnswer(String str){
+        char[] answer = new char[str.length()];
         for (int i = 0; i < str.length(); i++){
-            chars[i] = '_';
+            answer[i] = '_';
         }
-        return chars;
+        return answer;
     }
 }
