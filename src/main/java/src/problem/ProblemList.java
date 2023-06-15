@@ -2,7 +2,6 @@ package src.problem;
 
 import src.util.Message;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,16 +23,6 @@ enum Animal implements Problem {
     public String getName() {
         return name;
     }
-
-    public List<String> getNameList(){
-        List<String> animalList = new ArrayList<>();
-
-        for (Animal animal : Animal.values()) {
-            animalList.add(animal.getName());
-        }
-
-        return animalList;
-    }
 }
 
 enum Body implements Problem {
@@ -52,18 +41,6 @@ enum Body implements Problem {
     public String getName() {
         return name;
     }
-
-
-    @Override
-    public List<String> getNameList() {
-        List<String> bodyList = new ArrayList<>();
-
-        for (Body body : Body.values()) {
-            bodyList.add(body.getName());
-        }
-
-        return bodyList;
-    }
 }
 
 public enum ProblemList {
@@ -80,10 +57,6 @@ public enum ProblemList {
 
     public String getProblemType() {
         return problemType;
-    }
-
-    public List<String> getProblems() {
-        return problems;
     }
 
     public static List<String> getContentsByCategoryName(String problemType){
