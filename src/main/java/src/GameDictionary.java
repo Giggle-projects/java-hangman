@@ -1,25 +1,20 @@
 package src;
 
-import java.util.Random;
-
 public enum GameDictionary {
-    APPLE("NAME", 4),
-    TEST("TEST", 4),
-    SENTENSE("SENTENSE", 8);
+
+    APPLE("NAME"),
+    TEST("TEST"),
+    SENTENSE("SENTENSE");
 
     private String name;
     private int length;
 
-    GameDictionary(String name, int length) {
+    GameDictionary(String name) {
         this.name = name;
-        this.length = length;
+        this.length = name.length();
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getLength() {
-        return length;
     }
 }
