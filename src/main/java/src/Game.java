@@ -2,6 +2,7 @@ package src;
 
 import src.result.GameResult;
 import src.result.RoundResult;
+import src.util.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -154,7 +155,12 @@ public class Game {
         for (int i=0; i<gameResults.size(); i++) {
             if (numOfGameId == gameResults.get(i).getGameId()) {
                 idx = i;
+                break;
             }
+        }
+
+        if (idx == -1) {
+            throw new IllegalArgumentException(Message.ERR_NOT_VALID_PARAMETER);
         }
 
         printGameScore(gameResults.get(idx));
@@ -166,7 +172,12 @@ public class Game {
         for (int i=0; i<roundResults.size(); i++) {
             if (numOfRoundId == roundResults.get(i).getRoundId()) {
                 idx = i;
+                break;
             }
+        }
+
+        if (idx == -1) {
+            throw new IllegalArgumentException(Message.ERR_NOT_VALID_PARAMETER);
         }
 
         printRoundScore(roundResults.get(idx));

@@ -7,4 +7,5 @@ public interface Message {
     String ERR_UNKNOWN_ERROR = "Unknown error occured.";
     String ERR_NOT_USING_COMMA = "The letter you just typed is not separated with comma. Please retype using comma.";
     String ERR_OUT_OF_MENU_BOUNDARY = "Your choice is wrong. Please choose valid menu category.";
+    String ERR_NOT_VALID_PARAMETER = "The parameter we've got is not a valid one. Please retry the process.";
 }

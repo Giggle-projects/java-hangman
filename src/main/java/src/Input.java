@@ -15,8 +15,11 @@ public class Input {
     static Scanner scanner = new Scanner(System.in);
 
     public static void chooseMenu() {
+
         while (true) {
+
             String[] menus = {"게임하기", "게임 결과 보기", "라운드 결과 보기"};
+
             try {
                 System.out.printf("메뉴를 선택합니다. (");
                 for (int i=0; i<menus.length; i++) {
@@ -65,6 +68,9 @@ public class Input {
                 chooseMenu();
             } catch (InputMenuException e) {
                 System.out.println(Message.ERR_OUT_OF_MENU_BOUNDARY);
+                chooseMenu();
+            } catch (IllegalArgumentException e) {
+                System.out.println(Message.ERR_NOT_VALID_PARAMETER);
                 chooseMenu();
             } catch (Exception e) {
                 System.out.println(Message.ERR_UNKNOWN_ERROR);
