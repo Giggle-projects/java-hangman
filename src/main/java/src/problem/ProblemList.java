@@ -59,7 +59,7 @@ public enum ProblemList {
         return problemType;
     }
 
-    public static List<String> getContentsByCategoryName(String problemType){
+    public static List<String> getProblemsByProblemType(String problemType){
         for (ProblemList problem : ProblemList.values()) {
             if (problem.getProblemType().equals(problemType)) {
                 return problem.problems;
