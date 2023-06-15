@@ -1,9 +1,13 @@
 package src;
 
+import src.userManager.User;
+import src.userManager.UserList;
+
 import java.util.*;
 
 public class HangManApplication {
     private static final List<Game> games = new ArrayList<>();
+    private static final UserList userList = new UserList();
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -44,11 +48,10 @@ public class HangManApplication {
                 }
                 int gameNum = Integer.parseInt(input[0].trim());
                 int life = Integer.parseInt(input[1].trim());
-                User user = new User();
-                user.setGameNum(gameNum);
-                user.setLife(life);
+                User user = new User("inyoung", life, gameNum);
+                userList.addUser(user);
                 isValidInput = true;
-                int userLife = user.getLife();
+
                 for (int i = 0; i < user.getGameNum(); i++) {
                     String answer = GameAnswer.setAnswer();
                     char[] blind = GameAnswer.hideAnswer(answer);
@@ -56,7 +59,7 @@ public class HangManApplication {
                         System.out.println("\n다음 게임을 시작합니다.");
                     }
                     System.out.println(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + answer.length() + "글자 입니다.");
-                    playRound(gameId, userLife, answer, blind, scanner);
+                    playRound(gameId, user.getLife(), answer, blind, scanner);
                     gameId++;
                 }
             } catch (NumberFormatException e) {
