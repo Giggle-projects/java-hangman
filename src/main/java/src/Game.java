@@ -11,16 +11,13 @@ import java.util.Random;
 
 public class Game {
 
-    private static Game game;
+    private static final Game game = new Game();
     private static List<GameDictionary> wordList = new ArrayList<>(Arrays.asList(GameDictionary.values()));
     public static List<GameResult> gameResults = new ArrayList<>();
     public static List<RoundResult> roundResults = new ArrayList<>();
     private static final Random RANDOM = new Random();
 
     public static Game getInstance() {
-        if (game == null) {
-            return new Game();
-        }
         return game;
     }
 

@@ -1,13 +1,10 @@
 package src;
 
 public class HangManApplication {
-    private static HangManApplication hangManApplication;
-    private static Game game = Game.getInstance();
+
+    private static final HangManApplication hangManApplication = new HangManApplication();
 
     public static HangManApplication getInstance() {
-        if (hangManApplication == null) {
-            hangManApplication = new HangManApplication();
-        }
         return hangManApplication;
     }
 
