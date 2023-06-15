@@ -14,6 +14,7 @@ public class Game {
     private static List<GameDictionary> wordList = new ArrayList<>(Arrays.asList(GameDictionary.values()));
     public static List<GameResult> gameResults = new ArrayList<>();
     public static List<RoundResult> roundResults = new ArrayList<>();
+    private static final Random RANDOM = new Random();
 
     public static Game getInstance() {
         if (game == null) {
@@ -31,7 +32,7 @@ public class Game {
             wordList = new ArrayList<>(Arrays.asList(GameDictionary.values()));
         }
 
-        int idx = new Random().nextInt(wordList.size());
+        int idx = RANDOM.nextInt(wordList.size());
         GameDictionary dictionary = wordList.get(idx);
         wordList.remove(idx);
         return dictionary.getName();
@@ -43,6 +44,7 @@ public class Game {
     }
 
     public void startGame(int numOfGame, int numOfLife) {
+
         int numOfPlayedGame = 0;
 
         while (numOfPlayedGame <= numOfGame) {
