@@ -11,10 +11,18 @@ public class RoundResult {
 
     public RoundResult() {
         ROUND_ID++;
+        this.roundId = ROUND_ID;
     }
 
     public RoundResult(int numOfLife, String discoveredWord, char strFromUser) {
         this();
+        this.numOfLife = numOfLife;
+        this.discoveredWord = discoveredWord;
+        this.strFromUser = strFromUser;
+    }
+
+    public RoundResult(int roundId, int numOfLife, String discoveredWord, char strFromUser) {
+        this.roundId = roundId;
         this.numOfLife = numOfLife;
         this.discoveredWord = discoveredWord;
         this.strFromUser = strFromUser;

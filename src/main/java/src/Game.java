@@ -49,7 +49,9 @@ public class Game {
         int numOfPlayedGame = 0;
 
         while (numOfPlayedGame <= numOfGame) {
+
             GameResult gameResult = new GameResult();
+
             try {
                 int numOfRound = 1;
                 String wordOfGame = getWordFromDict();
@@ -58,34 +60,30 @@ public class Game {
 
                 System.out.printf("%d번째 게임이 시작됩니다. 정답 단어는 %d글자 입니다.\n", numOfPlayedGame + 1, lengthOfWord);
 
-                char[] gameArray = new char[lengthOfWord];
+                char[] discoveredChars = new char[lengthOfWord];
                 for (int j=0; j<lengthOfWord; j++) {
-                    gameArray[j] = '_';
+                    discoveredChars[j] = '_';
                 }
 
                 while (true) {
-                    RoundResult roundResult = new RoundResult();
+
                     try {
                         boolean isCorrect = false;
-                        String discoveredWord = new String(gameArray);
+                        String discoveredWord = new String(discoveredChars);
                         System.out.printf("%d 라운드 : " + discoveredWord + ", 목숨 %d\n", numOfRound, numOfLife);
                         System.out.printf("in : ");
-                        char input = Input.getGameParam();
+                        char guessedChar = Input.getGameParam();
                         for (int i = 0; i < answerArray.length; i++) {
-                            if (input == answerArray[i]) {
-                                gameArray[i] = input;
+                            if (guessedChar == answerArray[i]) {
+                                discoveredChars[i] = guessedChar;
                                 isCorrect = true;
                             }
                         }
 
-                        roundResult.setNumOfLife(numOfLife);
-                        roundResult.setDiscoveredWord(new String(gameArray));
-                        roundResult.setStrFromUser(input);
-                        roundResult.setRoundId(RoundResult.ROUND_ID);
-
+                        RoundResult roundResult = new RoundResult(numOfLife, new String(discoveredChars), guessedChar);
                         roundResults.add(roundResult);
+
                         gameResult.addRound(roundResult);
-                        gameResults.add(gameResult);
 
                         if (! isCorrect) numOfLife--;
                         if (numOfLife == 0) {
@@ -96,19 +94,23 @@ public class Game {
                             gameResult.setAnswer(wordOfGame);
                             numOfPlayedGame++;
 
+                            gameResults.add(gameResult);
+
                             printGameScore(gameResult);
                             Input.chooseMenu();
                         }
 
                         numOfRound++;
 
-                        if (!new String(gameArray).contains("_")) {
+                        if (!new String(discoveredChars).contains("_")) {
                             System.out.println("축하합니다. 정답입니다.");
 
                             gameResult.setNumOfLife(numOfLife);
                             gameResult.setIsWin("성공");
                             gameResult.setAnswer(wordOfGame);
                             numOfPlayedGame++;
+
+                            gameResults.add(gameResult);
 
                             printGameScore(gameResult);
 
