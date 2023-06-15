@@ -1,8 +1,12 @@
 package src.problem;
 
+import src.util.Message;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 enum Animal implements Problem {
 
@@ -17,6 +21,7 @@ enum Animal implements Problem {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -44,6 +49,7 @@ enum Body implements Problem {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -62,49 +68,33 @@ enum Body implements Problem {
 }
 
 public enum ProblemList {
-    ANIMAL("Animal",Animal.class.getName()),
-    BODY("Body",Body.class.getName());
+    ANIMAL("Animal", Animal.values()),
+    BODY("Body", Body.values());
 
-    private final String name;
-    private final String className;
+    private final String problemType;
+    private final List<String> problems;
 
-    ProblemList(String name, String className) {
-        this.name = name;
-        this.className = className;
+    ProblemList(String problemType, Problem[] problemContents) {
+        this.problemType = problemType;
+        this.problems = Arrays.stream(problemContents).map(Problem::getName).collect(Collectors.toList());
     }
 
-    public String getName() {
-        return name;
+    public String getProblemType() {
+        return problemType;
     }
 
-    public String getClassName() {
-        return className;
+    public List<String> getProblems() {
+        return problems;
     }
 
-    public static List<String> getContentsByCategoryName(String categoryName){
-        List<String> problemList;
-        String problemClassName = null;
-
+    public static List<String> getContentsByCategoryName(String problemType){
         for (ProblemList problem : ProblemList.values()) {
-            if (problem.name.equals(categoryName)) {
-                problemClassName = problem.getClassName();
+            if (problem.getProblemType().equals(problemType)) {
+                return problem.problems;
             }
         }
+        throw new IllegalArgumentException(Message.ERR_MSG_INVALID_INPUT_CATEGORY_RANGE);
 
-        if (problemClassName == null){
-            return null;
-        }
 
-        try {
-            Class<?> enumClass = Class.forName(problemClassName);
-            Problem ex = (Problem) enumClass.getEnumConstants()[0];
-            problemList = ex.getNameList();
-
-            Collections.shuffle(problemList);
-
-            return problemList;
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

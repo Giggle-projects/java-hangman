@@ -47,7 +47,7 @@ public class InputMenu {
         System.out.println();
     }
 
-    public static String chooseCategory(){
+    public static String chooseProblemType(){
         try {
             printCategory();
             System.out.println(Message.MSG_CHOOSE_CATEGORY);
@@ -55,11 +55,11 @@ public class InputMenu {
             if (categoryNum < 1 || categoryNum > GAME_CATEGORY.size()) {
                 throw new InputCategoryRangeException();
             }
-            String categoryName = GAME_CATEGORY.get(categoryNum).getName();
-            return categoryName;
+            String problemType = GAME_CATEGORY.get(categoryNum).getProblemType();
+            return problemType;
         } catch (InputCategoryRangeException e) {
             System.out.println(e.getMessage());
-            return chooseCategory();
+            return chooseProblemType();
         }
     }
 
