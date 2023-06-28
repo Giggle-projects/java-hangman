@@ -3,6 +3,8 @@ package src.problem;
 import src.util.Message;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,7 @@ public enum ProblemList {
     public static List<String> getProblemsByProblemType(String problemType){
         for (ProblemList problem : ProblemList.values()) {
             if (problem.getProblemType().equals(problemType)) {
+                Collections.shuffle(problem.problems);
                 return problem.problems;
             }
         }
