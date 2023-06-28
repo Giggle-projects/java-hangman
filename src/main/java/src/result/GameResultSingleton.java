@@ -4,6 +4,7 @@ import src.util.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GameResultSingleton {
     private static final GameResultSingleton instance = new GameResultSingleton();
@@ -25,14 +26,14 @@ public class GameResultSingleton {
         gameResultList.add(gameResult);
     }
 
-    public GameResult getByGameId(int gameId){
+    public Optional<GameResult> getByGameId(int gameId){
 
         for (GameResult gameResult : gameResultList) {
             if (gameResult.getGameNum() == gameId) {
-                return gameResult;
+                return Optional.of(gameResult);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -43,22 +44,25 @@ public class GameResultSingleton {
 
     }
 
-    public String printGameResult(int gameId){
+    public void printGameResult(int gameId){
         StringBuilder result = new StringBuilder();
-        GameResult gameResult = getByGameId(gameId);
+        Optional<GameResult> gameResult = getByGameId(gameId);
 
-        if (gameResult != null) {
-        result.append("게임 ID : ")
-                .append(gameResult.getGameNum()).append(", 추측 : ").append(gameResult.isSuccessStatus() ? "성공" : "실패")
-                .append(", 남은 목숨 : ")
-                .append(gameResult.getRemainingLives())
-                .append(", 정답 : ")
-                .append(gameResult.getAnswer())
-                .append('\n');
-        } else {
-            result.append(Message.ERR_MSG_NOT_FOUND_DATA);
+        if (gameResult.isEmpty()){
+            System.out.println(Message.ERR_MSG_NOT_FOUND_DATA);
         }
 
-        return result.toString();
+        if (gameResult.isPresent()){
+            result.append("게임 ID : ")
+                    .append(gameResult.get().getGameNum()).append(", 추측 : ").append(gameResult.get().isSuccessStatus() ? "성공" : "실패")
+                    .append(", 남은 목숨 : ")
+                    .append(gameResult.get().getRemainingLives())
+                    .append(", 정답 : ")
+                    .append(gameResult.get().getAnswer())
+                    .append('\n');
+
+            System.out.println(result);
+        }
+
     }
 }

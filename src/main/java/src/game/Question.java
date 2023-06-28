@@ -24,4 +24,12 @@ public class Question {
                 ", enteredAnswer='" + enteredAnswer + '\'' +
                 '}';
     }
+
+    public boolean checkCharInWord(char targetChar){
+        return getTargetQuestion().indexOf(targetChar) == -1;
+    }
+
+    public boolean validAnswer(String enteredAnswer){
+        return getTargetQuestion().contentEquals(enteredAnswer);
+    }
 }

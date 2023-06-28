@@ -1,9 +1,11 @@
 package src.result;
 
 import src.util.Message;
+import src.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RoundResultSingleton {
     private static final RoundResultSingleton instance = new RoundResultSingleton();
@@ -21,18 +23,18 @@ public class RoundResultSingleton {
         roundResultList.add(roundResult);
     }
 
-    public RoundResult getByGameIdAndRoundId(int gameId, int roundId){
+    public Optional<RoundResult> getByGameIdAndRoundId(int gameId, int roundId){
 
         for (RoundResult roundResult : roundResultList) {
             if (roundResult.getGameId() == gameId
                     && roundResult.getRoundId() == roundId) {
-                return roundResult;
+                return Optional.of(roundResult);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    public String printRoundResult(int gameId) {
+    public void printRoundResult(int gameId) {
         StringBuilder result = new StringBuilder();
         for (RoundResult roundResult : roundResultList) {
             if (roundResult.getGameId() == gameId) {
@@ -47,28 +49,34 @@ public class RoundResultSingleton {
                         .append('\n');
             }
         }
-        return result.toString();
+        System.out.println(result);
     }
 
-    public String printRoundResult(int gameId, int roundId){
+    public void printRoundResult(){
+        System.out.println(Message.MSG_INPUT_GAME_ID);
+        final int gameId = Utils.getInt();
+        System.out.println(Message.MSG_INPUT_ROUND_ID);
+        final int roundId = Utils.getInt();
+
         StringBuilder result = new StringBuilder();
-        RoundResult roundResult = getByGameIdAndRoundId(gameId, roundId);
+        Optional<RoundResult> roundResult = getByGameIdAndRoundId(gameId, roundId);
 
-        if (roundResult != null){
+        if (roundResult.isEmpty())
+            System.out.println(Message.ERR_MSG_NOT_FOUND_DATA);
+
+        if (roundResult.isPresent()){
             result.append("라운드 ID : ")
-                    .append(roundResult.getGameId()).append("-").append(roundResult.getRoundId())
+                    .append(roundResult.get().getGameId()).append("-").append(roundResult.get().getRoundId())
                     .append(", 남은 목숨 : ")
-                    .append(roundResult.getLife())
+                    .append(roundResult.get().getLife())
                     .append(", 밝혀진 단어 : ")
-                    .append(roundResult.getEnteredAnswer())
+                    .append(roundResult.get().getEnteredAnswer())
                     .append(", 사용자 입력 : ")
-                    .append(roundResult.getUserInput())
+                    .append(roundResult.get().getUserInput())
                     .append('\n');
-        } else {
-            result.append(Message.ERR_MSG_NOT_FOUND_DATA);
-        }
 
-        return result.toString();
+            System.out.println(result);
+        }
 
     }
 }
