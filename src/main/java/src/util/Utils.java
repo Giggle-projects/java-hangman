@@ -25,19 +25,17 @@ public class Utils {
 
 
                 for (String token : userInput) {
-                    if (isNumeric(token)) {
-                        int number = Integer.parseInt(token);
-                        inputArr.add(number);
-                    } else {
+                    if (!isNumeric(token)) {
                         throw new NumberFormatException();
                     }
+                    int number = Integer.parseInt(token);
+                    inputArr.add(number);
                 }
 
                 if (inputArr.size() > 2 || inputArr.size() == 1) {
                     System.out.println(Message.ERR_MSG_INVALID_INPUT_FORMAT);
-                } else {
-                    return inputArr;
                 }
+                return inputArr;
             } catch (NumberFormatException e){
                 System.out.println(Message.ERR_MSG_INVALID_INPUT_NUMBER_FORMAT);
             } catch (NoSuchElementException e){
