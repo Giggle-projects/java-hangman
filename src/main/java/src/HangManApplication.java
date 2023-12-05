@@ -1,8 +1,11 @@
 package src;
 
+import src.controller.Controller;
+
 public class HangManApplication {
 
     public static void main(String[] args) {
-        System.out.println("hi");
+        Controller controller = new Controller();
+        controller.run();
     }
 }
