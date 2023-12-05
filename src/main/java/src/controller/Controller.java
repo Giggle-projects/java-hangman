@@ -20,23 +20,23 @@ public class Controller {
         int[] countAndLife = Arrays.stream(split).mapToInt(Integer::parseInt).toArray();
         int count = countAndLife[0];
         int life = countAndLife[1];
-        String s1 = randomWords();
-        String temp ="";
+        String randomWord = randomWords();
+        String wordtemple ="";
         String replaceComma = "_";
-        for (int i = 0; i < s1.length(); i++) {
-            temp += replaceComma;
+        for (int i = 0; i < randomWord.length(); i++) {
+            wordtemple += replaceComma;
         }
 
-        System.out.println(count+"번째 게임이 시작됩니다. 정답 단어는 "+s1.length()+"글자 입니다.");
+        System.out.println(count+"번째 게임이 시작됩니다. 정답 단어는 "+randomWord.length()+"글자 입니다.");
         while (true){
             int round = 0;
             round++;
-            System.out.println(round+" 라운드 :" + temp+","+life);
+            System.out.println(round+" 라운드 :" + wordtemple+","+life);
             String userAnswer = InputView.userInsert();
 
-            String[] split1 = s1.split("");
+            String[] userAnswerAlphabet = randomWord.split("");
 
-            List<String> splitAnswer = Arrays.stream(split1).collect(Collectors.toList());
+            List<String> splitAnswer = Arrays.stream(userAnswerAlphabet).collect(Collectors.toList());
 
             StringBuilder result = new StringBuilder();
             if(splitAnswer.contains(userAnswer)){
