@@ -1,4 +1,6 @@
-package domain;
+package domain.randomWordPicker;
+
+import domain.hangman.Word;
 
 import java.util.Objects;
 import java.util.Random;

@@ -1,5 +1,6 @@
-package domain;
+package domain.hangman;
 
+import domain.randomWordPicker.RandomWordPicker;
 import dto.GameInitDto;
 
 public class HangmanGame {

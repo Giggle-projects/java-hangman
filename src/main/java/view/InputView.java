@@ -1,7 +1,7 @@
 package view;
 
-import domain.Life;
-import domain.Round;
+import domain.hangman.Life;
+import domain.hangman.Round;
 import util.Console;
 
 import java.util.function.Supplier;

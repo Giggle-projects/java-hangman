@@ -1,4 +1,4 @@
-package domain;
+package domain.hangman;
 
 public class Life {
 

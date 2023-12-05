@@ -1,6 +1,10 @@
 package controller;
 
-import domain.*;
+import domain.hangman.HangmanGame;
+import domain.hangman.Life;
+import domain.hangman.Round;
+import domain.randomWordPicker.HangmanWordPicker;
+import domain.randomWordPicker.RandomWordPicker;
 import dto.GameInitDto;
 import view.InputView;
 import view.OutputView;
