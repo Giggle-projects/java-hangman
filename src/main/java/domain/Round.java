@@ -24,4 +24,8 @@ public class Round {
                 ", currentRound=" + currentRound +
                 '}';
     }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
 }

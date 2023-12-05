@@ -1,7 +1,9 @@
 package controller;
 
 import domain.*;
+import dto.GameInitDto;
 import view.InputView;
+import view.OutputView;
 
 public class HangmanGameController {
 
@@ -11,6 +13,9 @@ public class HangmanGameController {
 
     public void run() {
         HangmanGame hangmanGame = this.generateHangmanGame();
+
+        GameInitDto initDto = hangmanGame.getInitDto();
+        OutputView.printGameInfo(initDto);
     }
 
     private HangmanGame generateHangmanGame() {
