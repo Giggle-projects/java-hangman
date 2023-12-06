@@ -26,4 +26,8 @@ public class Round {
         }
         currentRound += 1;
     }
+
+    public boolean isDone() {
+        return currentRound == round;
+    }
 }

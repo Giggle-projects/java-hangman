@@ -10,6 +10,9 @@ public class OutputView {
     private static final String PRINT_GAME_ROUND_FORMAT = "%d 라운드 : %s, 목숨 %d\n";
     private static final String MISMATCH_WORD = "_";
 
+    private static final String MESSAGE_SUCCESS = "축하합니다. 정답입니다.\n";
+    private static final String MESSAGE_FAILURE = "실패, 다시 도전해보세요!\n";
+
     private OutputView() {
 
     }
@@ -23,5 +26,13 @@ public class OutputView {
                 gameStatusDto.getGameCount(),
                 gameStatusDto.getWordDto().matchedWord(MISMATCH_WORD),
                 gameStatusDto.getRemainingLife());
+    }
+
+    public static void printGameResult(boolean result) {
+        String message = MESSAGE_FAILURE;
+        if (result) {
+            message = MESSAGE_SUCCESS;
+        }
+        System.out.println(message);
     }
 }

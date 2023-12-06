@@ -17,7 +17,7 @@ public class Life {
         }
     }
 
-    public boolean isDone() {
+    public boolean isZero() {
         return remainingLife == 0;
     }
 
@@ -26,7 +26,7 @@ public class Life {
     }
 
     public void decrease() {
-        if (isDone()) {
+        if (isZero()) {
             throw new IllegalArgumentException("남아있는 목숨이 없어 게임을 진행할 수 없습니다.");
         }
         remainingLife -= 1;

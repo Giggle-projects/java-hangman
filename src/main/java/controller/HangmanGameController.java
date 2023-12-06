@@ -19,7 +19,12 @@ public class HangmanGameController {
 
     public void run() {
         HangmanGame hangmanGame = this.generateHangmanGame();
-        this.startRound(hangmanGame);
+
+        while (!hangmanGame.isDone()) {
+            this.startRound(hangmanGame);
+            boolean result = hangmanGame.getResult();
+            OutputView.printGameResult(result);
+        }
     }
 
     private HangmanGame generateHangmanGame() {
@@ -34,7 +39,7 @@ public class HangmanGameController {
         newGameDto newGameDto = hangmanGame.setNewRound();
         OutputView.printGameInfo(newGameDto);
 
-        while (!hangmanGame.isDone()) {
+        while (!hangmanGame.isRoundEnd()) {
             Alphabet alphabet = InputView.inputAlphabet();
             GameStatusDto gameStatusDto = hangmanGame.tryToMatch(alphabet);
             OutputView.printGameStatus(gameStatusDto);

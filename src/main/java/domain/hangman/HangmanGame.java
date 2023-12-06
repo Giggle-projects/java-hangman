@@ -19,8 +19,12 @@ public class HangmanGame {
         this.randomWordPicker = randomWordPicker;
     }
 
+    public boolean isRoundEnd() {
+        return life.isZero() || word.isAllMatched();
+    }
+
     public boolean isDone() {
-        return life.isDone() || word.isAllMatched();
+        return round.isDone();
     }
 
     public newGameDto setNewRound() {
@@ -39,5 +43,9 @@ public class HangmanGame {
             life.decrease();
         }
         return new GameStatusDto(gameCount, life.getRemainingLife(), word.toDto());
+    }
+
+    public boolean getResult() {
+        return word.isAllMatched();
     }
 }
