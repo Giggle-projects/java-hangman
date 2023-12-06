@@ -22,10 +22,11 @@ public class HangmanWordPicker implements RandomWordPicker {
 
     @Override
     public Word pick() {
-        Word[] words = Word.values();
+        RandomWord[] words = RandomWord.values();
         Random random = new Random();
         int randomIndex = random.nextInt(words.length);
 
-        return words[randomIndex];
+        String word = words[randomIndex].name();
+        return new Word(word);
     }
 }

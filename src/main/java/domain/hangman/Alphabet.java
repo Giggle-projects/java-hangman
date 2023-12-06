@@ -1,12 +1,15 @@
 package domain.hangman;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Alphabet {
 
     private final String alphabet;
 
     public Alphabet(String alphabet) {
         this.validate(alphabet);
-        this.alphabet = alphabet;
+        this.alphabet = alphabet.toUpperCase();
     }
 
     private void validate(String alphabet) {
@@ -38,5 +41,27 @@ public class Alphabet {
         if (!Character.isAlphabetic(alphabet.charAt(0))) {
             throw new IllegalArgumentException("알파벳을 입력해야 함.");
         }
+    }
+
+    public List<Integer> extractMatchIndex(String word) {
+        List<Integer> hitIndex = new ArrayList<>();
+        if (!word.contains(alphabet)) {
+            return hitIndex;
+        }
+
+        String[] words = word.split("");
+        for (int i = 0; i < word.length(); i++) {
+               if (words[i].equals(alphabet)) {
+                   hitIndex.add(i);
+               }
+        }
+        return hitIndex;
+    }
+
+    @Override
+    public String toString() {
+        return "Alphabet{" +
+                "alphabet='" + alphabet + '\'' +
+                '}';
     }
 }
