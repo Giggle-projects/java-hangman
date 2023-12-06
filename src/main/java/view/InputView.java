@@ -1,5 +1,6 @@
 package view;
 
+import domain.hangman.Alphabet;
 import domain.hangman.Life;
 import domain.hangman.Round;
 import util.Console;
@@ -48,6 +49,15 @@ public class InputView {
             int life = readToInt(Console.readLine());
 
             return new Life(life);
+        });
+    }
+
+    public static Alphabet inputAlphabet() {
+        return repeatUntilNoException(() -> {
+            System.out.print(INPUT_PREFIX);
+            String alphabet = Console.readLine();
+
+            return new Alphabet(alphabet);
         });
     }
 }

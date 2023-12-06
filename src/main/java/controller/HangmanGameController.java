@@ -5,7 +5,7 @@ import domain.hangman.Life;
 import domain.hangman.Round;
 import domain.randomWordPicker.HangmanWordPicker;
 import domain.randomWordPicker.RandomWordPicker;
-import dto.GameInitDto;
+import dto.newGameDto;
 import view.InputView;
 import view.OutputView;
 
@@ -17,9 +17,7 @@ public class HangmanGameController {
 
     public void run() {
         HangmanGame hangmanGame = this.generateHangmanGame();
-
-        GameInitDto initDto = hangmanGame.getInitDto();
-        OutputView.printGameInfo(initDto);
+        this.startRound(hangmanGame);
     }
 
     private HangmanGame generateHangmanGame() {
@@ -28,5 +26,14 @@ public class HangmanGameController {
         RandomWordPicker randomWordPicker = HangmanWordPicker.getInstance();
 
         return new HangmanGame(round, life, randomWordPicker);
+    }
+
+    private void startRound(HangmanGame hangmanGame) {
+        newGameDto newGameDto = hangmanGame.setNewRound();
+        OutputView.printGameInfo(newGameDto);
+
+        while (!hangmanGame.isDone()) {
+            InputView.inputAlphabet();
+        }
     }
 }
