@@ -2,8 +2,12 @@ package domain.hangman;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Alphabet {
+
+    private static final Pattern ALPHABET_PATTERN = Pattern.compile("[a-zA-Z]");
 
     private final String alphabet;
 
@@ -38,7 +42,8 @@ public class Alphabet {
     }
 
     private void validateIsAlphabetic(String alphabet) {
-        if (!Character.isAlphabetic(alphabet.charAt(0))) {
+        Matcher alphabetMatcher = ALPHABET_PATTERN.matcher(alphabet);
+        if (!alphabetMatcher.find()) {
             throw new IllegalArgumentException("알파벳을 입력해야 함.");
         }
     }
