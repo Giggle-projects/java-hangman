@@ -1,11 +1,11 @@
 package dto;
 
-public class GameInitDto {
+public class newGameDto {
 
     private final int gameRound;
     private final int wordLength;
 
-    public GameInitDto(int gameRound, int wordLength) {
+    public newGameDto(int gameRound, int wordLength) {
         this.gameRound = gameRound;
         this.wordLength = wordLength;
     }

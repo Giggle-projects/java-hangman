@@ -1,6 +1,6 @@
 package view;
 
-import dto.GameInitDto;
+import dto.newGameDto;
 
 public class OutputView {
 
@@ -11,7 +11,7 @@ public class OutputView {
 
     }
 
-    public static void printGameInfo(GameInitDto gameInitDto) {
+    public static void printGameInfo(newGameDto gameInitDto) {
         System.out.printf(OUTPUT_PREFIX + PRINT_GAME_INFO_FORMAT, gameInitDto.gameRound(), gameInitDto.wordLength());
     }
 }

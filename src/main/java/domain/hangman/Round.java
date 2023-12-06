@@ -8,7 +8,6 @@ public class Round {
     public Round(int round) {
         this.validate(round);
         this.round = round;
-        this.currentRound = 1;
     }
 
     private void validate(int round) {
@@ -17,15 +16,22 @@ public class Round {
         }
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public void increase() {
+        if (currentRound >= round) {
+            throw new IllegalArgumentException("버그쓰면 안 됩니다.");
+        }
+        currentRound += 1;
+    }
+
     @Override
     public String toString() {
         return "Round{" +
                 "round=" + round +
                 ", currentRound=" + currentRound +
                 '}';
-    }
-
-    public int getCurrentRound() {
-        return currentRound;
     }
 }

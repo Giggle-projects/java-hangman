@@ -17,6 +17,14 @@ public class Life {
         }
     }
 
+    public boolean isDone() {
+        return remainingLife == 0;
+    }
+
+    public void recover() {
+        remainingLife = life;
+    }
+
     @Override
     public String toString() {
         return "Life{" +

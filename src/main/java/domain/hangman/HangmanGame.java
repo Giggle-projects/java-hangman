@@ -1,7 +1,7 @@
 package domain.hangman;
 
 import domain.randomWordPicker.RandomWordPicker;
-import dto.GameInitDto;
+import dto.newGameDto;
 
 public class HangmanGame {
 
@@ -10,18 +10,24 @@ public class HangmanGame {
     private final RandomWordPicker randomWordPicker;
 
     private Word word;
+    private int gameCount;
 
     public HangmanGame(Round round, Life life, RandomWordPicker randomWordPicker) {
         this.round = round;
         this.life = life;
         this.randomWordPicker = randomWordPicker;
-        word = randomWordPicker.pick();
     }
 
-    public GameInitDto getInitDto() {
-        int round = this.round.getCurrentRound();
-        int wordLength = word.length();
+    public boolean isDone() {
+        return life.isDone();
+    }
 
-        return new GameInitDto(round, wordLength);
+    public newGameDto setNewRound() {
+        round.increase();
+        life.recover();
+        word = randomWordPicker.pick();
+        gameCount = 1;
+
+        return new newGameDto(round.getCurrentRound(), word.length());
     }
 }
