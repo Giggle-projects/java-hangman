@@ -1,10 +1,12 @@
 package controller;
 
+import domain.hangman.Alphabet;
 import domain.hangman.HangmanGame;
 import domain.hangman.Life;
 import domain.hangman.Round;
 import domain.randomWordPicker.HangmanWordPicker;
 import domain.randomWordPicker.RandomWordPicker;
+import dto.GameStatusDto;
 import dto.newGameDto;
 import view.InputView;
 import view.OutputView;
@@ -33,7 +35,9 @@ public class HangmanGameController {
         OutputView.printGameInfo(newGameDto);
 
         while (!hangmanGame.isDone()) {
-            InputView.inputAlphabet();
+            Alphabet alphabet = InputView.inputAlphabet();
+            GameStatusDto gameStatusDto = hangmanGame.tryToMatch(alphabet);
+            OutputView.printGameStatus(gameStatusDto);
         }
     }
 }

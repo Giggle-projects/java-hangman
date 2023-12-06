@@ -1,6 +1,7 @@
 package domain.hangman;
 
 import domain.randomWordPicker.RandomWordPicker;
+import dto.GameStatusDto;
 import dto.newGameDto;
 
 public class HangmanGame {
@@ -19,15 +20,24 @@ public class HangmanGame {
     }
 
     public boolean isDone() {
-        return life.isDone();
+        return life.isDone() || word.isAllMatched();
     }
 
     public newGameDto setNewRound() {
         round.increase();
         life.recover();
         word = randomWordPicker.pick();
-        gameCount = 1;
+        gameCount = 0;
 
         return new newGameDto(round.getCurrentRound(), word.length());
+    }
+
+    public GameStatusDto tryToMatch(Alphabet alphabet) {
+        gameCount += 1;
+        boolean result = word.tryToMatch(alphabet);
+        if (!result) {
+            life.decrease();
+        }
+        return new GameStatusDto(gameCount, life.getRemainingLife(), word.toDto());
     }
 }

@@ -25,6 +25,17 @@ public class Life {
         remainingLife = life;
     }
 
+    public void decrease() {
+        if (isDone()) {
+            throw new IllegalArgumentException("남아있는 목숨이 없어 게임을 진행할 수 없습니다.");
+        }
+        remainingLife -= 1;
+    }
+
+    public int getRemainingLife() {
+        return remainingLife;
+    }
+
     @Override
     public String toString() {
         return "Life{" +
