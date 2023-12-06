@@ -35,12 +35,4 @@ public class Life {
     public int getRemainingLife() {
         return remainingLife;
     }
-
-    @Override
-    public String toString() {
-        return "Life{" +
-                "life=" + life +
-                ", remainingLife=" + remainingLife +
-                '}';
-    }
 }

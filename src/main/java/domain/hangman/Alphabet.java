@@ -44,11 +44,11 @@ public class Alphabet {
     }
 
     public List<Integer> extractMatchIndex(String word) {
-        List<Integer> hitIndex = new ArrayList<>();
         if (!word.contains(alphabet)) {
-            return hitIndex;
+            return List.of();
         }
 
+        List<Integer> hitIndex = new ArrayList<>();
         String[] words = word.split("");
         for (int i = 0; i < word.length(); i++) {
                if (words[i].equals(alphabet)) {
@@ -56,12 +56,5 @@ public class Alphabet {
                }
         }
         return hitIndex;
-    }
-
-    @Override
-    public String toString() {
-        return "Alphabet{" +
-                "alphabet='" + alphabet + '\'' +
-                '}';
     }
 }

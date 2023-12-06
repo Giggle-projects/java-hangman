@@ -26,12 +26,4 @@ public class Round {
         }
         currentRound += 1;
     }
-
-    @Override
-    public String toString() {
-        return "Round{" +
-                "round=" + round +
-                ", currentRound=" + currentRound +
-                '}';
-    }
 }
