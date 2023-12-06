@@ -34,13 +34,11 @@ public class InputView {
     }
 
     private static int readToInt(String read) {
-        return repeatUntilNoException(() -> {
-            try {
-                return Integer.parseInt(read);
-            } catch (NumberFormatException exception) {
-                throw new IllegalArgumentException(OUTPUT_PREFIX + "숫자를 입력해주세요.");
-            }
-        });
+        try {
+            return Integer.parseInt(read);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException(OUTPUT_PREFIX + "숫자를 입력해주세요.");
+        }
     }
 
     public static Life inputLife() {
