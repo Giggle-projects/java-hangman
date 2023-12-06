@@ -40,9 +40,11 @@ public class HangmanGameController {
         OutputView.printGameInfo(newGameDto);
 
         while (!hangmanGame.isRoundEnd()) {
+            GameStatusDto gameStatus = hangmanGame.getGameStatus();
+            OutputView.printGameStatus(gameStatus);
+
             Alphabet alphabet = InputView.inputAlphabet();
-            GameStatusDto gameStatusDto = hangmanGame.tryToMatch(alphabet);
-            OutputView.printGameStatus(gameStatusDto);
+            hangmanGame.tryToMatch(alphabet);
         }
     }
 }

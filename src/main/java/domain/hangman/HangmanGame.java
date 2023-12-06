@@ -31,17 +31,20 @@ public class HangmanGame {
         round.increase();
         life.recover();
         word = randomWordPicker.pick();
-        gameCount = 0;
+        gameCount = 1;
 
         return new NewGameDto(round.getCurrentRound(), word.length());
     }
 
-    public GameStatusDto tryToMatch(Alphabet alphabet) {
+    public void tryToMatch(Alphabet alphabet) {
         gameCount += 1;
         boolean result = word.tryToMatch(alphabet);
         if (!result) {
             life.decrease();
         }
+    }
+
+    public GameStatusDto getGameStatus() {
         return new GameStatusDto(gameCount, life.getRemainingLife(), word.toDto());
     }
 
