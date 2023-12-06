@@ -7,7 +7,7 @@ import domain.hangman.Round;
 import domain.randomWordPicker.HangmanWordPicker;
 import domain.randomWordPicker.RandomWordPicker;
 import dto.GameStatusDto;
-import dto.newGameDto;
+import dto.NewGameDto;
 import view.InputView;
 import view.OutputView;
 
@@ -36,7 +36,7 @@ public class HangmanGameController {
     }
 
     private void startRound(HangmanGame hangmanGame) {
-        newGameDto newGameDto = hangmanGame.setNewRound();
+        NewGameDto newGameDto = hangmanGame.setNewRound();
         OutputView.printGameInfo(newGameDto);
 
         while (!hangmanGame.isRoundEnd()) {

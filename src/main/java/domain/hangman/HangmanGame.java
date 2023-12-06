@@ -2,7 +2,7 @@ package domain.hangman;
 
 import domain.randomWordPicker.RandomWordPicker;
 import dto.GameStatusDto;
-import dto.newGameDto;
+import dto.NewGameDto;
 
 public class HangmanGame {
 
@@ -27,13 +27,13 @@ public class HangmanGame {
         return round.isDone();
     }
 
-    public newGameDto setNewRound() {
+    public NewGameDto setNewRound() {
         round.increase();
         life.recover();
         word = randomWordPicker.pick();
         gameCount = 0;
 
-        return new newGameDto(round.getCurrentRound(), word.length());
+        return new NewGameDto(round.getCurrentRound(), word.length());
     }
 
     public GameStatusDto tryToMatch(Alphabet alphabet) {

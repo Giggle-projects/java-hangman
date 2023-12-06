@@ -1,7 +1,7 @@
 package view;
 
 import dto.GameStatusDto;
-import dto.newGameDto;
+import dto.NewGameDto;
 
 public class OutputView {
 
@@ -17,7 +17,7 @@ public class OutputView {
 
     }
 
-    public static void printGameInfo(newGameDto gameInitDto) {
+    public static void printGameInfo(NewGameDto gameInitDto) {
         System.out.printf(OUTPUT_PREFIX + PRINT_GAME_INFO_FORMAT, gameInitDto.gameRound(), gameInitDto.wordLength());
     }
 
