@@ -48,18 +48,18 @@ public class Alphabet {
         }
     }
 
-    public List<Integer> extractMatchIndex(String word) {
+    public List<Integer> extractMatchedIndex(String word) {
         if (!word.contains(alphabet)) {
             return List.of();
         }
 
-        List<Integer> hitIndex = new ArrayList<>();
+        List<Integer> matchedIndex = new ArrayList<>();
         String[] words = word.split("");
         for (int i = 0; i < word.length(); i++) {
                if (words[i].equals(alphabet)) {
-                   hitIndex.add(i);
+                   matchedIndex.add(i);
                }
         }
-        return hitIndex;
+        return matchedIndex;
     }
 }

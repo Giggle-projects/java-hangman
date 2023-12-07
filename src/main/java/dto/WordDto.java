@@ -3,22 +3,24 @@ package dto;
 public class WordDto {
 
     private final String word;
-    private final boolean[] matchIndex;
+    private final boolean[] isMatched;
 
-    public WordDto(String word, boolean[] matchIndex) {
+    public WordDto(String word, boolean[] isMatched) {
         this.word = word;
-        this.matchIndex = matchIndex;
+        this.isMatched = isMatched;
     }
 
-    public String matchedWord(String mismatchWord) {
-        StringBuilder matchedWord = new StringBuilder();
+    public String getHint(String hiddenWord) {
+        StringBuilder hint = new StringBuilder();
+        String[] wordSpelling = word.split("");
+
         for (int i = 0; i < word.length(); i++) {
-            String one = mismatchWord;
-            if (matchIndex[i]) {
-                one = word.split("")[i];
+            String currentChar = hiddenWord;
+            if (isMatched[i]) {
+                currentChar = wordSpelling[i];
             }
-            matchedWord.append(one);
+            hint.append(currentChar);
         }
-        return matchedWord.toString();
+        return hint.toString();
     }
 }

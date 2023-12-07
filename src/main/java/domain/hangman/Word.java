@@ -7,11 +7,11 @@ import java.util.List;
 public class Word {
 
     private final String word;
-    private boolean[] matchIndex;
+    private final boolean[] isMatched;
 
     public Word(String word) {
         this.word = word.toUpperCase();
-        matchIndex = new boolean[word.length()];
+        isMatched = new boolean[word.length()];
     }
 
     public int length() {
@@ -19,22 +19,22 @@ public class Word {
     }
 
     public boolean tryToMatch(Alphabet alphabet) {
-        List<Integer> matchIndex = alphabet.extractMatchIndex(word);
-        if (matchIndex.isEmpty()) {
+        List<Integer> matchedIndex = alphabet.extractMatchedIndex(word);
+        if (matchedIndex.isEmpty()) {
             return false;
         }
-        this.fillMatchIndex(matchIndex);
+        this.fillIsMatched(matchedIndex);
         return true;
     }
 
-    private void fillMatchIndex(List<Integer> matchIndex) {
-        for (Integer index : matchIndex) {
-            this.matchIndex[index] = true;
+    private void fillIsMatched(List<Integer> matchedIndex) {
+        for (Integer index : matchedIndex) {
+            isMatched[index] = true;
         }
     }
 
     public boolean isAllMatched() {
-        for (boolean index : matchIndex) {
+        for (boolean index : isMatched) {
             if (!index) {
                 return false;
             }
@@ -43,6 +43,6 @@ public class Word {
     }
 
     public WordDto toDto() {
-        return new WordDto(word, matchIndex);
+        return new WordDto(word, isMatched);
     }
 }

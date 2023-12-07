@@ -24,7 +24,7 @@ public class OutputView {
     public static void printGameStatus(GameStatusDto gameStatusDto) {
         System.out.printf(OUTPUT_PREFIX + PRINT_GAME_ROUND_FORMAT,
                 gameStatusDto.getGameCount(),
-                gameStatusDto.getWordDto().matchedWord(MISMATCH_WORD),
+                gameStatusDto.getWordDto().getHint(MISMATCH_WORD),
                 gameStatusDto.getRemainingLife());
     }
 
