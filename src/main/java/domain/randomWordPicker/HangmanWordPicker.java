@@ -8,9 +8,10 @@ import java.util.Random;
 public class HangmanWordPicker implements RandomWordPicker {
 
     private static HangmanWordPicker hangmanWordPicker;
+    private final Random random;
 
     private HangmanWordPicker() {
-
+        random = new Random();
     }
 
     public static HangmanWordPicker getInstance() {
@@ -23,7 +24,6 @@ public class HangmanWordPicker implements RandomWordPicker {
     @Override
     public Word pick() {
         RandomWord[] words = RandomWord.values();
-        Random random = new Random();
         int randomIndex = random.nextInt(words.length);
 
         String word = words[randomIndex].name();
