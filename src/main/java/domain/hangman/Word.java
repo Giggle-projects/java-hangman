@@ -1,7 +1,5 @@
 package domain.hangman;
 
-import dto.WordDto;
-
 import java.util.List;
 
 public class Word {
@@ -42,7 +40,11 @@ public class Word {
         return true;
     }
 
-    public WordDto toDto() {
-        return new WordDto(word, isMatched);
+    public String getWord() {
+        return word;
+    }
+
+    public boolean[] getIsMatched() {
+        return isMatched;
     }
 }

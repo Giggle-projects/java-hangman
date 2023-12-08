@@ -1,7 +1,6 @@
 package domain.hangman;
 
 import domain.randomWordPicker.RandomWordPicker;
-import dto.GameStatusDto;
 import dto.NewGameDto;
 
 public class HangmanGame {
@@ -44,8 +43,20 @@ public class HangmanGame {
         }
     }
 
-    public GameStatusDto getGameStatus() {
-        return new GameStatusDto(gameCount, life.getRemainingLife(), word.toDto());
+    public int getGameCount() {
+        return gameCount;
+    }
+
+    public String getWord() {
+        return word.getWord();
+    }
+
+    public boolean[] getIsMatched() {
+        return word.getIsMatched();
+    }
+
+    public int getRemainingLife() {
+        return life.getRemainingLife();
     }
 
     public boolean getResult() {

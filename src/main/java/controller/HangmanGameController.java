@@ -35,12 +35,12 @@ public class HangmanGameController {
         return new HangmanGame(round, life, randomWordPicker);
     }
 
-    private void startRound(HangmanGame hangmanGame) {
+    private void startRound(final HangmanGame hangmanGame) {
         NewGameDto newGameDto = hangmanGame.setNewRound();
         OutputView.printGameInfo(newGameDto);
 
         while (!hangmanGame.isRoundEnd()) {
-            GameStatusDto gameStatus = hangmanGame.getGameStatus();
+            GameStatusDto gameStatus = GameStatusDto.from(hangmanGame);
             OutputView.printGameStatus(gameStatus);
 
             Alphabet alphabet = InputView.inputAlphabet();
