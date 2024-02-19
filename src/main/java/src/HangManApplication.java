@@ -20,21 +20,18 @@ public class HangManApplication {
     private Scanner scanner = new Scanner(System.in);
 
     public void start() {
-        // Set number of games and number of lives.
+        // Set the number of games and the number of lives.
         initializeSettings();
-        
+
         for (int i = 1; i <= maxGameId; i++) {
             gameId = i;
-
             initializeGame();
-            
             playGame();
-            
-            writeGameResult();
 
-            writeLogHistory();
-
-            printGameResult();
+            HangManDataHandler.writeGameResult(gameResult, gameId, gameSuccess, lives, answer, log);
+            HangManDataHandler.writeLogHistory(logHistory, gameId, log);
+            HangManPrinter.printGameResult(gameSuccess, maxGameId, gameId, lives, answer);
+            HangManPrinter.printTotalResult(gameResult, gameId);
         }
     }
 
@@ -49,34 +46,23 @@ public class HangManApplication {
 
     private void initializeGame() {
         this.gameSuccess = false;
-
-        // Make a set to avoid selecting duplicate char.
         this.guessHistory = new HashSet<>();
-
-        // Get random word.
         this.answer = WORDS[(int)(Math.random()*WORDS.length)];
-        
-        // Setting lives before start game.
         this.lives = maxLives;
-
-        // Initialize log.
         this.log = new String[answer.length() + maxLives];
-
-        // Initialize guessword.
         this.guessedWord = new char[answer.length()];
         for (int i = 0; i < answer.length(); i++) {
             guessedWord[i] = '_';
         }
 
-        printGameInfo();
+        HangManPrinter.printGameInfo(gameId, answer);
     }
 
-    // STEP 1 : Play game.
     private void playGame() {
         int roundId = 1;
 
         while (lives > 0) {
-            printGameRound();
+            HangManPrinter.printGameRound(guessedWord, lives);
 
             char guess = getUserGuess();
 
@@ -86,11 +72,12 @@ public class HangManApplication {
                 break;
             }
 
-            if (guessSuccess != true){
+            if (!guessSuccess){
                 lives--;
             }
             
-            writeLog(roundId, guess);
+            //String[] log, int roundId, char userInput, int lives, char[] guessedWord
+            HangManDataHandler.writeLog(log, roundId, guess, lives, guessedWord);
             roundId++;
         }
     }
@@ -173,91 +160,14 @@ public class HangManApplication {
         System.out.println("소문자로 1개의 영문자를 입력하세요.");
         return 0;
     }
-
-    private void writeLogHistory(){
-        logHistory.put(gameId, log.clone());
-    }
-    
-    private void writeLog(int roundId, char userInput){
-        log[roundId-1] = String.format("라운드 id : %d, 남은 목숨 : %d, %s, 사용자 입력 : %c", 
-                                        roundId,
-                                        lives,
-                                        new String(guessedWord),
-                                        userInput);
-    }
-
-    private void writeGameResult(){
-        String resultString = "=== Game Result ===\n";
-        resultString += String.format("게임 id : %d, 추측 : %s, 남은 목숨 : %d, 정답 : %s", 
-                        gameId,
-                        (gameSuccess) ? "성공" : "실패",
-                        lives,
-                        answer) + "\n\n";
-
-        for (String logString : log){
-            if (logString != null){
-                resultString += logString + "\n";
-            }
-        }
-        resultString += "===================\n";
-
-        gameResult.put(gameId, resultString);
-    }
-
-    private void printGameResult(){
-        boolean nextGameExist = (gameId == maxGameId) ? false : true;
-
-        if (gameSuccess){
-            System.out.println("축하합니다. 정답입니다.\n");
-        }
-        else{
-            System.out.println("목숨이 모두 소진되었습니다. 실패했습니다. 정답은 " + answer + "입니다.\n");
-        }
-
-        if (nextGameExist){
-            System.out.println("다음 게임을 시작합니다.\n");
-        }
-        else{
-            System.out.println("모든 게임이 종료되었습니다.\n");
-        }
-
-        printTotalResult(gameId);
-    }
-
-    private void printTotalResult(int selectGameId){
-        boolean isValidGameId = gameResult.containsKey(selectGameId);
-
-        if (isValidGameId){
-            System.out.println(gameResult.get(selectGameId));
-        }else{
-            System.out.println("존재하지 않는 게임 id 입니다.");
-        }
-    }
-
-    private void printGameInfo() {
-        System.out.println(gameId + "번째 게임이 시작됩니다. 정답 단어는 " + answer.length() + "글자 입니다.");
-    }
-
-    private void printGameRound() {
-        System.out.println("라운드 : " + new String(guessedWord) + ", 목숨 " + lives);
-    }
-
-    private void printLog(int selectGameId, int selectRoundId){
-        try {
-            System.out.println(logHistory.get(selectGameId)[selectRoundId-1]);
-        } catch (Exception e) {
-            System.out.println("존재하지 않는 게임 id 또는 라운드 id 입니다.");
-        }
-    }
     
     public void showMenu(){
         String menu = "\n메뉴를 선택합니다. (1 : 게임하기, 2 : 게임 결과 보기, 3 : 라운드 결과 보기, 4 : 종료)";
         String errorMessage = "숫자 1, 2, 3, 4 중에 입력해주세요.";
-        boolean stop = false;
         int menuSelection;
         int selectGameId;
         
-        while (stop != true){
+        while (true){
             System.out.println(menu);
 
             try{
@@ -270,7 +180,7 @@ public class HangManApplication {
                     case 2:
                         System.out.print("게임 id를 입력해주세요 : ");
                         selectGameId = scanner.nextInt();
-                        printTotalResult(selectGameId);
+                        HangManPrinter.printTotalResult(gameResult, selectGameId);
                         break;
                     
                     case 3:
@@ -280,13 +190,12 @@ public class HangManApplication {
                         System.out.print("라운드 id를 입력해주세요 : ");
                         int selectRoundId = scanner.nextInt();
 
-                        printLog(selectGameId, selectRoundId);
+                        HangManPrinter.printLog(logHistory, selectGameId, selectRoundId);
                         break;
 
                     case 4:
                         System.out.println("종료합니다.");
-                        stop = true;
-                        break;
+                        return;
 
                     default:
                         System.out.println(errorMessage);
