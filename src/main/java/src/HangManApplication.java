@@ -1,5 +1,3 @@
-package src;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -19,8 +17,7 @@ public class HangManApplication {
     private HashMap<Integer, String> gameResult = new HashMap<>();
     private HashSet<Character> guessHistory = new HashSet<>();
     private String[] log;
-    
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public void start() {
         // Set number of games and number of lives.
@@ -29,19 +26,14 @@ public class HangManApplication {
         for (int i = 1; i <= maxGameId; i++) {
             gameId = i;
 
-            // Initialize before start game.
             initializeGame();
             
-            // Play game
             playGame();
             
-            // Write game result.
             writeGameResult();
 
-            // Write round log.
             writeLogHistory();
 
-            // Print game result.
             printGameResult();
         }
     }
@@ -76,7 +68,6 @@ public class HangManApplication {
             guessedWord[i] = '_';
         }
 
-        // Print game information.
         printGameInfo();
     }
 
@@ -85,24 +76,21 @@ public class HangManApplication {
         int roundId = 1;
 
         while (lives > 0) {
-            // Print round information.
             printGameRound();
 
-            // Get user typed char 
             char guess = getUserGuess();
 
-            // Check success
             boolean guessSuccess = checkGuessSuccess(guess);
 
             if (gameSuccess){
                 break;
-            }else if (guessSuccess != true){
+            }
+
+            if (guessSuccess != true){
                 lives--;
             }
             
-            // Write log
             writeLog(roundId, guess);
-
             roundId++;
         }
     }
@@ -127,51 +115,63 @@ public class HangManApplication {
         return guessSuccess;
     }
 
-    // STEP 2 : Check correct input form.
     private char getUserGuess() {
-        char returnChar;
+        char returnChar = 0;
+    
         System.out.print("문자를 입력하세요: ");
-
-        while (true){
+    
+        while (true) {
             try {
                 String userInput = scanner.next();
-                
-                // Check length.
-                if (userInput.length() == 1) {
-                    char inputChar = userInput.charAt(0);
-                
-                    // Duplicate guessed Char
-                    if (guessHistory.contains(inputChar)){
-                        System.out.println("이미 한번 예측을 시도 했던 문자 입니다.");
-                    }
-                    // Exclude number.
-                    else if (Character.isDigit(inputChar)) {
-                        System.out.println("숫자를 입력했습니다.");
-                    }
-                    // Exclude upper case.
-                    else if (Character.isUpperCase(inputChar)) {
-                        System.out.println("대문자를 입력했습니다.");
-                    }
-                    // Correct input form.
-                    else if (Character.isLowerCase(inputChar)) {
-                        returnChar = inputChar;
-                        guessHistory.add(returnChar);
-                        break;
-                    }
-                    // Except.
-                    else {
-                        System.out.println("소문자로 1개의 영문자를 입력하세요.");
-                    }
-                } else {
-                    System.out.println("1개의 문자만 입력해야 합니다.");
+                returnChar = processUserInput(userInput);
+                if (returnChar != 0) {
+                    break;
                 }
             } catch (Exception e) {
                 System.out.println("입력이 잘못되었습니다. 오류 메시지: " + e.getMessage());
             }
             System.out.print("다시 입력하세요: ");
         }
-
+    
         return returnChar;
+    }
+    
+    private char processUserInput(String userInput) {
+        // Check length.
+        if (userInput.length() != 1) {
+            System.out.println("1개의 문자만 입력해야 합니다.");
+            return 0;
+        }
+    
+        char inputChar = userInput.charAt(0);
+    
+        // Duplicate guessed Char
+        if (guessHistory.contains(inputChar)) {
+            System.out.println("이미 한번 예측을 시도 했던 문자 입니다.");
+            return 0;
+        }
+    
+        // Exclude number.
+        if (Character.isDigit(inputChar)) {
+            System.out.println("숫자를 입력했습니다.");
+            return 0;
+        }
+    
+        // Exclude upper case.
+        if (Character.isUpperCase(inputChar)) {
+            System.out.println("대문자를 입력했습니다.");
+            return 0;
+        }
+    
+        // Correct input form.
+        if (Character.isLowerCase(inputChar)) {
+            guessHistory.add(inputChar);
+            return inputChar;
+        }
+    
+        // Except.
+        System.out.println("소문자로 1개의 영문자를 입력하세요.");
+        return 0;
     }
 
     private void writeLogHistory(){
